@@ -12,6 +12,7 @@ import {
   index,
   uniqueIndex,
   primaryKey,
+  foreignKey,
 } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 
@@ -91,13 +92,18 @@ export const categories = pgTable('categories', {
   slug: text('slug').notNull().unique(),
   name: text('name').notNull(),
   description: text('description'),
-  parentId: integer('parent_id').references(() => categories.id),
+  parentId: integer('parent_id'),
   imageUrl: text('image_url'),
   displayOrder: integer('display_order').default(0),
   active: boolean('active').default(true).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
-});
+}, (table) => ({
+  parentFk: foreignKey({
+    columns: [table.parentId],
+    foreignColumns: [table.id],
+  }).onDelete('set null'),
+}));
 
 export const brands = pgTable('brands', {
   id: serial('id').primaryKey(),
