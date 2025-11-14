@@ -1,0 +1,43 @@
+{
+  "name": "gemcart",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Nigeria-first gamified e-commerce monorepo (web, workers, games)",
+  "packageManager": "pnpm@9.7.0",
+  "engines": {
+    "node": ">=18.18.0",
+    "pnpm": ">=9.0.0"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @gemcart/web dev",
+    "build": "pnpm -r build",
+    "start": "pnpm --filter @gemcart/web start",
+    "lint": "pnpm -r lint",
+    "test": "pnpm -r test",
+    "prepare": "husky install"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "devDependencies": {
+    "@types/node": "^22.5.4",
+    "@types/react": "^19.2.3",
+    "@types/react-dom": "^19.2.2",
+    "eslint": "^9.9.0",
+    "eslint-config-next": "^15.4.0",
+    "husky": "^9.1.5",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.3.3",
+    "typescript": "^5.9.3",
+    "vitest": "^2.0.5"
+  },
+  "lint-staged": {
+    "**/*.{ts,tsx,js,jsx,json,md,css}": [
+      "prettier --write"
+    ]
+  },
+  "dependencies": {
+    "next": "^16.0.1"
+  }
+}

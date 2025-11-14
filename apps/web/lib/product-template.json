@@ -1,0 +1,230 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Zuka Product Template",
+  "description": "Template for adding/updating products in Zuka ecommerce",
+  "type": "object",
+  "required": ["name", "slug", "priceNGN", "gender", "category"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Product name (e.g., 'Lagos Street Hoodie')",
+      "example": "Lagos Street Hoodie"
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL-friendly slug (lowercase, hyphens, unique)",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "example": "lagos-street-hoodie"
+    },
+    "description": {
+      "type": "string",
+      "description": "Product description",
+      "example": "Cozy fleece hoodie for cool nights with Lagos skyline print"
+    },
+    "priceNGN": {
+      "type": "integer",
+      "description": "Price in Nigerian Naira (in kobo, e.g., 1950000 = ₦19,500)",
+      "minimum": 0,
+      "example": 1950000
+    },
+    "salePriceNGN": {
+      "type": "integer",
+      "description": "Sale price if product is on discount (optional)",
+      "minimum": 0,
+      "example": 1500000
+    },
+    "discountPercent": {
+      "type": "integer",
+      "description": "Discount percentage (0-100)",
+      "minimum": 0,
+      "maximum": 100,
+      "example": 23
+    },
+    "gender": {
+      "type": "string",
+      "enum": ["men", "women", "kids", "unisex"],
+      "description": "Target gender category",
+      "example": "men"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "tops",
+        "dresses",
+        "shoes",
+        "trousers",
+        "jewellery",
+        "activewear",
+        "swimwear",
+        "lingerie",
+        "beauty",
+        "bags",
+        "outerwear",
+        "traditional"
+      ],
+      "description": "Product category",
+      "example": "tops"
+    },
+    "imageUrl": {
+      "type": "string",
+      "format": "uri",
+      "description": "Primary/main product image URL (can be Cloudinary, S3, or any CDN URL)",
+      "example": "https://res.cloudinary.com/your-cloud/image/upload/v123/product.jpg"
+    },
+    "images": {
+      "type": "array",
+      "description": "Array of additional product image URLs",
+      "items": {
+        "type": "string",
+        "format": "uri"
+      },
+      "example": [
+        "https://res.cloudinary.com/your-cloud/image/upload/v123/product-1.jpg",
+        "https://res.cloudinary.com/your-cloud/image/upload/v123/product-2.jpg"
+      ]
+    },
+    "sizes": {
+      "type": "array",
+      "description": "Available sizes",
+      "items": {
+        "type": "string"
+      },
+      "example": ["S", "M", "L", "XL"]
+    },
+    "colors": {
+      "type": "array",
+      "description": "Available colors",
+      "items": {
+        "type": "string"
+      },
+      "example": ["black", "grey", "navy"]
+    },
+    "tags": {
+      "type": "array",
+      "description": "Product tags for search and filtering",
+      "items": {
+        "type": "string"
+      },
+      "example": ["hoodie", "streetwear", "lagos"]
+    },
+    "featured": {
+      "type": "boolean",
+      "description": "Whether product is featured",
+      "default": false,
+      "example": true
+    },
+    "inStock": {
+      "type": "boolean",
+      "description": "Whether product is in stock",
+      "default": true,
+      "example": true
+    },
+    "stockCount": {
+      "type": "integer",
+      "description": "Number of items in stock",
+      "minimum": 0,
+      "default": 0,
+      "example": 50
+    },
+    "sku": {
+      "type": "string",
+      "description": "Stock Keeping Unit (unique identifier)",
+      "example": "LAG-HOOD-BLK-M"
+    },
+    "brand": {
+      "type": "string",
+      "description": "Brand name",
+      "example": "Zuka"
+    },
+    "material": {
+      "type": "string",
+      "description": "Material description",
+      "example": "100% Cotton, Fleece lining"
+    },
+    "careInstructions": {
+      "type": "string",
+      "description": "Care instructions",
+      "example": "Machine wash cold, tumble dry low"
+    },
+    "weight": {
+      "type": "integer",
+      "description": "Weight in grams",
+      "minimum": 0,
+      "example": 500
+    },
+    "dimensions": {
+      "type": "object",
+      "description": "Product dimensions",
+      "properties": {
+        "length": {
+          "type": "number",
+          "example": 70
+        },
+        "width": {
+          "type": "number",
+          "example": 50
+        },
+        "height": {
+          "type": "number",
+          "example": 5
+        },
+        "unit": {
+          "type": "string",
+          "enum": ["cm", "inches"],
+          "default": "cm",
+          "example": "cm"
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "name": "Lagos Street Hoodie",
+      "slug": "lagos-street-hoodie",
+      "description": "Cozy fleece hoodie for cool nights with Lagos skyline print",
+      "priceNGN": 1950000,
+      "gender": "men",
+      "category": "tops",
+      "imageUrl": "https://res.cloudinary.com/your-cloud/image/upload/v123/hoodie-main.jpg",
+      "images": [
+        "https://res.cloudinary.com/your-cloud/image/upload/v123/hoodie-1.jpg",
+        "https://res.cloudinary.com/your-cloud/image/upload/v123/hoodie-2.jpg"
+      ],
+      "sizes": ["M", "L", "XL"],
+      "colors": ["black", "grey"],
+      "tags": ["hoodie", "streetwear", "lagos"],
+      "featured": true,
+      "inStock": true,
+      "stockCount": 50,
+      "sku": "LAG-HOOD-BLK-M",
+      "brand": "Zuka",
+      "material": "100% Cotton, Fleece lining",
+      "careInstructions": "Machine wash cold, tumble dry low"
+    },
+    {
+      "name": "Ankara Fusion Dress",
+      "slug": "ankara-fusion-dress",
+      "description": "Modern silhouette with Ankara accents",
+      "priceNGN": 2850000,
+      "salePriceNGN": 2200000,
+      "discountPercent": 23,
+      "gender": "women",
+      "category": "dresses",
+      "imageUrl": "https://res.cloudinary.com/your-cloud/image/upload/v123/dress-main.jpg",
+      "images": [
+        "https://res.cloudinary.com/your-cloud/image/upload/v123/dress-1.jpg",
+        "https://res.cloudinary.com/your-cloud/image/upload/v123/dress-2.jpg"
+      ],
+      "sizes": ["S", "M", "L"],
+      "colors": ["multi"],
+      "tags": ["dress", "ankara", "traditional"],
+      "featured": true,
+      "inStock": true,
+      "stockCount": 30,
+      "sku": "ANK-DRS-MULT-S",
+      "brand": "Zuka",
+      "material": "Ankara fabric, Cotton blend"
+    }
+  ]
+}
+

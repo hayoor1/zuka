@@ -1,0 +1,27 @@
+# dependencies
+node_modules
+.pnpm-store
+
+# builds
+.next
+dist
+build
+.turbo
+
+# env
+.env*
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# misc
+.DS_Store
+
+
+
+
+
+
