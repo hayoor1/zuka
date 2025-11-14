@@ -1,7 +1,7 @@
 {
   "buildCommand": "cd ../.. && pnpm install --include=dev && pnpm --filter '@gemcart/core' build && pnpm --filter '@gemcart/db' build && pnpm --filter '@gemcart/ui' build && pnpm --filter '@gemcart/payments' build && pnpm --filter '@zuka/web' build",
   "outputDirectory": "apps/web/.next",
-  "installCommand": "cd ../.. && pnpm install",
+  "installCommand": "cd ../.. && pnpm install --include=dev",
   "framework": "nextjs",
   "regions": ["iad1"]
 }
