@@ -14,7 +14,7 @@
     "start": "pnpm --filter @zuka/web start",
     "lint": "pnpm -r lint",
     "test": "pnpm -r test",
-    "prepare": "husky install"
+    "prepare": "node -e \"try { require('husky').install() } catch(e) {}\""
   },
   "workspaces": [
     "apps/*",
