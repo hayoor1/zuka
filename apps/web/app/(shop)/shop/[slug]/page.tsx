@@ -143,7 +143,7 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
           {/* Product Info */}
           <div>
             <div className="mb-6">
-              <Badge variant="secondary" className="mb-3 text-xs">{product.gender.toUpperCase()}</Badge>
+              <Badge variant="default" className="mb-3 text-xs">{product.gender.toUpperCase()}</Badge>
               <h1 className="text-4xl font-semibold text-gray-900 mb-3 tracking-tight">{product.name}</h1>
               <p className="text-gray-600 text-lg">{product.description}</p>
             </div>

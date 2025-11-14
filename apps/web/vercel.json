@@ -1,0 +1,8 @@
+{
+  "buildCommand": "cd ../.. && pnpm install && pnpm build --filter=@zuka/web",
+  "outputDirectory": "apps/web/.next",
+  "installCommand": "cd ../.. && pnpm install",
+  "framework": "nextjs",
+  "regions": ["iad1"]
+}
+

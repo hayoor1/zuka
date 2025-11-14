@@ -9,9 +9,9 @@
     "pnpm": ">=9.0.0"
   },
   "scripts": {
-    "dev": "pnpm --filter @gemcart/web dev",
+    "dev": "pnpm --filter @zuka/web dev",
     "build": "pnpm -r build",
-    "start": "pnpm --filter @gemcart/web start",
+    "start": "pnpm --filter @zuka/web start",
     "lint": "pnpm -r lint",
     "test": "pnpm -r test",
     "prepare": "husky install"

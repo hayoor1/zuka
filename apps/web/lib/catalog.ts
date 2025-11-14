@@ -69,7 +69,7 @@ export const catalog: CatalogProduct[] = [
     inStock: true,
     gender: 'men',
     category: 'shoes',
-    imageUrl: 'https://images.unsplash.com/photo-1519744346361-1b1c6c619b52?auto=format&fit=crop&w=900&q=80',
+    imageUrl: 'https://via.placeholder.com/900x900/4b0f7b/e3c268?text=Naija+Runner+Sneakers',
   },
   {
     id: 'w-top-tee-1',
@@ -84,7 +84,7 @@ export const catalog: CatalogProduct[] = [
     inStock: true,
     gender: 'women',
     category: 'tops',
-    imageUrl: 'https://images.unsplash.com/photo-1512511708755-06c698b3a540?auto=format&fit=crop&w=900&q=80',
+    imageUrl: 'https://via.placeholder.com/900x900/4b0f7b/e3c268?text=Heritage+Tee',
   },
   {
     id: 'w-dress-1',
@@ -114,7 +114,7 @@ export const catalog: CatalogProduct[] = [
     inStock: true,
     gender: 'women',
     category: 'shoes',
-    imageUrl: 'https://images.unsplash.com/photo-1518544801958-efcbf8a7ec10?auto=format&fit=crop&w=900&q=80',
+    imageUrl: 'https://via.placeholder.com/900x900/4b0f7b/e3c268?text=Zuka+Fashion',
   },
   {
     id: 'w-trouser-1',
@@ -191,7 +191,7 @@ export const catalog: CatalogProduct[] = [
     inStock: true,
     gender: 'women',
     category: 'swimwear',
-    imageUrl: 'https://images.unsplash.com/photo-1518544801958-efcbf8a7ec10?auto=format&fit=crop&w=900&q=80',
+    imageUrl: 'https://via.placeholder.com/900x900/4b0f7b/e3c268?text=Zuka+Fashion',
   },
   // Bags & Accessories
   {

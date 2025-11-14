@@ -8,7 +8,7 @@ import { ValueProps } from '../components/ValueProps';
 import { ProductCard } from '../components/ProductCard';
 import { listProducts } from '../lib/catalog';
 import { ArrowRight, ChevronRight } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
 export default function HomePage() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -126,10 +126,10 @@ export default function HomePage() {
     }
   ];
 
-  const womensEdit = listProducts('women').slice(0, 4);
-  const mensEdit = listProducts('men').slice(0, 4);
-
-  const featuredProducts = listProducts().slice(0, 8);
+  // Memoize product lists to avoid re-processing catalog on every render
+  const womensEdit = useMemo(() => listProducts('women').slice(0, 4), []);
+  const mensEdit = useMemo(() => listProducts('men').slice(0, 4), []);
+  const featuredProducts = useMemo(() => listProducts().slice(0, 8), []);
 
   const toneOverlays: Record<'feminine' | 'masculine' | 'neutral', string> = {
     feminine: 'from-[#ffbedd]/80 via-[#f6bfff]/35 to-[#2a1039]/90',

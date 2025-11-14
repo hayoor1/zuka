@@ -1,6 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db, products } from '@gemcart/db';
-import { eq } from 'drizzle-orm';
 import { z } from 'zod';
 
 const productSchema = z.object({
@@ -52,6 +50,19 @@ const bulkProductSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
+    // Check if database is available
+    if (!process.env.DATABASE_URL) {
+      return NextResponse.json(
+        { error: 'Database not configured. Please add DATABASE_URL environment variable.' },
+        { status: 503 }
+      );
+    }
+
+    // Dynamic imports only when database is available
+    const { db, products } = await import('@gemcart/db');
+    const drizzle = await import('drizzle-orm') as any;
+    const { eq } = drizzle;
+
     // TODO: Add authentication/authorization check
     const body = await request.json();
     const validatedData = bulkProductSchema.parse(body);

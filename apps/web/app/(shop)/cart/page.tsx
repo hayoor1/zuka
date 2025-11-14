@@ -59,7 +59,7 @@ export default function CartPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#fff5fb] via-[#fef6ff] to-[#fffaf2] py-12">
+    <div className="min-h-screen bg-gradient-to-br from-[#fbf8ff] via-[#fffdf7] to-[#fbf8ff] py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-10 text-center">
           <Badge className="bg-brand-gold-gradient text-brand-purple border-0 text-xs uppercase tracking-[0.5em] mb-4">
@@ -86,10 +86,10 @@ export default function CartPage() {
               </Card>
             ) : (
               cartItems.map((item) => (
-                <Card key={item.id} className="p-5 rounded-3xl border border-white/60 bg-white/95 shadow-lg shadow-[#4b0f7b]/10">
+                <Card key={item.id} className="p-5 rounded-3xl border border-[#f0e6ff] bg-white shadow-lg shadow-[#4b0f7b]/5">
                   <div className="flex gap-5">
                     {/* Product Image */}
-                    <div className="h-24 w-24 rounded-2xl bg-gradient-to-br from-[#fbe6ff] via-[#f5d1fd] to-[#f4e3ff] border border-white flex-shrink-0" />
+                    <div className="h-24 w-24 rounded-2xl bg-gradient-to-br from-[#f3e9ff] via-[#f9f2ff] to-[#f5e7ff] border border-[#f0e6ff] flex-shrink-0" />
                     
                     {/* Product Details */}
                     <div className="flex-1">
@@ -117,7 +117,7 @@ export default function CartPage() {
                           <Button
                             variant="secondary"
                             size="icon"
-                            className="h-9 w-9 rounded-full border border-[#f2d2ff] text-brand-purple"
+                            className="h-9 w-9 rounded-full border border-[#e0d4ff] text-brand-purple hover:bg-[#f3e9ff]"
                             onClick={() => updateQuantity(item.id, -1)}
                           >
                             <Minus className="h-3 w-3" />
@@ -126,7 +126,7 @@ export default function CartPage() {
                           <Button
                             variant="secondary"
                             size="icon"
-                            className="h-9 w-9 rounded-full border border-[#f2d2ff] text-brand-purple"
+                            className="h-9 w-9 rounded-full border border-[#e0d4ff] text-brand-purple hover:bg-[#f3e9ff]"
                             onClick={() => updateQuantity(item.id, 1)}
                           >
                             <Plus className="h-3 w-3" />
@@ -150,15 +150,15 @@ export default function CartPage() {
 
             {/* Recommendations */}
             {cartItems.length > 0 && (
-              <Card className="p-6 rounded-3xl border border-white/60 bg-gradient-to-r from-[#fdf4ff] to-[#fdf1f4]">
+              <Card className="p-6 rounded-3xl border border-[#f0e6ff] bg-gradient-to-r from-[#f9f2ff] to-[#fff7e1]">
                 <div className="flex items-center gap-2 mb-4">
                   <TrendingUp className="h-5 w-5 text-brand-purple" />
                   <h3 className="font-semibold text-brand-purple">Complete Your Look</h3>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   {['Naija Pride Snapback', 'Gem Level Joggers'].map((name) => (
-                    <div key={name} className="flex items-center justify-between rounded-2xl bg-white/80 border border-white px-4 py-3">
-                      <span className="text-sm text-gray-600">{name}</span>
+                    <div key={name} className="flex items-center justify-between rounded-2xl bg-white/90 border border-[#f0e6ff] px-4 py-3">
+                      <span className="text-sm text-brand-purple/80">{name}</span>
                       <Button size="sm" className="bg-brand-gradient text-white">Add</Button>
                     </div>
                   ))}
@@ -169,12 +169,12 @@ export default function CartPage() {
 
           {/* Order Summary */}
           <div className="lg:col-span-1">
-            <Card className="p-6 sticky top-20 rounded-3xl border border-white/60 bg-white shadow-xl shadow-[#4b0f7b]/10">
+            <Card className="p-6 sticky top-20 rounded-3xl border border-[#f0e6ff] bg-white shadow-xl shadow-[#4b0f7b]/5">
               <h2 className="text-lg font-semibold mb-4 text-brand-purple">Order Summary</h2>
               
               {/* Coupon Input */}
               <div className="mb-6">
-                <label className="text-sm text-gray-600 mb-2 block">Promo Code</label>
+                <label className="text-sm text-brand-purple/70 mb-2 block">Promo Code</label>
                 <div className="flex gap-2">
                   <Input
                     placeholder="Enter code"
@@ -198,9 +198,9 @@ export default function CartPage() {
               </div>
 
               {/* Price Breakdown */}
-              <div className="space-y-3 border-t border-[#f3e9ff] pt-4">
+              <div className="space-y-3 border-t border-[#e0d4ff] pt-4">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Subtotal</span>
+                  <span className="text-brand-purple/70">Subtotal</span>
                   <span className="text-brand-purple font-medium">{formatNGN(subtotal)}</span>
                 </div>
                 {appliedCoupon && (
@@ -210,10 +210,10 @@ export default function CartPage() {
                   </div>
                 )}
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Shipping</span>
+                  <span className="text-brand-purple/70">Shipping</span>
                   <span className="text-brand-gold font-medium">Complimentary</span>
                 </div>
-                <div className="flex justify-between border-t border-[#f3e9ff] pt-3">
+                <div className="flex justify-between border-t border-[#e0d4ff] pt-3">
                   <span className="font-semibold text-brand-purple">Total</span>
                   <div className="text-right">
                     <div className="text-2xl font-bold text-brand-purple">{formatNGN(total)}</div>
@@ -234,14 +234,14 @@ export default function CartPage() {
               </Link>
 
               {/* Trust Badges */}
-              <div className="mt-6 space-y-2 text-sm text-gray-600">
+              <div className="mt-6 space-y-2 text-sm text-brand-purple/70">
                 <div className="flex items-center gap-2">
                   <Badge className="bg-green-100 text-green-600 border-none">Secure</Badge>
-                  SSL encrypted checkout
+                  <span>SSL encrypted checkout</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Badge className="bg-brand-gold-gradient text-brand-purple border-none">Rewards</Badge>
-                  Earn Royale gems with every purchase
+                  <span>Earn Royale gems with every purchase</span>
                 </div>
               </div>
             </Card>

@@ -1,12 +1,9 @@
 import type { NextConfig } from 'next';
 
 const config: NextConfig = {
-  // TypeScript & ESLint
+  // TypeScript - faster dev builds
   typescript: {
     ignoreBuildErrors: false,
-  },
-  eslint: {
-    ignoreDuringBuilds: false,
   },
   
   // Logging
@@ -18,8 +15,7 @@ const config: NextConfig = {
   
   // Dev indicators
   devIndicators: {
-    buildActivity: true,
-    buildActivityPosition: 'bottom-right',
+    position: 'bottom-right',
   },
   
   // Image optimization
@@ -44,9 +40,10 @@ const config: NextConfig = {
         pathname: '/**',
       },
     ],
-    formats: ['image/avif', 'image/webp'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    formats: ['image/webp'], // Reduced formats for faster dev
+    deviceSizes: [640, 828, 1200, 1920], // Reduced sizes for faster dev
+    imageSizes: [16, 32, 48, 64, 96, 128], // Reduced sizes for faster dev
+    minimumCacheTTL: 60, // Cache images for 60 seconds
   },
   
   // Compiler optimizations
@@ -59,6 +56,12 @@ const config: NextConfig = {
   // Experimental features for better performance
   experimental: {
     optimizePackageImports: ['lucide-react', '@gemcart/ui'],
+  },
+  
+  // Faster dev server - keep fewer pages in memory
+  onDemandEntries: {
+    maxInactiveAge: 25 * 1000, // 25 seconds
+    pagesBufferLength: 2, // Only keep 2 pages
   },
 };
 

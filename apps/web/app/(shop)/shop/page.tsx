@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Card, Button } from '@gemcart/ui';
@@ -17,7 +17,7 @@ import {
   X
 } from 'lucide-react';
 
-export default function ShopPage() {
+function ShopPageContent() {
   const searchParams = useSearchParams();
   const [searchQuery, setSearchQuery] = useState('');
   const [gender, setGender] = useState<Gender | 'all'>('all');
@@ -69,18 +69,22 @@ export default function ShopPage() {
     gender === 'women' ? 'feminine' : gender === 'men' ? 'masculine' : 'neutral';
 
   useEffect(() => {
-    // Reset filters first
-    setCategory('all');
+    // Set gender from URL param first
+    const genderParam = searchParams.get('gender');
+    const newGender = (genderParam === 'women' || genderParam === 'men' || genderParam === 'kids' || genderParam === 'unisex') 
+      ? (genderParam as Gender) 
+      : 'all';
+    
+    // If gender changed, reset category to 'all' to show only relevant categories
+    if (newGender !== gender) {
+      setGender(newGender);
+      setCategory('all');
+    } else {
+      setGender(newGender);
+    }
+    
     setShowSale(false);
     setSortBy('featured');
-    
-    // Set gender from URL param (don't reset if already set)
-    const genderParam = searchParams.get('gender');
-    if (genderParam === 'women' || genderParam === 'men' || genderParam === 'kids' || genderParam === 'unisex') {
-      setGender(genderParam as Gender);
-    } else {
-      setGender('all');
-    }
     
     const categoryParam = searchParams.get('category');
     if (categoryParam) {
@@ -115,20 +119,39 @@ export default function ShopPage() {
     }
   }, [searchParams]);
 
-  const categories: Array<{ key: Category | 'all'; label: string }> = [
-    { key: 'all', label: 'All Categories' },
-    { key: 'tops', label: 'Tops' },
-    { key: 'dresses', label: 'Dresses' },
-    { key: 'trousers', label: 'Bottoms' },
-    { key: 'shoes', label: 'Shoes' },
-    { key: 'traditional', label: 'Traditional Wear' },
-    { key: 'activewear', label: 'Activewear' },
-    { key: 'swimwear', label: 'Swimwear' },
-    { key: 'outerwear', label: 'Outerwear' },
-    { key: 'bags', label: 'Bags & Accessories' },
-    { key: 'jewellery', label: 'Jewellery' },
-    { key: 'beauty', label: 'Beauty & Care' },
-  ];
+  // Get available categories based on selected gender
+  const getAvailableCategories = (): Array<{ key: Category | 'all'; label: string }> => {
+    const allCategories: Array<{ key: Category | 'all'; label: string }> = [
+      { key: 'all', label: 'All Categories' },
+      { key: 'tops', label: 'Tops' },
+      { key: 'dresses', label: 'Dresses' },
+      { key: 'trousers', label: 'Bottoms' },
+      { key: 'shoes', label: 'Shoes' },
+      { key: 'traditional', label: 'Traditional Wear' },
+      { key: 'activewear', label: 'Activewear' },
+      { key: 'swimwear', label: 'Swimwear' },
+      { key: 'outerwear', label: 'Outerwear' },
+      { key: 'bags', label: 'Bags & Accessories' },
+      { key: 'jewellery', label: 'Jewellery' },
+      { key: 'beauty', label: 'Beauty & Care' },
+      { key: 'lingerie', label: 'Lingerie' },
+    ];
+
+    if (gender === 'all') {
+      return allCategories;
+    }
+
+    // Filter categories to only show those that have products for the selected gender
+    const availableCategories = allCategories.filter(cat => {
+      if (cat.key === 'all') return true;
+      const productsForCategory = listProducts(gender, cat.key as Category);
+      return productsForCategory.length > 0;
+    });
+
+    return availableCategories;
+  };
+
+  const categories = getAvailableCategories();
 
   const priceRanges = [
     { key: 'all', label: 'All Prices' },
@@ -184,12 +207,23 @@ export default function ShopPage() {
   ];
 
   if (searchParams.get('category') || searchParams.get('gender') || searchParams.get('filter')) {
-    const filterValue = searchParams.get('filter') === 'sale' ? 'Sale' : 
-                       searchParams.get('filter') === 'new' ? 'New Arrivals' :
-                       searchParams.get('gender') ? searchParams.get('gender')?.charAt(0).toUpperCase() + searchParams.get('gender')?.slice(1) :
-                       searchParams.get('category') ? searchParams.get('category') : '';
+    const genderParam = searchParams.get('gender');
+    const categoryParam = searchParams.get('category');
+    const filterParam = searchParams.get('filter');
+    
+    let filterValue: string | null = null;
+    if (filterParam === 'sale') {
+      filterValue = 'Sale';
+    } else if (filterParam === 'new') {
+      filterValue = 'New Arrivals';
+    } else if (genderParam) {
+      filterValue = genderParam.charAt(0).toUpperCase() + genderParam.slice(1);
+    } else if (categoryParam) {
+      filterValue = categoryParam;
+    }
+    
     if (filterValue) {
-      breadcrumbItems.push({ label: filterValue });
+      breadcrumbItems.push({ label: filterValue, href: `/shop?${searchParams.toString()}` });
     }
   }
 
@@ -237,27 +271,32 @@ export default function ShopPage() {
                 <h3 className="text-sm font-medium text-gray-900 mb-3">Category</h3>
                 <div className="space-y-2">
                   {categories.map((c) => (
-                    <label key={c.key} className="flex items-center cursor-pointer">
-                      <input
-                        type="radio"
-                        name="category"
-                        value={c.key}
-                        checked={category === c.key}
-                        onChange={() => {
-                          setCategory(c.key);
-                          // Update URL when category changes
-                          const url = new URL(window.location.href);
-                          if (c.key === 'all') {
-                            url.searchParams.delete('category');
-                          } else {
-                            url.searchParams.set('category', c.key);
-                          }
-                          window.history.pushState({}, '', url.toString());
-                        }}
-                        className="h-4 w-4 text-black focus:ring-black"
-                      />
-                      <span className="ml-2 text-sm text-gray-600">{c.label}</span>
-                    </label>
+                    <button
+                      key={c.key}
+                      onClick={() => {
+                        setCategory(c.key);
+                        // Update URL when category changes
+                        const url = new URL(window.location.href);
+                        if (c.key === 'all') {
+                          url.searchParams.delete('category');
+                        } else {
+                          url.searchParams.set('category', c.key);
+                        }
+                        window.history.pushState({}, '', url.toString());
+                      }}
+                      className={`w-full text-left flex items-center px-3 py-2 rounded-lg transition-all ${
+                        category === c.key
+                          ? 'bg-brand-gradient text-white shadow-md'
+                          : 'bg-white hover:bg-gray-50 text-gray-700 border border-gray-200'
+                      }`}
+                    >
+                      <span className={`text-sm font-medium ${category === c.key ? 'text-white' : 'text-gray-700'}`}>
+                        {c.label}
+                      </span>
+                      {category === c.key && (
+                        <span className="ml-auto text-white text-xs">✓</span>
+                      )}
+                    </button>
                   ))}
                 </div>
               </div>
@@ -267,17 +306,22 @@ export default function ShopPage() {
                 <h3 className="text-sm font-medium text-gray-900 mb-3">Price Range</h3>
                 <div className="space-y-2">
                   {priceRanges.map((range) => (
-                    <label key={range.key} className="flex items-center cursor-pointer">
-                      <input
-                        type="radio"
-                        name="price"
-                        value={range.key}
-                        checked={priceRange === range.key}
-                        onChange={() => setPriceRange(range.key as any)}
-                        className="h-4 w-4 text-black focus:ring-black"
-                      />
-                      <span className="ml-2 text-sm text-gray-600">{range.label}</span>
-                    </label>
+                    <button
+                      key={range.key}
+                      onClick={() => setPriceRange(range.key as any)}
+                      className={`w-full text-left flex items-center px-3 py-2 rounded-lg transition-all ${
+                        priceRange === range.key
+                          ? 'bg-brand-gradient text-white shadow-md'
+                          : 'bg-white hover:bg-gray-50 text-gray-700 border border-gray-200'
+                      }`}
+                    >
+                      <span className={`text-sm font-medium ${priceRange === range.key ? 'text-white' : 'text-gray-700'}`}>
+                        {range.label}
+                      </span>
+                      {priceRange === range.key && (
+                        <span className="ml-auto text-white text-xs">✓</span>
+                      )}
+                    </button>
                   ))}
                 </div>
               </div>
@@ -303,13 +347,32 @@ export default function ShopPage() {
           {/* Products Section */}
           <div className="lg:col-span-3">
             {/* Header Bar */}
-            <div className={`mb-8 rounded-3xl border border-white/60 p-6 transition-colors ${activeTheme.panel}`}>
+            <div className={`mb-8 rounded-3xl border border-white/60 p-6 transition-colors ${
+              showSale 
+                ? 'bg-gradient-to-br from-[#ff6b6b] via-[#ff8787] to-[#ff5252] text-white' 
+                : searchParams.get('filter') === 'new'
+                ? 'bg-gradient-to-br from-[#4b0f7b] via-[#6b1f9b] to-[#4b0f7b] text-white'
+                : category === 'jewellery'
+                ? 'bg-gradient-to-br from-[#fff7e1] via-[#ffe9c5] to-[#fff7e1]'
+                : activeTheme.panel
+            }`}>
               <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
                 <div>
-                  <p className={`text-xs uppercase tracking-[0.5em] ${activeTheme.subtext}`}>
-                    {gender === 'women' ? 'Feminine Edit' : gender === 'men' ? 'Masculine Edit' : 'All Collections'}
+                  <p className={`text-xs uppercase tracking-[0.5em] ${
+                    showSale || searchParams.get('filter') === 'new' 
+                      ? 'text-white/90' 
+                      : activeTheme.subtext
+                  }`}>
+                    {showSale ? 'Limited Time Offer' : 
+                     searchParams.get('filter') === 'new' ? 'Latest Drops' :
+                     category === 'jewellery' ? 'Accessories Collection' :
+                     gender === 'women' ? 'Feminine Edit' : gender === 'men' ? 'Masculine Edit' : 'All Collections'}
                   </p>
-                  <h1 className={`text-3xl font-semibold mt-2 ${activeTheme.heading}`}>
+                  <h1 className={`text-3xl font-semibold mt-2 ${
+                    showSale || searchParams.get('filter') === 'new' 
+                      ? 'text-white' 
+                      : activeTheme.heading
+                  }`}>
                   {showSale ? 'Sale Items' : 
                    searchParams.get('filter') === 'new' ? 'New Arrivals' :
                    gender !== 'all' ? `${gender.charAt(0).toUpperCase() + gender.slice(1)}'s Collection` :
@@ -317,14 +380,24 @@ export default function ShopPage() {
                    'All Products'}
                   </h1>
                   <div className="mt-2 flex items-center gap-3 flex-wrap">
-                    {gender !== 'all' && (
+                    {gender !== 'all' && !showSale && searchParams.get('filter') !== 'new' && (
                       <span className={`text-[10px] uppercase tracking-[0.4em] px-3 py-1 rounded-full ${activeTheme.accentChip}`}>
                         {gender === 'women' ? 'Rose Quartz' : 'Obsidian Luxe'}
                       </span>
                     )}
                     {showSale && (
-                      <span className={`text-sm ${activeTheme.subtext}`}>
+                      <span className="text-sm text-white font-semibold bg-white/20 px-4 py-1 rounded-full">
                         Up to 30% off!
+                      </span>
+                    )}
+                    {searchParams.get('filter') === 'new' && (
+                      <span className="text-sm text-white font-semibold bg-white/20 px-4 py-1 rounded-full">
+                        Fresh from the atelier
+                      </span>
+                    )}
+                    {category === 'jewellery' && (
+                      <span className="text-[10px] uppercase tracking-[0.4em] px-3 py-1 rounded-full bg-brand-gold-gradient text-brand-purple">
+                        Curated Selection
                       </span>
                     )}
                   </div>
@@ -464,5 +537,13 @@ export default function ShopPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function ShopPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+      <ShopPageContent />
+    </Suspense>
   );
 }

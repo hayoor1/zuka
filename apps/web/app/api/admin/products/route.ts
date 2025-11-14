@@ -1,6 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db, products } from '@gemcart/db';
-import { eq } from 'drizzle-orm';
 import { z } from 'zod';
 
 // Product schema validation
@@ -49,6 +47,19 @@ const productSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
+    // Check if database is available
+    if (!process.env.DATABASE_URL) {
+      return NextResponse.json(
+        { error: 'Database not configured. Please add DATABASE_URL environment variable.' },
+        { status: 503 }
+      );
+    }
+
+    // Dynamic imports only when database is available
+    const { db, products } = await import('@gemcart/db');
+    const drizzle = await import('drizzle-orm') as any;
+    const { eq } = drizzle;
+
     // TODO: Add authentication/authorization check here
     // const session = await getServerSession();
     // if (!session || !session.user?.isAdmin) {
@@ -122,6 +133,19 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
+    // Check if database is available
+    if (!process.env.DATABASE_URL) {
+      return NextResponse.json(
+        { error: 'Database not configured. Please add DATABASE_URL environment variable.' },
+        { status: 503 }
+      );
+    }
+
+    // Dynamic imports only when database is available
+    const { db, products } = await import('@gemcart/db');
+    const drizzle = await import('drizzle-orm') as any;
+    const { eq } = drizzle;
+
     // TODO: Add authentication check
     const { searchParams } = new URL(request.url);
     const slug = searchParams.get('slug');

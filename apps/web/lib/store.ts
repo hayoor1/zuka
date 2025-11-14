@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { getClientUserId } from './user-id';
 
 export interface CartItem {
   id: string;
@@ -14,20 +15,35 @@ export interface CartItem {
 
 interface CartStore {
   items: CartItem[];
+  userId: string; // Link cart to user ID
   addItem: (item: CartItem) => void;
   removeItem: (id: string) => void;
   updateQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
   total: () => number;
   itemCount: () => number;
+  initialize: () => void;
 }
 
 export const useCartStore = create<CartStore>()(
   persist(
     (set, get) => ({
       items: [],
+      userId: '',
+      
+      initialize: () => {
+        const currentUserId = get().userId;
+        if (!currentUserId) {
+          const userId = getClientUserId();
+          set({ userId });
+        }
+      },
       
       addItem: (item) => {
+        // Ensure user ID is set
+        if (!get().userId) {
+          get().initialize();
+        }
         set((state) => {
           const existingItem = state.items.find(i => 
             i.productId === item.productId && 
@@ -79,8 +95,20 @@ export const useCartStore = create<CartStore>()(
     }),
     {
       name: 'zuka-cart',
+      // Initialize user ID on load
+      onRehydrateStorage: () => (state) => {
+        if (state) {
+          state.initialize();
+        }
+      },
     }
   )
 );
+
+// Initialize cart store with user ID
+if (typeof window !== 'undefined') {
+  useCartStore.getState().initialize();
+}
+
 
 

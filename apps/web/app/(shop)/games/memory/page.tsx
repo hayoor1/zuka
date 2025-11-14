@@ -235,7 +235,7 @@ export default function MemoryGamePage() {
       {/* Difficulty Selector */}
       <div className="mb-6 flex justify-center gap-2">
         <Button
-          variant={difficulty === 'easy' ? 'default' : 'secondary'}
+          variant={difficulty === 'easy' ? 'primary' : 'secondary'}
           size="sm"
           onClick={() => {
             setDifficulty('easy');
@@ -245,7 +245,7 @@ export default function MemoryGamePage() {
           Easy (6 pairs)
         </Button>
         <Button
-          variant={difficulty === 'medium' ? 'default' : 'secondary'}
+          variant={difficulty === 'medium' ? 'primary' : 'secondary'}
           size="sm"
           onClick={() => {
             setDifficulty('medium');
@@ -255,7 +255,7 @@ export default function MemoryGamePage() {
           Medium (8 pairs)
         </Button>
         <Button
-          variant={difficulty === 'hard' ? 'default' : 'secondary'}
+          variant={difficulty === 'hard' ? 'primary' : 'secondary'}
           size="sm"
           onClick={() => {
             setDifficulty('hard');
@@ -370,6 +370,7 @@ export default function MemoryGamePage() {
     </div>
   );
 }
+
 
 
 

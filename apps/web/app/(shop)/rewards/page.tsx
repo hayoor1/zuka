@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Card, Badge, Button } from '@gemcart/ui';
 import { 
@@ -20,6 +20,27 @@ import {
   Award,
   Star
 } from 'lucide-react';
+
+// Count-up hook
+function useCountUp(target: number, duration: number = 1500) {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    let startTime: number;
+    let animationFrame: number;
+    const animate = (currentTime: number) => {
+      if (!startTime) startTime = currentTime;
+      const progress = Math.min((currentTime - startTime) / duration, 1);
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      setCount(Math.floor(easeOutQuart * target));
+      if (progress < 1) {
+        animationFrame = requestAnimationFrame(animate);
+      }
+    };
+    animationFrame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationFrame);
+  }, [target, duration]);
+  return count;
+}
 
 type Reward = {
   id: string;
@@ -90,6 +111,7 @@ export default function RewardsPage() {
   const currentPoints = 420;
   const nextTierPoints = 1000;
   const progressPercentage = (currentPoints / nextTierPoints) * 100;
+  const animatedPoints = useCountUp(currentPoints, 2000);
 
   return (
     <div className="bg-gradient-to-br from-yellow-50 via-white to-green-50 min-h-screen pattern-adire">
@@ -123,20 +145,23 @@ export default function RewardsPage() {
               </div>
               
               <div className="flex items-baseline gap-2 mb-6">
-                <span className="text-5xl font-bold text-gradient-gold">{currentPoints}</span>
+                <span className="text-5xl font-bold text-gradient-gold animate-count-up">{animatedPoints.toLocaleString()}</span>
                 <span className="text-xl text-gray-600">points</span>
               </div>
               
               <div className="mb-4">
                 <div className="flex items-center justify-between text-sm mb-2">
                   <span className="text-gray-600 font-medium">Progress to Gold Tier</span>
-                  <span className="font-bold text-yellow-600">{nextTierPoints - currentPoints} points to go</span>
+                  <span className="font-bold text-yellow-600 animate-count-up">{nextTierPoints - animatedPoints} points to go</span>
                 </div>
-                <div className="h-4 bg-gray-200 rounded-full overflow-hidden">
+                <div className="h-4 bg-gray-200 rounded-full overflow-hidden relative">
                   <div 
-                    className="h-full bg-gradient-to-r from-yellow-400 to-yellow-500 transition-all duration-500 shadow-inner"
+                    className="h-full bg-gradient-to-r from-yellow-400 to-yellow-500 animate-progress-fill shadow-inner"
                     style={{ width: `${progressPercentage}%` }}
                   />
+                  {progressPercentage > 90 && (
+                    <div className="absolute inset-0 animate-glow-pulse rounded-full" />
+                  )}
                 </div>
               </div>
             </div>
@@ -166,8 +191,11 @@ export default function RewardsPage() {
               Your Active Coupons
             </h2>
             <div className="space-y-4">
-              {activeRewards.map((reward) => (
-                <Card key={reward.id} className="p-6 hover:shadow-xl transition-shadow border-2 border-gray-100 hover:border-yellow-200">
+              {activeRewards.map((reward, index) => (
+                <Card key={reward.id} className={`p-6 card-hover-lift border-2 border-gray-100 hover:border-yellow-200 animate-stagger-${Math.min(index + 1, 5)} ${
+                  reward.expiresIn && parseInt(reward.expiresIn) < 3 ? 'animate-scale-pulse' : ''
+                }`}>
+                  <div className="relative animate-shimmer opacity-20 pointer-events-none absolute inset-0 rounded-lg" />
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1">
                       <div className="flex items-start gap-4">
@@ -190,13 +218,15 @@ export default function RewardsPage() {
                               <div className="flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-lg border-2 border-dashed border-gray-300">
                                 <code className="text-sm font-mono font-bold text-gray-900">{reward.code}</code>
                                 <button
-                                  onClick={() => copyCode(reward.code!)}
+                                  onClick={() => {
+                                    copyCode(reward.code!);
+                                  }}
                                   className="text-yellow-600 hover:text-yellow-700 transition-colors"
                                 >
                                   {copiedCode === reward.code ? (
-                                    <CheckCircle className="h-5 w-5" />
+                                    <CheckCircle className="h-5 w-5 animate-scale-pulse text-green-600" />
                                   ) : (
-                                    <Copy className="h-5 w-5" />
+                                    <Copy className="h-5 w-5 hover:animate-icon-bounce" />
                                   )}
                                 </button>
                               </div>
@@ -244,15 +274,15 @@ export default function RewardsPage() {
                 {pointsRewards.map((item, index) => (
                   <Card 
                     key={index} 
-                    className={`p-6 border-2 ${
+                    className={`p-6 border-2 card-hover-lift animate-stagger-${Math.min(index + 1, 5)} ${
                       !item.available 
                         ? 'opacity-60 border-gray-200 bg-gray-50' 
-                        : 'hover:shadow-xl transition-all cursor-pointer border-yellow-200 hover:border-yellow-400 bg-white'
+                        : 'cursor-pointer border-yellow-200 hover:border-yellow-400 bg-white animate-shimmer'
                     }`}
                   >
                     <div className="flex items-center justify-between mb-3">
                       <div className="flex items-center gap-2">
-                        <Gem className={`h-5 w-5 ${item.available ? 'text-yellow-500' : 'text-gray-400'}`} />
+                        <Gem className={`h-5 w-5 ${item.available ? 'text-yellow-500 animate-icon-bounce' : 'text-gray-400'}`} style={{ animationDelay: `${index * 0.1}s` }} />
                         <span className={`text-2xl font-bold ${item.available ? 'text-gradient-gold' : 'text-gray-400'}`}>
                           {item.points}
                         </span>
@@ -285,9 +315,9 @@ export default function RewardsPage() {
             <Card className="p-6 mb-6 border-2 border-yellow-200 bg-white">
               <div className="space-y-4">
                 {memberBenefits.map((benefit, index) => (
-                  <div key={index} className="flex gap-3">
-                    <div className="p-2 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-lg h-fit">
-                      <benefit.icon className="h-5 w-5 text-white" />
+                  <div key={index} className={`flex gap-3 animate-stagger-${Math.min(index + 1, 5)}`}>
+                    <div className="p-2 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-lg h-fit group-hover:animate-icon-bounce">
+                      <benefit.icon className="h-5 w-5 text-white animate-icon-bounce" style={{ animationDelay: `${index * 0.2}s` }} />
                     </div>
                     <div>
                       <h4 className="font-bold text-gray-900">{benefit.title}</h4>

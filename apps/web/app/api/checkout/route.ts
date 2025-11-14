@@ -1,10 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import { db, orders, orderItems, products } from '@gemcart/db';
-import { initiatePayment } from '@gemcart/payments';
-import { inArray, eq } from 'drizzle-orm';
-
-export const runtime = 'edge';
 
 const checkoutSchema = z.object({
   items: z.array(z.object({
@@ -26,6 +21,20 @@ const checkoutSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
+    // Check if database is available
+    if (!process.env.DATABASE_URL) {
+      return NextResponse.json(
+        { error: 'Checkout is not available without database. Please configure DATABASE_URL.' },
+        { status: 503 }
+      );
+    }
+
+    // Dynamic imports only when database is available
+    const { db, orders, orderItems, products } = await import('@gemcart/db');
+    const { initiatePayment } = await import('@gemcart/payments');
+    const drizzle = await import('drizzle-orm') as any;
+    const { inArray } = drizzle;
+
     const body = await request.json();
     const { items, email, phone, deliveryAddress } = checkoutSchema.parse(body);
 

@@ -120,36 +120,36 @@ export default function GamesPage() {
 
         {/* Stats Banner */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
-          <Card className="p-5 rounded-3xl bg-gradient-to-br from-[#f9d976] via-[#f39f86] to-[#f7797d] text-gray-900 border-0 shadow-2xl shadow-[#f39f86]/40">
+          <Card className="p-5 rounded-3xl bg-gradient-to-br from-[#f9d976] via-[#f39f86] to-[#f7797d] text-gray-900 border-0 shadow-2xl shadow-[#f39f86]/40 card-hover-lift animate-stagger-1">
             <div className="flex items-center justify-between mb-2">
-              <Trophy className="h-8 w-8" />
+              <Trophy className="h-8 w-8 animate-icon-bounce" />
               <Flame className="h-5 w-5 animate-pulse" />
             </div>
-            <div className="text-2xl font-bold">24,500</div>
+            <div className="text-2xl font-bold animate-count-up">24,500</div>
             <div className="text-sm opacity-90">Your Best Score</div>
           </Card>
           
-          <Card className="p-5 rounded-3xl bg-gradient-to-br from-[#7f5dff] to-[#6f8bff] text-white border-0">
+          <Card className="p-5 rounded-3xl bg-gradient-to-br from-[#7f5dff] to-[#6f8bff] text-white border-0 card-hover-lift animate-stagger-2">
             <div className="flex items-center justify-between mb-2">
-              <Sparkles className="h-8 w-8" />
+              <Sparkles className="h-8 w-8 animate-sparkle" />
             </div>
-            <div className="text-2xl font-bold">+350</div>
+            <div className="text-2xl font-bold animate-count-up">+350</div>
             <div className="text-sm opacity-90">Points Earned Today</div>
           </Card>
 
-          <Card className="p-5 rounded-3xl bg-gradient-to-br from-[#ff8f70] to-[#ff3d68] text-white border-0">
+          <Card className="p-5 rounded-3xl bg-gradient-to-br from-[#ff8f70] to-[#ff3d68] text-white border-0 card-hover-lift animate-stagger-3">
             <div className="flex items-center justify-between mb-2">
-              <Zap className="h-8 w-8" />
+              <Zap className="h-8 w-8 animate-bounce-slow" />
             </div>
-            <div className="text-2xl font-bold">7 days</div>
+            <div className="text-2xl font-bold animate-count-up">7 days</div>
             <div className="text-sm opacity-90">Daily Streak</div>
           </Card>
 
-          <Card className="p-5 rounded-3xl bg-gradient-to-br from-[#4b0f7b] to-[#b5179e] text-white border-0">
+          <Card className="p-5 rounded-3xl bg-gradient-to-br from-[#4b0f7b] to-[#b5179e] text-white border-0 card-hover-lift animate-stagger-4">
             <div className="flex items-center justify-between mb-2">
-              <Users className="h-8 w-8" />
+              <Users className="h-8 w-8 animate-icon-bounce" />
             </div>
-            <div className="text-2xl font-bold">#1,234</div>
+            <div className="text-2xl font-bold animate-count-up">#1,234</div>
             <div className="text-sm opacity-90">Global Rank</div>
           </Card>
         </div>
@@ -159,7 +159,7 @@ export default function GamesPage() {
           {(['All', 'Easy', 'Medium', 'Hard'] as const).map((diff) => (
             <Button
               key={diff}
-              variant={selectedDifficulty === diff ? 'default' : 'secondary'}
+              variant={selectedDifficulty === diff ? 'primary' : 'secondary'}
               size="sm"
               onClick={() => setSelectedDifficulty(diff)}
               className={
@@ -175,9 +175,9 @@ export default function GamesPage() {
 
         {/* Games Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-          {filteredGames.map((game) => (
+          {filteredGames.map((game, index) => (
             <Link key={game.id} href={game.href}>
-              <Card className="group h-full overflow-hidden hover-lift cursor-pointer rounded-3xl border border-white/10 bg-white/5 backdrop-blur-lg transition-all shadow-xl shadow-black/20">
+              <Card className={`group h-full overflow-hidden card-hover-lift cursor-pointer rounded-3xl border border-white/10 bg-white/5 backdrop-blur-lg transition-all shadow-xl shadow-black/20 animate-stagger-${Math.min(index + 1, 5)}`}>
                 {/* Game Icon Header */}
                 <div className={`relative h-40 bg-gradient-to-br ${game.gradient} flex items-center justify-center`}>
                   <div className="text-7xl group-hover:scale-110 transition-transform drop-shadow-lg">
@@ -259,7 +259,7 @@ export default function GamesPage() {
                 </div>
               </div>
             </div>
-            <Link href="/ranks">
+            <Link href="/leaderboard">
               <Button size="lg" className="bg-brand-gold-gradient text-brand-purple hover:opacity-90 font-semibold whitespace-nowrap">
                 View Leaderboard
                 <TrendingUp className="ml-2 h-5 w-5" />
