@@ -241,7 +241,7 @@ export default function HomePage() {
                 <ChevronRight className="ml-1 h-4 w-4" />
               </Link>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 auto-rows-fr">
+            <div className="mobile-double-grid grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 auto-rows-fr">
               {featuredProducts.slice(0, 4).map((product) => (
                 <ProductCard
                   key={product.id}
@@ -270,7 +270,7 @@ export default function HomePage() {
               <p className="text-gray-600 text-lg max-w-3xl mx-auto">Blend your persona with Zuka's purple-gold signature. Choose a universe tailored for every mood.</p>
             </div>
             
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="mobile-double-grid grid grid-cols-2 md:grid-cols-4 gap-4">
               {categories.map((category) => (
                 <Link key={category.name} href={category.href}>
                   <div className="group cursor-pointer overflow-hidden rounded-3xl border border-white/40 shadow-[0_15px_35px_rgba(26,5,48,0.12)] hover:shadow-[0_20px_40px_rgba(26,5,48,0.18)] transition-all duration-300 w-full">
@@ -311,7 +311,7 @@ export default function HomePage() {
                 <ChevronRight className="ml-2 h-5 w-5" />
               </Link>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 auto-rows-fr">
+            <div className="mobile-double-grid grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 auto-rows-fr">
               {womensEdit.map((product) => (
                 <ProductCard
                   key={product.id}
@@ -344,7 +344,7 @@ export default function HomePage() {
                 <ChevronRight className="ml-2 h-5 w-5" />
               </Link>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 auto-rows-fr">
+            <div className="mobile-double-grid grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 auto-rows-fr">
               {mensEdit.map((product) => (
                 <ProductCard
                   key={product.id}
@@ -377,7 +377,7 @@ export default function HomePage() {
               </Link>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 auto-rows-fr">
+            <div className="mobile-double-grid grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 auto-rows-fr">
               {featuredProducts.map((product) => (
                 <ProductCard
                   key={product.id}
