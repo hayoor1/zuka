@@ -24,7 +24,7 @@ export const catalog: CatalogProduct[] = [
     inStock: true,
     gender: 'men',
     category: 'tops',
-    imageUrl: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&w=900&q=80',
   },
   {
     id: 'm-top-hoodie-1',

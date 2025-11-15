@@ -12,7 +12,7 @@
     "dev": "pnpm --filter @zuka/web dev",
     "build": "pnpm -r build",
     "start": "pnpm --filter @zuka/web start",
-    "lint": "pnpm -r lint",
+    "lint": "node ./scripts/run-lint.mjs",
     "test": "pnpm -r test",
     "prepare": "command -v husky >/dev/null 2>&1 && husky install || true"
   },
@@ -24,6 +24,8 @@
     "@types/node": "^22.5.4",
     "@types/react": "^19.2.3",
     "@types/react-dom": "^19.2.2",
+    "@typescript-eslint/eslint-plugin": "^8.46.4",
+    "@typescript-eslint/parser": "^8.46.4",
     "eslint": "^9.9.0",
     "eslint-config-next": "^15.4.0",
     "husky": "^9.1.5",

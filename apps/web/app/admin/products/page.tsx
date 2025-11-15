@@ -207,7 +207,7 @@ export default function AdminProductsPage() {
           <h2 className="font-semibold text-blue-900 mb-2">Quick Reference</h2>
           <ul className="text-sm text-blue-800 space-y-1 list-disc list-inside">
             <li>Required fields: name, slug, priceNGN, gender, category</li>
-            <li>Gender: "men", "women", "kids", "unisex"</li>
+            <li>Gender: &quot;men&quot;, &quot;women&quot;, &quot;kids&quot;, &quot;unisex&quot;</li>
             <li>Categories: tops, dresses, shoes, trousers, jewellery, activewear, swimwear, lingerie, beauty, bags, outerwear, traditional</li>
             <li>Slug must be unique and URL-friendly (lowercase, hyphens)</li>
             <li>Price in NGN (in kobo: 1950000 = ₦19,500)</li>

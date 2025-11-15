@@ -72,9 +72,11 @@ export function Navbar() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
-            <span className="text-2xl font-semibold tracking-tight bg-gradient-to-r from-[#f8d572] to-[#f6c248] text-transparent bg-clip-text">
-              ZUKA
-            </span>
+            <div className="px-3 py-1 rounded-full border border-brand-purple/10 bg-white/90 shadow-sm">
+              <span className="text-[1.9rem] md:text-[2.25rem] font-black tracking-[0.35em] text-brand-purple drop-shadow-sm">
+                ZUKA
+              </span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
@@ -359,6 +361,31 @@ export function Navbar() {
                   {category.name}
                 </Link>
               ))}
+
+              <div className="mt-4 rounded-2xl border border-gray-100 bg-gray-50/80 p-3">
+                <p className="text-xs uppercase tracking-[0.4em] text-gray-400 mb-3 flex items-center gap-1">
+                  <Gem className="h-3 w-3 text-brand-purple" />
+                  Experiential
+                </p>
+                <div className="grid grid-cols-2 gap-3">
+                  <Link href="/games" className="flex flex-col gap-1 rounded-xl bg-white p-3 shadow-sm text-sm font-semibold text-brand-purple" onClick={() => setMobileMenuOpen(false)}>
+                    <Gamepad2 className="h-4 w-4" />
+                    Play Games
+                  </Link>
+                  <Link href="/rewards" className="flex flex-col gap-1 rounded-xl bg-white p-3 shadow-sm text-sm font-semibold text-brand-purple" onClick={() => setMobileMenuOpen(false)}>
+                    <Gem className="h-4 w-4" />
+                    Rewards
+                  </Link>
+                  <Link href="/ranks" className="flex flex-col gap-1 rounded-xl bg-white p-3 shadow-sm text-sm font-semibold text-brand-purple" onClick={() => setMobileMenuOpen(false)}>
+                    <Trophy className="h-4 w-4" />
+                    Leaderboard
+                  </Link>
+                  <Link href="/games" className="flex flex-col gap-1 rounded-xl bg-white p-3 shadow-sm text-sm font-semibold text-brand-purple" onClick={() => setMobileMenuOpen(false)}>
+                    <Bell className="h-4 w-4" />
+                    Weekly contests
+                  </Link>
+                </div>
+              </div>
               
               <div className="border-t border-gray-100 pt-2 mt-2">
                 {isSignedIn ? (

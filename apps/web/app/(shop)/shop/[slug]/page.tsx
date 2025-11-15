@@ -3,8 +3,7 @@
 import { useState } from 'react';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
-import Link from 'next/link';
-import { Button, Card, Badge } from '@gemcart/ui';
+import { Button, Badge } from '@gemcart/ui';
 import { formatNGN } from '@gemcart/core';
 import { getBySlug, listProducts } from '../../../../lib/catalog';
 import { StarRating } from '../../../../components/StarRating';
@@ -27,8 +26,7 @@ import {
 
 export default function ProductDetailPage({ params }: { params: { slug: string } }) {
   const product = getBySlug(params.slug);
-  if (!product) return notFound();
-
+  
   // Helper function to generate deterministic review count based on product ID
   const getReviewCount = (productId: string): number => {
     // Create a simple hash from product ID to get consistent value
@@ -41,11 +39,14 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
     return 50 + (Math.abs(hash) % 200);
   };
 
-  const [selectedSize, setSelectedSize] = useState(product.sizes[0]);
-  const [selectedColor, setSelectedColor] = useState(product.colors[0]);
+  // All hooks must be called before any conditional returns
+  const [selectedSize, setSelectedSize] = useState(product?.sizes?.[0] || '');
+  const [selectedColor, setSelectedColor] = useState(product?.colors?.[0] || '');
   const [quantity, setQuantity] = useState(1);
   const [currentImage, setCurrentImage] = useState(0);
   const [isWishlisted, setIsWishlisted] = useState(false);
+
+  if (!product) return notFound();
 
   const images = [
     product.imageUrl,
@@ -86,7 +87,7 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover" 
                 priority
-                onError={(e: any) => { 
+                onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => { 
                   e.currentTarget.src = 'https://via.placeholder.com/600x600/f5f5f5/999999?text=Zuka'; 
                 }} 
               />
@@ -130,7 +131,7 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
                       fill 
                       sizes="100px"
                       className="object-cover" 
-                      onError={(e: any) => { 
+                      onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => { 
                         e.currentTarget.src = 'https://via.placeholder.com/100x100/f5f5f5/999999?text=Zuka'; 
                       }} 
                     />
@@ -294,7 +295,7 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
               <h2 className="text-lg font-medium text-gray-900 mb-4">Description</h2>
               <p className="text-gray-600 leading-relaxed">
                 Experience luxury and comfort with our {product.name}. Crafted with premium materials 
-                and attention to detail, this piece is designed to elevate your wardrobe. Whether you're 
+                and attention to detail, this piece is designed to elevate your wardrobe. Whether you&apos;re 
                 dressing up for a special occasion or keeping it casual, this versatile item adapts to 
                 your style needs.
               </p>

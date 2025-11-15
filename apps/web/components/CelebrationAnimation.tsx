@@ -105,7 +105,7 @@ export function CelebrationAnimation({ level, onComplete, userName }: Celebratio
             step >= 3 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}>
             <p className="text-xl text-white/80 mb-6">
-              🎉 Congratulations! You've unlocked exclusive perks! 🎉
+              🎉 Congratulations! You&apos;ve unlocked exclusive perks! 🎉
             </p>
             <div className="flex justify-center gap-4 flex-wrap">
               <div className="flex items-center gap-2 text-white/90">

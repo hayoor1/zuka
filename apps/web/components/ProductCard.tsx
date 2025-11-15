@@ -81,7 +81,7 @@ export function ProductCard({
 
   return (
     <Card 
-      className={`group overflow-hidden border-0 shadow-sm hover:shadow-lg transition-all duration-300 ${className}`}
+      className={`group overflow-hidden border-0 shadow-sm hover:shadow-lg transition-all duration-300 h-full flex flex-col ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -133,7 +133,7 @@ export function ProductCard({
         </div>
       </Link>
 
-      <div className="p-4">
+      <div className="p-4 flex-1 flex flex-col">
         <Link href={`/shop/${slug}`}>
           <h3 className="font-medium text-gray-900 mb-2 line-clamp-2 hover:text-brand-purple transition-colors">
             {name}
@@ -153,9 +153,11 @@ export function ProductCard({
           </div>
         </div>
 
-        <div className={`mt-2 inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full ${palette.points}`}>
-          <Sparkles className="h-3 w-3" />
-          <span className="font-medium">Earn {Math.floor(price / 10000)} pts</span>
+        <div className="mt-auto pt-3">
+          <div className={`inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full ${palette.points}`}>
+            <Sparkles className="h-3 w-3" />
+            <span className="font-medium">Earn {Math.floor(price / 10000)} pts</span>
+          </div>
         </div>
       </div>
     </Card>

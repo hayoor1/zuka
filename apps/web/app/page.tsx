@@ -7,8 +7,39 @@ import { Navbar } from '../components/Navbar';
 import { ValueProps } from '../components/ValueProps';
 import { ProductCard } from '../components/ProductCard';
 import { listProducts } from '../lib/catalog';
-import { ArrowRight, ChevronRight } from 'lucide-react';
+import { ArrowRight, ChevronRight, ChevronDown } from 'lucide-react';
 import { useState, useEffect, useMemo } from 'react';
+
+type HeroTone = 'feminine' | 'masculine' | 'neutral';
+
+const heroSlides: Array<{
+  title: string;
+  subtitle: string;
+  description: string;
+  cta: string;
+  image: string;
+  tone: HeroTone;
+  duration: number; // Duration in milliseconds for this slide
+}> = [
+  {
+    title: "Welcome to Zuka",
+    subtitle: "Nigeria's Premium Fashion Destination",
+    description: "Experience couture, ready-to-wear, accessories and rare collectibles curated by our stylists.",
+    cta: "Shop Now",
+    tone: 'feminine' as const,
+    image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1600&q=80",
+    duration: 8000 // Shopping slide stays longer - 8 seconds
+  },
+  {
+    title: "Play & Win Rewards",
+    subtitle: "Up to ₦100,000 in Prizes",
+    description: "Unlock exclusive rewards, VIP fitting experiences and atelier previews while you shop.",
+    cta: "Start Playing",
+    tone: 'neutral' as const,
+    image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=1600&q=80",
+    duration: 6000 // Play to win slide - 6 seconds
+  }
+];
 
 export default function HomePage() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -25,48 +56,21 @@ export default function HomePage() {
     return 50 + (Math.abs(hash) % 200);
   };
 
-  type HeroTone = 'feminine' | 'masculine' | 'neutral';
-
-  const heroSlides: Array<{
-    title: string;
-    subtitle: string;
-    description: string;
-    cta: string;
-    image: string;
-    tone: HeroTone;
-  }> = [
-    {
-      title: "Welcome to Zuka",
-      subtitle: "Nigeria's Premium Fashion Destination",
-      description: "Experience couture, ready-to-wear, accessories and rare collectibles curated by our stylists.",
-      cta: "Shop Now",
-      tone: 'feminine' as const,
-      image: "https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&w=1600&q=80"
-    },
-    {
-      title: "Luxury Edit for Him",
-      subtitle: "Modern Tailoring, Edges and Craft",
-      description: "Discover elevated pieces with sharp masculine lines blended with Zuka's royal palette.",
-      cta: "Explore Menswear",
-      tone: 'masculine' as const,
-      image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1600&q=80"
-    },
-    {
-      title: "Play & Win Rewards",
-      subtitle: "Up to ₦100,000 in Prizes",
-      description: "Unlock exclusive rewards, VIP fitting experiences and atelier previews while you shop.",
-      cta: "Start Playing",
-      tone: 'neutral' as const,
-      image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1600&q=80"
-    }
-  ];
-
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
+    let timeoutId: NodeJS.Timeout;
+    
+    const advanceSlide = () => {
+      const currentSlideData = heroSlides[currentSlide];
+      timeoutId = setTimeout(() => {
+        setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+      }, currentSlideData.duration);
+    };
+
+    advanceSlide();
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+  }, [currentSlide]);
 
   type CategoryTone = 'feminine' | 'masculine' | 'neutral';
 
@@ -132,7 +136,7 @@ export default function HomePage() {
   const featuredProducts = useMemo(() => listProducts().slice(0, 8), []);
 
   const toneOverlays: Record<'feminine' | 'masculine' | 'neutral', string> = {
-    feminine: 'from-[#ffbedd]/80 via-[#f6bfff]/35 to-[#2a1039]/90',
+    feminine: 'from-black/60 via-black/50 to-black/70',
     masculine: 'from-[#050816]/85 via-[#1f1933]/70 to-[#4b0f7b]/80',
     neutral: 'from-black/70 via-black/40 to-transparent'
   };
@@ -147,8 +151,8 @@ export default function HomePage() {
     <>
       <Navbar />
       <main className="bg-white">
-        {/* Hero Carousel */}
-        <section className="relative h-[620px] md:h-[720px] overflow-hidden rounded-b-[48px] bg-black">
+        {/* Hero Carousel - Product-focused with immediate clarity */}
+        <section className="relative h-[75vh] min-h-[600px] max-h-[900px] overflow-hidden bg-black">
           <div className="absolute inset-0">
             {heroSlides.map((slide, index) => (
               <div
@@ -157,7 +161,6 @@ export default function HomePage() {
                   index === currentSlide ? 'opacity-100' : 'opacity-0'
                 }`}
               >
-                <div className={`absolute inset-0 bg-gradient-to-r ${toneOverlays[slide.tone]} z-10`} />
                 <Image
                   src={slide.image}
                   alt={slide.title}
@@ -166,24 +169,39 @@ export default function HomePage() {
                   sizes="100vw"
                   className="object-cover"
                 />
+                <div className={`absolute inset-0 bg-gradient-to-r ${toneOverlays[slide.tone]} z-10`} />
                 <div className="absolute inset-0 z-20 flex items-center">
                   <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
                     <div className="max-w-2xl">
-                      <p className="text-sm text-white/90 mb-4 tracking-[0.25em] uppercase">
+                      <div className="flex flex-wrap items-center gap-3 mb-4">
+                        <Badge className="bg-white/90 text-brand-purple border-0 text-xs font-semibold uppercase tracking-[0.4em]">
+                          Nigeria&apos;s luxury marketplace
+                        </Badge>
+                        <span className="text-xs uppercase tracking-[0.4em] text-white/70">
+                          Shop • Play • Win
+                        </span>
+                      </div>
+                      <p className="text-sm text-white/90 mb-3 tracking-[0.25em] uppercase">
                         {slide.subtitle}
                       </p>
-                      <h1 className="text-5xl md:text-[4.75rem] font-semibold text-white mb-6 leading-tight tracking-tight drop-shadow-lg">
+                      <h1 className="text-5xl md:text-[4.5rem] font-semibold text-white mb-4 leading-tight tracking-tight drop-shadow-xl">
                         {slide.title}
                       </h1>
-                      <p className="text-lg md:text-xl text-white/90 mb-10 max-w-xl leading-relaxed">
+                      <p className="text-base md:text-xl text-white/85 mb-8 max-w-xl leading-relaxed">
                         {slide.description}
                       </p>
-                      <Link href="/shop">
-                        <Button size="lg" className="bg-brand-gold-gradient text-brand-purple hover:opacity-90 px-8 py-6 text-base font-semibold">
-                          {slide.cta}
-                          <ArrowRight className="ml-2 h-5 w-5" />
-                        </Button>
-                      </Link>
+                      <div className="flex flex-wrap gap-3">
+                        <Link href="/shop">
+                          <Button size="lg" className="bg-brand-gold-gradient text-brand-purple hover:opacity-90 px-8 py-5 text-sm font-semibold uppercase tracking-[0.2em]">
+                            {slide.cta}
+                            <ArrowRight className="ml-2 h-5 w-5" />
+                          </Button>
+                        </Link>
+                        <Link href="/games" className="inline-flex items-center text-white/90 border border-white/30 rounded-full px-5 py-4 text-sm font-semibold hover:bg-white/10 transition-colors uppercase tracking-[0.2em]">
+                          Unlock rewards
+                          <ArrowRight className="ml-2 h-4 w-4" />
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -191,8 +209,13 @@ export default function HomePage() {
             ))}
           </div>
           
+          {/* Scroll indicator */}
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-2 animate-bounce">
+            <ChevronDown className="h-6 w-6 text-white/80" />
+          </div>
+
           {/* Dots */}
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex space-x-2">
+          <div className="absolute bottom-20 left-1/2 -translate-x-1/2 z-30 flex space-x-2">
             {heroSlides.map((_, index) => (
               <button
                 key={index}
@@ -205,24 +228,52 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Value Props */}
-        <ValueProps />
+        {/* Featured Products - Show products immediately to communicate this is a shop */}
+        <section className="py-16 bg-white border-b border-gray-100">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 tracking-tight">New Arrivals</h2>
+                <p className="text-gray-600 mt-1">Shop the latest additions</p>
+              </div>
+              <Link href="/shop" className="hidden md:flex items-center text-gray-900 hover:text-brand-purple transition-colors font-semibold text-sm">
+                View All
+                <ChevronRight className="ml-1 h-4 w-4" />
+              </Link>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 auto-rows-fr">
+              {featuredProducts.slice(0, 4).map((product) => (
+                <ProductCard
+                  key={product.id}
+                  id={product.id}
+                  name={product.name}
+                  price={product.priceNGN}
+                  imageUrl={product.imageUrl}
+                  slug={product.slug}
+                  rating={4.5}
+                  reviewCount={getReviewCount(product.id)}
+                  className="h-full"
+                />
+              ))}
+            </div>
+          </div>
+        </section>
 
-        {/* Shop by Category */}
-        <section className="py-24 bg-white">
+        {/* Shop by Category - Prominently displayed */}
+        <section className="py-20 bg-gradient-to-b from-white to-[#fbf8ff]">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <Badge className="bg-brand-gold-gradient text-brand-purple border-0 mb-4 text-xs uppercase tracking-[0.4em]">
                 Curated Worlds
               </Badge>
               <h2 className="text-4xl md:text-5xl font-semibold mb-4 text-brand-purple tracking-tight">Shop by Category</h2>
-              <p className="text-gray-600 text-lg max-w-3xl mx-auto">Blend your persona with Zuka’s purple-gold signature. Choose a universe tailored for every mood.</p>
+              <p className="text-gray-600 text-lg max-w-3xl mx-auto">Blend your persona with Zuka's purple-gold signature. Choose a universe tailored for every mood.</p>
             </div>
             
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {categories.map((category) => (
                 <Link key={category.name} href={category.href}>
-                  <div className="group cursor-pointer overflow-hidden rounded-3xl border border-white/40 shadow-[0_15px_35px_rgba(26,5,48,0.12)]">
+                  <div className="group cursor-pointer overflow-hidden rounded-3xl border border-white/40 shadow-[0_15px_35px_rgba(26,5,48,0.12)] hover:shadow-[0_20px_40px_rgba(26,5,48,0.18)] transition-all duration-300">
                     <div className="aspect-square relative overflow-hidden bg-gray-50">
                       <Image
                         src={category.image}
@@ -243,6 +294,9 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* Value Props */}
+        <ValueProps />
+
         {/* Women's Luxury Edit */}
         <section className="py-20 bg-gradient-to-br from-[#fff0fa] via-[#fbe7ff] to-[#fff5f6]">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -252,12 +306,12 @@ export default function HomePage() {
                 <h2 className="text-4xl font-semibold text-[#c12e6d]">La Maison Femme</h2>
                 <p className="text-[#a83b84] mt-3 max-w-xl">Lilac hues, rose gold trims and sumptuous silk silhouettes curated for the modern muses.</p>
               </div>
-              <Link href="/shop?gender=women" className="text-[#c12e6d] font-semibold inline-flex items-center">
+              <Link href="/shop?gender=women" className="text-[#c12e6d] font-semibold inline-flex items-center hover:text-[#a83b84] transition-colors">
                 Explore womenswear
                 <ChevronRight className="ml-2 h-5 w-5" />
               </Link>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-5 auto-rows-fr">
               {womensEdit.map((product) => (
                 <ProductCard
                   key={product.id}
@@ -269,6 +323,7 @@ export default function HomePage() {
                   tone="feminine"
                   rating={4.7}
                   reviewCount={180}
+                  className="h-full"
                 />
               ))}
             </div>
@@ -281,15 +336,15 @@ export default function HomePage() {
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
               <div>
                 <p className="text-xs uppercase tracking-[0.5em] text-brand-gold mb-3">for him</p>
-                <h2 className="text-4xl font-semibold text-white">Gentlemen's Atelier</h2>
+                <h2 className="text-4xl font-semibold text-white">Gentlemen&apos;s Atelier</h2>
                 <p className="text-white/80 mt-3 max-w-xl">Structured tailoring, midnight velvets, and satin accents inspired by Lagos nights.</p>
               </div>
-              <Link href="/shop?gender=men" className="text-brand-gold font-semibold inline-flex items-center">
+              <Link href="/shop?gender=men" className="text-brand-gold font-semibold inline-flex items-center hover:text-white transition-colors">
                 Tailored menswear
                 <ChevronRight className="ml-2 h-5 w-5" />
               </Link>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-5 auto-rows-fr">
               {mensEdit.map((product) => (
                 <ProductCard
                   key={product.id}
@@ -301,13 +356,14 @@ export default function HomePage() {
                   tone="masculine"
                   rating={4.8}
                   reviewCount={142}
+                  className="h-full"
                 />
               ))}
             </div>
           </div>
         </section>
 
-        {/* Featured Products */}
+        {/* Featured Products - Full Section */}
         <section className="py-24 bg-gradient-to-b from-[#fbf8ff] to-[#fffdf7]">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between mb-16">
@@ -321,7 +377,7 @@ export default function HomePage() {
               </Link>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6 auto-rows-fr">
               {featuredProducts.map((product) => (
                 <ProductCard
                   key={product.id}
@@ -332,6 +388,7 @@ export default function HomePage() {
                   slug={product.slug}
                   rating={4.5}
                   reviewCount={getReviewCount(product.id)}
+                  className="h-full"
                 />
               ))}
             </div>
