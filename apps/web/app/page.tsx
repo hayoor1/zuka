@@ -273,8 +273,8 @@ export default function HomePage() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {categories.map((category) => (
                 <Link key={category.name} href={category.href}>
-                  <div className="group cursor-pointer overflow-hidden rounded-3xl border border-white/40 shadow-[0_15px_35px_rgba(26,5,48,0.12)] hover:shadow-[0_20px_40px_rgba(26,5,48,0.18)] transition-all duration-300">
-                    <div className="aspect-square relative overflow-hidden bg-gray-50">
+                  <div className="group cursor-pointer overflow-hidden rounded-3xl border border-white/40 shadow-[0_15px_35px_rgba(26,5,48,0.12)] hover:shadow-[0_20px_40px_rgba(26,5,48,0.18)] transition-all duration-300 w-full">
+                    <div className="aspect-square relative overflow-hidden bg-gray-50 w-full">
                       <Image
                         src={category.image}
                         alt={category.name}

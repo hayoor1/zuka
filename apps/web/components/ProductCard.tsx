@@ -86,7 +86,7 @@ export function ProductCard({
       onMouseLeave={() => setIsHovered(false)}
     >
       <Link href={`/shop/${slug}`}>
-        <div className="relative aspect-square overflow-hidden bg-gray-50">
+        <div className="relative aspect-square overflow-hidden bg-gray-50 w-full">
           <Image
             src={imageUrl}
             alt={name}
