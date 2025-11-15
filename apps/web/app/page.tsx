@@ -150,14 +150,14 @@ export default function HomePage() {
   return (
     <>
       <Navbar />
-      <main className="bg-white">
+      <main className="bg-white w-full overflow-x-hidden">
         {/* Hero Carousel - Product-focused with immediate clarity */}
-        <section className="relative h-[75vh] min-h-[600px] max-h-[900px] overflow-hidden bg-black">
-          <div className="absolute inset-0">
+        <section className="relative h-[75vh] min-h-[600px] max-h-[900px] overflow-hidden bg-black w-full">
+          <div className="absolute inset-0 w-full">
             {heroSlides.map((slide, index) => (
               <div
                 key={index}
-                className={`absolute inset-0 transition-opacity duration-1000 ${
+                className={`absolute inset-0 transition-opacity duration-1000 w-full ${
                   index === currentSlide ? 'opacity-100' : 'opacity-0'
                 }`}
               >
@@ -167,9 +167,9 @@ export default function HomePage() {
                   fill
                   priority={index === 0}
                   sizes="100vw"
-                  className="object-cover"
+                  className="object-cover w-full h-full"
                 />
-                <div className={`absolute inset-0 bg-gradient-to-r ${toneOverlays[slide.tone]} z-10`} />
+                <div className={`absolute inset-0 bg-gradient-to-r ${toneOverlays[slide.tone]} z-10 w-full`} />
                 <div className="absolute inset-0 z-20 flex items-center">
                   <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
                     <div className="max-w-2xl">
@@ -252,7 +252,7 @@ export default function HomePage() {
                   slug={product.slug}
                   rating={4.5}
                   reviewCount={getReviewCount(product.id)}
-                  className="h-full"
+                  className="h-full w-full min-w-0"
                 />
               ))}
             </div>
@@ -311,7 +311,7 @@ export default function HomePage() {
                 <ChevronRight className="ml-2 h-5 w-5" />
               </Link>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-5 auto-rows-fr">
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 auto-rows-fr">
               {womensEdit.map((product) => (
                 <ProductCard
                   key={product.id}
@@ -323,7 +323,7 @@ export default function HomePage() {
                   tone="feminine"
                   rating={4.7}
                   reviewCount={180}
-                  className="h-full"
+                  className="h-full w-full min-w-0"
                 />
               ))}
             </div>
@@ -344,7 +344,7 @@ export default function HomePage() {
                 <ChevronRight className="ml-2 h-5 w-5" />
               </Link>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-5 auto-rows-fr">
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 auto-rows-fr">
               {mensEdit.map((product) => (
                 <ProductCard
                   key={product.id}
@@ -356,7 +356,7 @@ export default function HomePage() {
                   tone="masculine"
                   rating={4.8}
                   reviewCount={142}
-                  className="h-full"
+                  className="h-full w-full min-w-0"
                 />
               ))}
             </div>
@@ -377,7 +377,7 @@ export default function HomePage() {
               </Link>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6 auto-rows-fr">
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 auto-rows-fr">
               {featuredProducts.map((product) => (
                 <ProductCard
                   key={product.id}
@@ -388,7 +388,7 @@ export default function HomePage() {
                   slug={product.slug}
                   rating={4.5}
                   reviewCount={getReviewCount(product.id)}
-                  className="h-full"
+                  className="h-full w-full min-w-0"
                 />
               ))}
             </div>

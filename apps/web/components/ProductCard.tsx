@@ -81,7 +81,7 @@ export function ProductCard({
 
   return (
     <Card 
-      className={`group overflow-hidden border-0 shadow-sm hover:shadow-lg transition-all duration-300 h-full flex flex-col ${className}`}
+      className={`group overflow-hidden border-0 shadow-sm hover:shadow-lg transition-all duration-300 h-full flex flex-col w-full min-w-0 ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

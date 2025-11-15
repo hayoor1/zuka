@@ -468,6 +468,7 @@ function ShopPageContent() {
                       badge={showSale ? 'Sale' : undefined}
                       rating={4.5}
                       reviewCount={getReviewCount(product.id)}
+                      className="w-full min-w-0"
                     />
                   ) : (
                     <Card key={product.id} className="p-4">
