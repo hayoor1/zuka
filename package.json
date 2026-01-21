@@ -5,7 +5,7 @@
   "description": "Nigeria-first gamified e-commerce monorepo (web, workers, games)",
   "packageManager": "pnpm@9.7.0",
   "engines": {
-    "node": ">=18.18.0",
+    "node": ">=20.9.0",
     "pnpm": ">=9.0.0"
   },
   "scripts": {
@@ -37,7 +37,5 @@
       "prettier --write"
     ]
   },
-  "dependencies": {
-    "next": "^16.0.1"
-  }
+  "dependencies": {}
 }
