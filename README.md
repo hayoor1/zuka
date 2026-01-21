@@ -227,12 +227,14 @@ All documentation is located in the [`docs/`](./docs) folder:
 
 | Document | Description |
 |----------|-------------|
+| [**TECHNICAL.md**](./docs/TECHNICAL.md) | **Complete technical deep-dive** - Architecture, API, components, code patterns |
 | [DEPLOYMENT.md](./docs/DEPLOYMENT.md) | Deployment guide (Vercel, Railway, database setup) |
-| [PRODUCT_MANAGEMENT.md](./docs/PRODUCT_MANAGEMENT.md) | How to add/manage products via API |
-| [USER_JOURNEY.md](./docs/USER_JOURNEY.md) | User flow diagrams & customer journey |
 | [PERFORMANCE.md](./docs/PERFORMANCE.md) | Performance optimizations |
 | [SCALABILITY.md](./docs/SCALABILITY.md) | Scaling strategies |
+| [USER_JOURNEY.md](./docs/USER_JOURNEY.md) | User flows & customer journey |
 | [apps/mobile/README.md](./apps/mobile/README.md) | Mobile app setup guide |
+
+> **For developers:** Start with [TECHNICAL.md](./docs/TECHNICAL.md) for complete codebase understanding.
 
 ## 🎨 Tech Stack
 
