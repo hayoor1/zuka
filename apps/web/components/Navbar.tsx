@@ -385,14 +385,14 @@ const menMegaMenus: Record<CategoryKey, { columns: { title: string; items: { nam
   }
 };
 
-const categoryNavItems: { name: string; key: CategoryKey; highlight?: boolean }[] = [
-  { name: 'Sale', key: 'sale', highlight: true },
-  { name: 'New In', key: 'new-in' },
-  { name: 'Clothing', key: 'clothing' },
-  { name: 'Shoes', key: 'shoes' },
-  { name: 'Accessories', key: 'accessories' },
-  { name: 'Brands', key: 'brands' },
-  { name: 'Native Wear', key: 'native-wear' },
+const categoryNavItems: { name: string; key: CategoryKey; highlight?: boolean; href?: string }[] = [
+  { name: 'Sale', key: 'sale', highlight: true, href: '/shop?filter=sale' },
+  { name: 'New In', key: 'new-in', href: '/shop?filter=new' },
+  { name: 'Clothing', key: 'clothing', href: '/shop?category=clothing' },
+  { name: 'Shoes', key: 'shoes', href: '/shop?category=shoes' },
+  { name: 'Accessories', key: 'accessories', href: '/shop?category=accessories' },
+  { name: 'Brands', key: 'brands', href: '/brands' },
+  { name: 'Native Wear', key: 'native-wear', href: '/shop?category=nativewear' },
 ];
 
 export function Navbar() {
@@ -786,97 +786,180 @@ export function Navbar() {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-t border-gray-100 max-h-[80vh] overflow-y-auto">
-          <div className="px-4 py-4">
-            {/* Search */}
+          <div className="lg:hidden bg-white border-t border-gray-100 max-h-[80vh] overflow-y-auto">
+            <div className="px-4 py-4">
+              {/* Search */}
               <div className="relative mb-4">
                 <input
                   type="search"
-                  placeholder="Search..."
-                className="w-full px-4 py-3 pl-10 bg-gray-100 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#570a70]"
-              />
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
-            </div>
-
-            {/* Gender + Games Links */}
-            <div className="flex gap-2 mb-4">
-              <Link 
-                href="/shop?gender=women"
-                className="flex-1 py-3 bg-[#570a70] text-white text-center text-sm font-semibold rounded-lg"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                WOMEN
-              </Link>
-              <Link 
-                href="/shop?gender=men"
-                className="flex-1 py-3 bg-gray-100 text-gray-900 text-center text-sm font-semibold rounded-lg"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                MEN
-              </Link>
-              <Link 
-                href="/games"
-                className="flex items-center justify-center gap-1 px-4 py-3 bg-gray-100 text-gray-900 text-sm font-semibold rounded-lg"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <Gamepad2 className="h-4 w-4" />
-              </Link>
+                  placeholder="Search for items and brands..."
+                  className="w-full px-4 py-3 pl-10 bg-gray-100 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#570a70]"
+                />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
               </div>
 
-            {/* Nav Links */}
-            <div className="space-y-1">
-              {categoryNavItems.map((item) => (
-                <Link
-                  key={item.key}
-                  href={`/shop?category=${item.key}`}
-                  className={`block px-3 py-2.5 text-sm font-medium rounded-lg ${
-                    item.highlight ? 'text-red-500' : 'text-gray-700'
-                  } hover:bg-gray-50`}
+              {/* Gender Buttons */}
+              <div className="grid grid-cols-2 gap-2 mb-4">
+                <Link 
+                  href="/shop?gender=women"
+                  className="py-3 bg-[#570a70] text-white text-center text-sm font-semibold rounded-lg"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  {item.name}
+                  SHOP WOMEN
                 </Link>
-              ))}
-            </div>
-              
-            {/* Account Section */}
-            <div className="border-t border-gray-100 mt-4 pt-4">
-                {isSignedIn ? (
-                  <>
-                  <div className="flex items-center gap-3 px-3 py-2 mb-2">
-                    <div className="w-10 h-10 rounded-full bg-[#570a70] flex items-center justify-center text-white font-semibold">
-                          {userName.charAt(0)}
-                        </div>
-                    <div>
-                          <p className="text-sm font-medium text-gray-900">{userName}</p>
-                      <p className="text-xs text-[#e49b09]">{rewardPoints} points</p>
-                    </div>
-                  </div>
-                  <Link href="/account" className="flex items-center px-3 py-2.5 text-sm text-gray-700 hover:bg-gray-50 rounded-lg" onClick={() => setMobileMenuOpen(false)}>
-                    <UserCircle className="mr-3 h-4 w-4" /> My Account
+                <Link 
+                  href="/shop?gender=men"
+                  className="py-3 bg-gray-800 text-white text-center text-sm font-semibold rounded-lg"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  SHOP MEN
+                </Link>
+              </div>
+
+              {/* Category Links */}
+              <div className="mb-4">
+                <p className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">Categories</p>
+                <div className="space-y-1">
+                  {categoryNavItems.map((item) => (
+                    <Link
+                      key={item.key}
+                      href={item.href || `/shop?category=${item.key}`}
+                      className={`block px-3 py-2.5 text-sm font-medium rounded-lg ${
+                        item.highlight ? 'text-red-500 bg-red-50' : 'text-gray-700'
+                      } hover:bg-gray-50 active:bg-gray-100`}
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {item.name}
+                      {item.highlight && <span className="ml-2 text-xs">🔥</span>}
                     </Link>
-                  <Link href="/orders" className="flex items-center px-3 py-2.5 text-sm text-gray-700 hover:bg-gray-50 rounded-lg" onClick={() => setMobileMenuOpen(false)}>
-                    <Package className="mr-3 h-4 w-4" /> My Orders
+                  ))}
+                </div>
+              </div>
+
+              {/* Quick Links */}
+              <div className="border-t border-gray-100 pt-4 mb-4">
+                <p className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">Explore</p>
+                <div className="space-y-1">
+                  <Link 
+                    href="/games" 
+                    className="flex items-center px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <Gamepad2 className="mr-3 h-4 w-4 text-purple-600" /> 
+                    Games & Arcade
+                  </Link>
+                  <Link 
+                    href="/rewards" 
+                    className="flex items-center px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <Gem className="mr-3 h-4 w-4 text-amber-500" /> 
+                    Rewards
+                    {isSignedIn && <span className="ml-auto text-xs font-semibold text-amber-600">{rewardPoints} pts</span>}
+                  </Link>
+                  <Link 
+                    href="/leaderboard" 
+                    className="flex items-center px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <span className="mr-3">🏆</span>
+                    Leaderboard
+                  </Link>
+                  <Link 
+                    href="/pet" 
+                    className="flex items-center px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <span className="mr-3">🐾</span>
+                    My Pet
+                  </Link>
+                  <Link 
+                    href="/ranks" 
+                    className="flex items-center px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <span className="mr-3">⭐</span>
+                    My Rank
+                  </Link>
+                </div>
+              </div>
+
+              {/* Shopping Links */}
+              <div className="border-t border-gray-100 pt-4 mb-4">
+                <p className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">Shopping</p>
+                <div className="space-y-1">
+                  <Link 
+                    href="/wishlist" 
+                    className="flex items-center px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <Heart className="mr-3 h-4 w-4 text-pink-500" /> 
+                    Wishlist
+                    {wishlistCount > 0 && <span className="ml-auto bg-pink-100 text-pink-600 text-xs font-semibold px-2 py-0.5 rounded-full">{wishlistCount}</span>}
+                  </Link>
+                  <Link 
+                    href="/cart" 
+                    className="flex items-center px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <ShoppingBag className="mr-3 h-4 w-4 text-purple-600" /> 
+                    Cart
+                    {cartCount > 0 && <span className="ml-auto bg-purple-100 text-purple-600 text-xs font-semibold px-2 py-0.5 rounded-full">{cartCount}</span>}
+                  </Link>
+                </div>
+              </div>
+              
+              {/* Account Section */}
+              <div className="border-t border-gray-100 pt-4">
+                <p className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">Account</p>
+                {isSignedIn ? (
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-3 px-3 py-3 mb-2 bg-gradient-to-r from-purple-50 to-amber-50 rounded-lg">
+                      <div className="w-10 h-10 rounded-full bg-[#570a70] flex items-center justify-center text-white font-semibold">
+                        {userName.charAt(0)}
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-gray-900">{userName}</p>
+                        <p className="text-xs text-[#e49b09] font-medium">{rewardPoints} Royale points</p>
+                      </div>
+                    </div>
+                    <Link 
+                      href="/account" 
+                      className="flex items-center px-3 py-2.5 text-sm text-gray-700 hover:bg-gray-50 rounded-lg" 
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <UserCircle className="mr-3 h-4 w-4" /> My Account
+                    </Link>
+                    <Link 
+                      href="/orders" 
+                      className="flex items-center px-3 py-2.5 text-sm text-gray-700 hover:bg-gray-50 rounded-lg" 
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <Package className="mr-3 h-4 w-4" /> My Orders
                     </Link>
                     <button 
-                    onClick={() => { setIsSignedIn(false); setMobileMenuOpen(false); }}
-                    className="flex items-center w-full px-3 py-2.5 text-sm text-gray-700 hover:bg-gray-50 rounded-lg"
+                      onClick={() => { setIsSignedIn(false); setMobileMenuOpen(false); }}
+                      className="flex items-center w-full px-3 py-2.5 text-sm text-gray-700 hover:bg-gray-50 rounded-lg"
                     >
-                    <LogOut className="mr-3 h-4 w-4" /> Sign Out
+                      <LogOut className="mr-3 h-4 w-4" /> Sign Out
                     </button>
-                  </>
+                  </div>
                 ) : (
-                <div className="space-y-2">
-                      <Button 
-                    className="w-full bg-[#570a70] hover:bg-[#3d074e] text-white"
-                    onClick={() => { setIsSignedIn(true); setMobileMenuOpen(false); }}
-                      >
-                        Sign In
-                      </Button>
-                  <Button variant="outline" className="w-full" onClick={() => setMobileMenuOpen(false)}>
-                    Join Zuka
-                      </Button>
-                    </div>
+                  <div className="grid grid-cols-2 gap-2 mt-2">
+                    <Button 
+                      className="w-full bg-[#570a70] hover:bg-[#3d074e] text-white"
+                      onClick={() => { setIsSignedIn(true); setMobileMenuOpen(false); }}
+                    >
+                      Sign In
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      className="w-full border-[#570a70] text-[#570a70]" 
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Join Zuka
+                    </Button>
+                  </div>
                 )}
               </div>
             </div>
