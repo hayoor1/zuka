@@ -20,8 +20,13 @@ pnpm-debug.log*
 # misc
 .DS_Store
 
+# Brand assets (too large for GitHub - store separately)
+Zuka/
 
+# Duplicate/backup folders
+node_modules 2/
 
-
+# Build artifacts
+*.tgz
 
 
