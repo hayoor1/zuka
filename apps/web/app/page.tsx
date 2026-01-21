@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@gemcart/ui';
 import { Navbar } from '../components/Navbar';
+import { MobileNav } from '../components/MobileNav';
 import { ProductCard } from '../components/ProductCard';
 import { listProducts, listBrandStats } from '../lib/catalog';
 import { 
@@ -60,7 +61,7 @@ export default function HomePage() {
   return (
     <>
       <Navbar />
-      <main className="bg-white text-gray-900 overflow-hidden">
+      <main className="bg-white text-gray-900 overflow-hidden pb-20 lg:pb-0">
         
         {/* ═══════════════════════════════════════════════════════════════════════
             HERO SECTION - Full Screen Immersive
@@ -491,6 +492,7 @@ export default function HomePage() {
           </div>
         </footer>
       </main>
+      <MobileNav />
     </>
   );
 }

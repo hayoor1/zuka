@@ -368,17 +368,35 @@ function ShopPageContent() {
 
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="lg:grid lg:grid-cols-4 lg:gap-12">
-          {/* Filters Sidebar - Collapsible */}
-          <aside className={`${showFilters ? 'block' : 'hidden'} lg:block`}>
-            <div className="sticky top-24 bg-white border border-gray-200 rounded-lg max-h-[calc(100vh-8rem)] overflow-y-auto">
+          {/* Mobile Filter Overlay */}
+          {showFilters && (
+            <div 
+              className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+              onClick={() => setShowFilters(false)}
+            />
+          )}
+
+          {/* Filters Sidebar - Slide-over on mobile, sticky on desktop */}
+          <aside className={`
+            ${showFilters ? 'translate-x-0' : '-translate-x-full'} 
+            lg:translate-x-0
+            fixed lg:relative
+            left-0 top-0 lg:top-auto
+            h-full lg:h-auto
+            w-[85%] max-w-sm lg:w-auto lg:max-w-none
+            z-50 lg:z-auto
+            transition-transform duration-300 ease-in-out
+            lg:block
+          `}>
+            <div className="sticky top-0 lg:top-24 bg-white border border-gray-200 rounded-none lg:rounded-lg h-screen lg:h-auto lg:max-h-[calc(100vh-8rem)] overflow-y-auto shadow-xl lg:shadow-none">
               {/* Header */}
-              <div className="flex items-center justify-between p-4 border-b border-gray-200">
+              <div className="flex items-center justify-between p-4 border-b border-gray-200 sticky top-0 bg-white z-10">
                 <h2 className="text-sm font-bold uppercase tracking-wider">Filters</h2>
                 <button 
                   onClick={() => setShowFilters(false)}
-                  className="lg:hidden p-1 hover:bg-gray-100 rounded"
+                  className="lg:hidden p-2 hover:bg-gray-100 rounded-full"
                 >
-                  <X className="h-4 w-4" />
+                  <X className="h-5 w-5" />
                 </button>
               </div>
 
@@ -666,7 +684,7 @@ function ShopPageContent() {
             {/* Products Grid */}
             {products.length > 0 ? (
               <div className={viewMode === 'grid' 
-                ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" 
+                ? "grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6" 
                 : "space-y-4"
               }>
                 {products.map((product) => (
