@@ -47,14 +47,16 @@ ecommerce/
 │   │   └── lib/          # Utilities & mock data
 │   └── mobile/           # React Native mobile app
 ├── packages/
-│   ├── core/             # Shared utilities
+│   ├── core/             # Shared types & utilities
 │   ├── db/               # Database schema (Drizzle ORM)
 │   ├── ui/               # Shared UI components
 │   ├── payments/         # Paystack integration
 │   ├── analytics/        # Analytics utilities
-│   ├── realtime/         # WebSocket/realtime features
-│   └── ai/               # AI/ML features
-└── docs/                 # Documentation (see below)
+│   ├── realtime/         # Realtime features
+│   └── ai/               # AI pet assistant logic
+├── README.md             # This file
+├── DEPLOYMENT.md         # Deployment guide
+└── ...                   # Other documentation
 ```
 
 ## ✨ Features
@@ -158,7 +160,7 @@ The app works without a database using mock data:
 1. Sign up for [Neon](https://neon.tech) (free tier)
 2. Copy connection string
 3. Add to Vercel: `DATABASE_URL=postgresql://...`
-4. Run migrations: `pnpm --filter=@gemcart/db drizzle-kit push`
+4. Run migrations: `pnpm --filter=@zuka/db drizzle-kit push`
 5. Redeploy
 
 See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed instructions.
@@ -218,12 +220,12 @@ See [PRODUCT_MANAGEMENT.md](./PRODUCT_MANAGEMENT.md) for templates and examples.
 
 | Document | Description |
 |----------|-------------|
-| [DEPLOYMENT.md](./DEPLOYMENT.md) | Detailed deployment guide (Vercel, Railway, Netlify) |
+| [DEPLOYMENT.md](./DEPLOYMENT.md) | Deployment guide (Vercel, Railway, database setup) |
 | [PRODUCT_MANAGEMENT.md](./PRODUCT_MANAGEMENT.md) | How to add/manage products |
 | [USER_JOURNEY.md](./USER_JOURNEY.md) | User flow diagrams & customer journey |
-| [DATA_MODEL.md](./DATA_MODEL.md) | Database schema & relationships |
 | [PERFORMANCE.md](./PERFORMANCE.md) | Performance optimizations |
 | [SCALABILITY.md](./SCALABILITY.md) | Scaling strategies |
+| [apps/mobile/README.md](./apps/mobile/README.md) | Mobile app setup guide |
 
 ## 🎨 Tech Stack
 
@@ -327,7 +329,7 @@ Private/Commercial - All rights reserved
 ## 📞 Support
 
 For issues or questions:
-1. Check documentation in `/docs`
+1. Check the documentation files above
 2. Review [troubleshooting](#-troubleshooting)
 3. Open an issue on GitHub
 

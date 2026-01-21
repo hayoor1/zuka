@@ -1,13 +1,11 @@
 # Product Management Guide
 
 ## Overview
-This guide explains how to add and manage products in your Zuka ecommerce store using JSON templates and the admin API.
+This guide explains how to add and manage products in your Zuka e-commerce store.
 
 ## Quick Start
 
 ### 1. Prepare Your Product Data
-
-Use the JSON template at `apps/web/lib/product-template.json` as a reference.
 
 **Example Product JSON:**
 ```json
@@ -17,7 +15,7 @@ Use the JSON template at `apps/web/lib/product-template.json` as a reference.
   "description": "Cozy fleece hoodie for cool nights with Lagos skyline print",
   "priceNGN": 1950000,
   "gender": "men",
-  "category": "tops",
+  "category": "hoodies",
   "imageUrl": "https://res.cloudinary.com/your-cloud/image/upload/v123/hoodie-main.jpg",
   "images": [
     "https://res.cloudinary.com/your-cloud/image/upload/v123/hoodie-1.jpg",
@@ -104,18 +102,22 @@ Where `products-bulk.json` contains:
 ## Categories
 
 Valid categories:
-- `tops`
+- `tshirts`
+- `hoodies`
+- `trousers`
+- `pants`
+- `skirts`
 - `dresses`
 - `shoes`
-- `trousers`
+- `bags`
 - `jewellery`
+- `rings`
 - `activewear`
 - `swimwear`
 - `lingerie`
 - `beauty`
-- `bags`
 - `outerwear`
-- `traditional`
+- `nativewear`
 
 ## Gender Categories
 
@@ -247,7 +249,7 @@ curl -X POST http://localhost:3000/api/admin/products \
     "slug": "test-product",
     "priceNGN": 100000,
     "gender": "men",
-    "category": "tops"
+    "category": "tshirts"
   }'
 ```
 
