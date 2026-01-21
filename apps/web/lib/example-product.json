@@ -4,7 +4,7 @@
   "description": "Cozy fleece hoodie for cool nights with Lagos skyline print. Perfect for the modern urban lifestyle.",
   "priceNGN": 1950000,
   "gender": "men",
-  "category": "tops",
+  "category": "hoodies",
   "imageUrl": "https://res.cloudinary.com/your-cloud/image/upload/v123/hoodie-main.jpg",
   "images": [
     "https://res.cloudinary.com/your-cloud/image/upload/v123/hoodie-1.jpg",
@@ -18,7 +18,7 @@
   "inStock": true,
   "stockCount": 50,
   "sku": "LAG-HOOD-BLK-M",
-  "brand": "Zuka",
+  "brand": "Naija Street",
   "material": "100% Cotton, Fleece lining",
   "careInstructions": "Machine wash cold, tumble dry low",
   "weight": 500,

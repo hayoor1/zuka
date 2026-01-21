@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button, Card, Badge } from '@gemcart/ui';
 import { formatNGN } from '@gemcart/core';
-import { getBySlug, listProducts } from '../../../../lib/catalog';
+import { getBySlug, listProducts, type Category } from '../../../../lib/catalog';
 import { StarRating } from '../../../../components/StarRating';
 import { Breadcrumb } from '../../../../components/Breadcrumb';
 import { ProductCard } from '../../../../components/ProductCard';
@@ -54,14 +54,36 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
     'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=600&auto=format&fit=crop&q=80',
   ];
 
-  const relatedProducts = listProducts(product.gender, product.category)
+  const brandMatches = listProducts(undefined, undefined, product.brand)
+    .filter(p => p.id !== product.id);
+  const relatedProducts = (brandMatches.length > 0 ? brandMatches : listProducts(product.gender, product.category))
     .filter(p => p.id !== product.id)
     .slice(0, 4);
+
+  const categoryLabels: Record<Category, string> = {
+    tshirts: 'T-Shirts',
+    hoodies: 'Hoodies',
+    trousers: 'Trousers',
+    pants: 'Pants',
+    skirts: 'Skirts',
+    dresses: 'Dresses',
+    shoes: 'Shoes',
+    bags: 'Bags',
+    jewellery: 'Jewellery',
+    rings: 'Rings',
+    activewear: 'Activewear',
+    swimwear: 'Swimwear',
+    lingerie: 'Lingerie',
+    beauty: 'Beauty & Care',
+    outerwear: 'Outerwear',
+    nativewear: 'African Native Wear',
+  };
 
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
     { label: 'Shop', href: '/shop' },
-    { label: product.category.charAt(0).toUpperCase() + product.category.slice(1), href: `/shop?category=${product.category}` },
+    { label: product.brand, href: `/shop?brand=${encodeURIComponent(product.brand)}` },
+    { label: categoryLabels[product.category] ?? product.category, href: `/shop?category=${product.category}` },
     { label: product.name }
   ];
 
@@ -87,7 +109,7 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
                 className="object-cover" 
                 priority
                 onError={(e: any) => { 
-                  e.currentTarget.src = 'https://via.placeholder.com/600x600/f5f5f5/999999?text=Zuka'; 
+                  e.currentTarget.src = '/brand/zuka-portrait-trimmed.png'; 
                 }} 
               />
               
@@ -131,7 +153,7 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
                       sizes="100px"
                       className="object-cover" 
                       onError={(e: any) => { 
-                        e.currentTarget.src = 'https://via.placeholder.com/100x100/f5f5f5/999999?text=Zuka'; 
+                        e.currentTarget.src = '/brand/zuka-portrait-trimmed.png'; 
                       }} 
                     />
                   </button>
@@ -143,7 +165,15 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
           {/* Product Info */}
           <div>
             <div className="mb-6">
-              <Badge variant="default" className="mb-3 text-xs">{product.gender.toUpperCase()}</Badge>
+              <div className="flex flex-wrap items-center gap-3 mb-3">
+                <Link
+                  href={`/shop?brand=${encodeURIComponent(product.brand)}`}
+                  className="text-[10px] uppercase tracking-[0.3em] text-brand-purple"
+                >
+                  {product.brand}
+                </Link>
+                <Badge variant="default" className="text-xs">{product.gender.toUpperCase()}</Badge>
+              </div>
               <h1 className="text-4xl font-semibold text-gray-900 mb-3 tracking-tight">{product.name}</h1>
               <p className="text-gray-600 text-lg">{product.description}</p>
             </div>
@@ -327,7 +357,9 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
 
         {/* Related Products */}
         <div className="mt-24 border-t border-gray-100 pt-16">
-          <h2 className="text-3xl font-semibold text-gray-900 mb-12 tracking-tight">You Might Also Like</h2>
+          <h2 className="text-3xl font-semibold text-gray-900 mb-12 tracking-tight">
+            More from {product.brand}
+          </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {relatedProducts.map((relatedProduct) => (
               <ProductCard
@@ -337,6 +369,7 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
                 price={relatedProduct.priceNGN}
                 imageUrl={relatedProduct.imageUrl}
                 slug={relatedProduct.slug}
+                brand={relatedProduct.brand}
                 tone={relatedProduct.gender === 'women' ? 'feminine' : relatedProduct.gender === 'men' ? 'masculine' : 'neutral'}
                 rating={4.5}
                 reviewCount={getReviewCount(relatedProduct.id)}

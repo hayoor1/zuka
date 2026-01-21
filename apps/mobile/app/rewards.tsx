@@ -141,7 +141,7 @@ export default function RewardsPage() {
                 style={styles.actionButtonSecondary}
                 onPress={() => router.push('/games')}
               >
-                <Ionicons name="flash-outline" size={20} color="#4b0f7b" />
+                <Ionicons name="flash-outline" size={20} color="#570a70" />
                 <Text style={styles.actionButtonSecondaryText}>Play Games</Text>
               </TouchableOpacity>
             </View>
@@ -449,7 +449,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   actionButtonSecondaryText: {
-    color: '#4b0f7b',
+    color: '#570a70',
     fontSize: 14,
     fontWeight: '700',
   },
@@ -563,7 +563,7 @@ const styles = StyleSheet.create({
   useButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#4b0f7b',
+    backgroundColor: '#570a70',
     paddingHorizontal: 16,
     paddingVertical: 10,
     borderRadius: 8,

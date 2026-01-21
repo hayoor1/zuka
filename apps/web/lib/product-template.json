@@ -49,21 +49,25 @@
     "category": {
       "type": "string",
       "enum": [
-        "tops",
+        "tshirts",
+        "hoodies",
         "dresses",
         "shoes",
         "trousers",
+        "pants",
+        "skirts",
         "jewellery",
+        "rings",
         "activewear",
         "swimwear",
         "lingerie",
         "beauty",
         "bags",
         "outerwear",
-        "traditional"
+        "nativewear"
       ],
       "description": "Product category",
-      "example": "tops"
+      "example": "tshirts"
     },
     "imageUrl": {
       "type": "string",
@@ -184,7 +188,7 @@
       "description": "Cozy fleece hoodie for cool nights with Lagos skyline print",
       "priceNGN": 1950000,
       "gender": "men",
-      "category": "tops",
+      "category": "tshirts",
       "imageUrl": "https://res.cloudinary.com/your-cloud/image/upload/v123/hoodie-main.jpg",
       "images": [
         "https://res.cloudinary.com/your-cloud/image/upload/v123/hoodie-1.jpg",
@@ -217,7 +221,7 @@
       ],
       "sizes": ["S", "M", "L"],
       "colors": ["multi"],
-      "tags": ["dress", "ankara", "traditional"],
+      "tags": ["dress", "ankara", "nativewear"],
       "featured": true,
       "inStock": true,
       "stockCount": 30,

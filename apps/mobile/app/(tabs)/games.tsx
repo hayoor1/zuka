@@ -89,7 +89,7 @@ export default function GamesPage() {
         >
           <View style={styles.headerContent}>
             <View style={styles.headerBadge}>
-              <Ionicons name="game-controller" size={16} color="#e3c268" />
+              <Ionicons name="game-controller" size={16} color="#e49b09" />
               <Text style={styles.headerBadgeText}>PLAY & EARN</Text>
             </View>
             <Text style={styles.title}>Royale Arcade</Text>
@@ -145,7 +145,7 @@ export default function GamesPage() {
 
           <View style={styles.statCard}>
             <LinearGradient
-              colors={['#4b0f7b', '#b5179e']}
+              colors={['#570a70', '#e246a4']}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
               style={styles.statGradient}
@@ -237,12 +237,12 @@ export default function GamesPage() {
             onPress={() => router.push('/ranks')}
           >
             <LinearGradient
-              colors={['#2a1039', '#4b0f7b']}
+              colors={['#3d074e', '#570a70']}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
               style={styles.quickActionGradient}
             >
-              <Ionicons name="trophy" size={24} color="#e3c268" />
+              <Ionicons name="trophy" size={24} color="#e49b09" />
               <Text style={styles.quickActionText}>Leaderboard</Text>
             </LinearGradient>
           </TouchableOpacity>
@@ -293,7 +293,7 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   headerBadgeText: {
-    color: '#e3c268',
+    color: '#e49b09',
     fontSize: 10,
     fontWeight: '700',
     letterSpacing: 1,
@@ -369,8 +369,8 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   filterChipActive: {
-    backgroundColor: '#4b0f7b',
-    borderColor: '#4b0f7b',
+    backgroundColor: '#570a70',
+    borderColor: '#570a70',
   },
   filterChipText: {
     fontSize: 14,

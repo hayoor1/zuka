@@ -47,19 +47,19 @@ export function ProductCard({
 
   const toneStyles: Record<Tone, { price: string; points: string; icon: string }> = {
     neutral: {
-      price: '#4b0f7b',
-      points: '#f3e9ff',
-      icon: '#4b0f7b',
+      price: '#570a70',
+      points: '#e6daea',
+      icon: '#570a70',
     },
     feminine: {
-      price: '#c12e6d',
-      points: '#ffe8f3',
-      icon: '#c12e6d',
+      price: '#e246a4',
+      points: '#f6c8e4',
+      icon: '#e246a4',
     },
     masculine: {
-      price: '#f2c46c',
-      points: '#1f1e2c',
-      icon: '#f2c46c',
+      price: '#e49b09',
+      points: '#2f063d',
+      icon: '#e49b09',
     },
   };
 
@@ -90,7 +90,7 @@ export function ProductCard({
           <Ionicons
             name={isWishlisted ? 'heart' : 'heart-outline'}
             size={18}
-            color={isWishlisted ? '#e04c7c' : palette.icon}
+            color={isWishlisted ? '#e246a4' : palette.icon}
           />
         </TouchableOpacity>
       </View>

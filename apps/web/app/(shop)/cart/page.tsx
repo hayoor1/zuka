@@ -73,7 +73,7 @@ export default function CartPage() {
           {/* Cart Items */}
           <div className="lg:col-span-2 space-y-5">
             {cartItems.length === 0 ? (
-              <Card className="p-12 text-center rounded-3xl border border-white/60 bg-white/90 shadow-xl shadow-[#4b0f7b]/10">
+            <Card className="p-12 text-center rounded-3xl border border-white/60 bg-white/90 shadow-xl shadow-[#570a70]/10">
                 <ShoppingBag className="mx-auto mb-6 h-12 w-12 text-brand-purple" />
                 <h3 className="text-xl font-semibold mb-3 text-brand-purple">Your curation is empty</h3>
                 <p className="text-gray-600 mb-6">Discover couture pieces and earn gems.</p>
@@ -86,7 +86,7 @@ export default function CartPage() {
               </Card>
             ) : (
               cartItems.map((item) => (
-                <Card key={item.id} className="p-5 rounded-3xl border border-[#f0e6ff] bg-white shadow-lg shadow-[#4b0f7b]/5">
+              <Card key={item.id} className="p-5 rounded-3xl border border-[#f0e6ff] bg-white shadow-lg shadow-[#570a70]/5">
                   <div className="flex gap-5">
                     {/* Product Image */}
                     <div className="h-24 w-24 rounded-2xl bg-gradient-to-br from-[#f3e9ff] via-[#f9f2ff] to-[#f5e7ff] border border-[#f0e6ff] flex-shrink-0" />
@@ -169,7 +169,7 @@ export default function CartPage() {
 
           {/* Order Summary */}
           <div className="lg:col-span-1">
-            <Card className="p-6 sticky top-20 rounded-3xl border border-[#f0e6ff] bg-white shadow-xl shadow-[#4b0f7b]/5">
+            <Card className="p-6 sticky top-20 rounded-3xl border border-[#f0e6ff] bg-white shadow-xl shadow-[#570a70]/5">
               <h2 className="text-lg font-semibold mb-4 text-brand-purple">Order Summary</h2>
               
               {/* Coupon Input */}

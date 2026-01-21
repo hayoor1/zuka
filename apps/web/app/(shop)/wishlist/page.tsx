@@ -48,7 +48,7 @@ export default function WishlistPage() {
         </div>
 
         {favorites.length === 0 ? (
-          <div className="rounded-3xl border border-white/60 bg-white/95 p-12 text-center shadow-xl shadow-[#4b0f7b]/10">
+          <div className="rounded-3xl border border-white/60 bg-white/95 p-12 text-center shadow-xl shadow-[#570a70]/10">
             <Heart className="mx-auto mb-6 h-12 w-12 text-brand-purple" />
             <h3 className="text-xl font-semibold text-brand-purple mb-2">Your wishlist is empty</h3>
             <p className="text-gray-600 mb-6">Save purple & gold essentials to keep them close.</p>
@@ -76,6 +76,7 @@ export default function WishlistPage() {
                     price={product.priceNGN}
                     imageUrl={product.imageUrl}
                     slug={product.slug}
+                    brand={product.brand}
                     tone={product.tone as Tone}
                     rating={4.8}
                     reviewCount={150}
@@ -122,6 +123,7 @@ export default function WishlistPage() {
                 price={product.priceNGN}
                 imageUrl={product.imageUrl}
                 slug={product.slug}
+                brand={product.brand}
                 tone={mapTone(product.gender)}
                 rating={4.6}
                 reviewCount={120}

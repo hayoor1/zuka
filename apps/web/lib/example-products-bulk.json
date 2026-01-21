@@ -6,7 +6,7 @@
       "description": "Cozy fleece hoodie for cool nights",
       "priceNGN": 1950000,
       "gender": "men",
-      "category": "tops",
+      "category": "hoodies",
       "imageUrl": "https://res.cloudinary.com/your-cloud/image/upload/v123/hoodie.jpg",
       "sizes": ["M", "L", "XL"],
       "colors": ["black", "grey"],

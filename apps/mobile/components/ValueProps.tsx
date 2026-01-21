@@ -31,7 +31,7 @@ export function ValueProps() {
       {valueProps.map((prop, index) => (
         <View key={index} style={styles.item}>
           <View style={styles.iconContainer}>
-            <Ionicons name={prop.icon as any} size={24} color="#4b0f7b" />
+            <Ionicons name={prop.icon as any} size={24} color="#570a70" />
           </View>
           <Text style={styles.title}>{prop.title}</Text>
           <Text style={styles.description}>{prop.description}</Text>

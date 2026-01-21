@@ -1,18 +1,19 @@
 import './globals.css';
 import type { ReactNode } from 'react';
-import { Inter } from 'next/font/google';
+import { Inter, Playfair_Display } from 'next/font/google';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' });
 
 export const metadata = {
-  title: 'Zuka - Nigeria\'s Luxury Fashion Destination',
-  description: 'Experience premium shopping with exclusive fashion collections, designer pieces, and rewarding loyalty programs. Nigeria\'s most sophisticated online luxury marketplace.',
+  title: 'Zuka - Multi-Brand Fashion Marketplace',
+  description: 'Shop curated fashion, beauty, and lifestyle from emerging and global brands. Zuka is Nigeria\'s multi-brand luxury marketplace.',
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={`${inter.variable} ${playfair.variable} font-sans`}>
         {children}
       </body>
     </html>

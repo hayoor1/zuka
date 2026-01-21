@@ -148,7 +148,7 @@ export default function RanksPage() {
         </div>
 
       {/* Current Status */}
-      <Card className="p-8 mb-8 rounded-3xl border border-[#f0e6ff] bg-gradient-to-br from-white via-[#f9f2ff] to-white shadow-xl shadow-[#4b0f7b]/5 animate-fade-in">
+      <Card className="p-8 mb-8 rounded-3xl border border-[#f0e6ff] bg-gradient-to-br from-white via-[#f9f2ff] to-white shadow-xl shadow-[#570a70]/5 animate-fade-in">
         <div className="grid gap-8 lg:grid-cols-2">
           <div>
             <Badge className="bg-brand-gold-gradient text-brand-purple border-0 mb-4">
@@ -196,7 +196,7 @@ export default function RanksPage() {
                   <span className="animate-count-up">{animatedXP} / {nextLevelXP} XP</span>
                   <span className="font-medium">{nextLevel}</span>
                 </div>
-                <div className="h-4 w-full overflow-hidden rounded-full bg-[#f3e9ff] relative">
+                <div className="h-4 w-full overflow-hidden rounded-full bg-[#e6daea] relative">
                   <div 
                     className="h-full bg-brand-gradient animate-progress-fill relative overflow-hidden"
                     style={{ width: `${Math.min(100, progress)}%` }}
@@ -255,10 +255,10 @@ export default function RanksPage() {
               {xpSources.map((source, index) => (
                 <div 
                   key={source.action} 
-                  className={`flex items-center justify-between rounded-lg bg-white border border-[#f0e6ff] p-3 card-hover-lift animate-stagger-${index + 1}`}
+                  className={`flex items-center justify-between rounded-lg bg-white border border-[#e6daea] p-3 card-hover-lift animate-stagger-${index + 1}`}
                 >
                   <div className="flex items-center gap-3">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#f3e9ff] text-brand-purple group-hover:animate-icon-bounce">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#e6daea] text-brand-purple group-hover:animate-icon-bounce">
                       <div className="group-hover:animate-icon-bounce">
                         {source.icon}
                       </div>
@@ -272,7 +272,7 @@ export default function RanksPage() {
               ))}
             </div>
             
-            <Card className="mt-4 p-4 border-[#e3c268]/30 bg-gradient-to-r from-[#fff7e1] to-[#ffe9c5] animate-scale-pulse">
+            <Card className="mt-4 p-4 border-[#e49b09]/30 bg-gradient-to-r from-[#f7e1b5] to-[#f2cd84] animate-scale-pulse">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-semibold text-brand-purple">Double XP Weekend!</p>
@@ -301,7 +301,7 @@ export default function RanksPage() {
               key={level} 
               className={`p-5 rounded-2xl border transition-all card-hover-lift animate-stagger-${Math.min(index + 1, 5)} ${
                 isCurrent 
-                  ? 'border-brand-gold shadow-xl shadow-brand-gold/20 bg-gradient-to-br from-white to-[#fff7e1] animate-pulse-glow' 
+                  ? 'border-brand-gold shadow-xl shadow-brand-gold/20 bg-gradient-to-br from-white to-[#f7e1b5] animate-pulse-glow' 
                   : 'border-[#f0e6ff] bg-white'
               } ${!isUnlocked ? 'opacity-60' : ''} ${isUnlocked && !isCurrent ? 'hover:border-brand-gold/50' : ''}`}
             >

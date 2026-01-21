@@ -31,7 +31,7 @@ export function WelcomeAnimation({ onComplete, userName }: WelcomeAnimationProps
   }, [onComplete]);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-[#050816] via-[#120c2c] to-[#341056]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-[#3d074e] via-[#570a70] to-[#943aa2]">
       {/* Animated Background */}
       <div className="absolute inset-0 overflow-hidden">
         {[...Array(20)].map((_, i) => (

@@ -6,11 +6,11 @@ import { Navbar } from '../../components/Navbar';
 import { Ionicons } from '@expo/vector-icons';
 
 const menuItems = [
-  { icon: 'person-outline', label: 'My Profile', color: '#4b0f7b', href: null },
-  { icon: 'bag-outline', label: 'My Orders', color: '#4b0f7b', href: null },
-  { icon: 'heart-outline', label: 'Wishlist', color: '#c12e6d', href: '/wishlist' },
-  { icon: 'diamond-outline', label: 'Rewards & Points', color: '#e3c268', href: '/rewards' },
-  { icon: 'trophy-outline', label: 'Leaderboard', color: '#4b0f7b', href: '/ranks' },
+  { icon: 'person-outline', label: 'My Profile', color: '#570a70', href: null },
+  { icon: 'bag-outline', label: 'My Orders', color: '#570a70', href: null },
+  { icon: 'heart-outline', label: 'Wishlist', color: '#e246a4', href: '/wishlist' },
+  { icon: 'diamond-outline', label: 'Rewards & Points', color: '#e49b09', href: '/rewards' },
+  { icon: 'trophy-outline', label: 'Leaderboard', color: '#570a70', href: '/ranks' },
   { icon: 'chatbubble-outline', label: 'Shopping Buddy', color: '#10b981', href: '/pet' },
   { icon: 'settings-outline', label: 'Settings', color: '#666', href: null },
   { icon: 'help-circle-outline', label: 'Help & Support', color: '#666', href: null },
@@ -27,14 +27,14 @@ export default function ProfilePage() {
       <ScrollView style={styles.scrollView}>
         {/* Profile Header */}
         <LinearGradient
-          colors={['#2a1039', '#4b0f7b']}
+          colors={['#3d074e', '#570a70']}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 0 }}
           style={styles.profileHeader}
         >
           <View style={styles.avatarContainer}>
             <LinearGradient
-              colors={['#f8d572', '#f6c248']}
+              colors={['#f2cd84', '#e49b09']}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
               style={styles.avatar}
@@ -44,7 +44,7 @@ export default function ProfilePage() {
           </View>
           <Text style={styles.userName}>{userName}</Text>
           <View style={styles.pointsContainer}>
-            <Ionicons name="diamond" size={16} color="#e3c268" />
+            <Ionicons name="diamond" size={16} color="#e49b09" />
             <Text style={styles.pointsText}>{rewardPoints} Royale Points</Text>
           </View>
         </LinearGradient>
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   avatarText: {
     fontSize: 32,
     fontWeight: '700',
-    color: '#4b0f7b',
+    color: '#570a70',
   },
   userName: {
     fontSize: 24,
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
   },
   pointsText: {
     fontSize: 14,
-    color: '#e3c268',
+    color: '#e49b09',
     fontWeight: '600',
   },
   menuContainer: {

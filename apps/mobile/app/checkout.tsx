@@ -65,12 +65,12 @@ export default function CheckoutPage() {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Payment Method</Text>
           <TouchableOpacity style={styles.paymentOption}>
-            <Ionicons name="card-outline" size={24} color="#4b0f7b" />
+            <Ionicons name="card-outline" size={24} color="#570a70" />
             <Text style={styles.paymentText}>Paystack</Text>
             <Ionicons name="chevron-forward" size={20} color="#ccc" />
           </TouchableOpacity>
           <TouchableOpacity style={styles.paymentOption}>
-            <Ionicons name="card-outline" size={24} color="#4b0f7b" />
+            <Ionicons name="card-outline" size={24} color="#570a70" />
             <Text style={styles.paymentText}>Flutterwave</Text>
             <Ionicons name="chevron-forward" size={20} color="#ccc" />
           </TouchableOpacity>
@@ -103,7 +103,7 @@ export default function CheckoutPage() {
           }}
         >
           <LinearGradient
-            colors={['#2a1039', '#4b0f7b']}
+            colors={['#3d074e', '#570a70']}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
             style={styles.checkoutGradient}
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
   totalValue: {
     fontSize: 20,
     fontWeight: '700',
-    color: '#4b0f7b',
+    color: '#570a70',
   },
   bottomBar: {
     padding: 20,

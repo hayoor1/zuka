@@ -74,7 +74,7 @@ export default function AuthScreen() {
       style={styles.container}
     >
       <LinearGradient
-        colors={['#2a1039', '#4b0f7b', '#6b1f9b']}
+        colors={['#3d074e', '#570a70', '#943aa2']}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
         style={styles.gradient}
@@ -86,7 +86,7 @@ export default function AuthScreen() {
           {/* Logo */}
           <View style={styles.logoContainer}>
             <LinearGradient
-              colors={['#f8d572', '#f6c248']}
+              colors={['#f2cd84', '#e49b09']}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
               style={styles.logoGradient}
@@ -170,7 +170,7 @@ export default function AuthScreen() {
               disabled={loading}
             >
               <LinearGradient
-                colors={['#2a1039', '#4b0f7b']}
+                colors={['#3d074e', '#570a70']}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 0 }}
                 style={styles.primaryButtonGradient}
@@ -194,7 +194,7 @@ export default function AuthScreen() {
               onPress={handleGuest}
             >
               <LinearGradient
-                colors={['#f8e4b8', '#e3c268']}
+                colors={['#f4d79d', '#e49b09']}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 0 }}
                 style={styles.guestButtonGradient}
@@ -206,11 +206,11 @@ export default function AuthScreen() {
             {/* Social Login */}
             <View style={styles.socialContainer}>
               <TouchableOpacity style={styles.socialButton}>
-                <Ionicons name="logo-google" size={20} color="#4b0f7b" />
+                <Ionicons name="logo-google" size={20} color="#570a70" />
                 <Text style={styles.socialText}>Google</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.socialButton}>
-                <Ionicons name="logo-apple" size={20} color="#4b0f7b" />
+                <Ionicons name="logo-apple" size={20} color="#570a70" />
                 <Text style={styles.socialText}>Apple</Text>
               </TouchableOpacity>
             </View>
@@ -221,15 +221,15 @@ export default function AuthScreen() {
             <Text style={styles.benefitsTitle}>Join Zuka & Get</Text>
             <View style={styles.benefitsList}>
               <View style={styles.benefitItem}>
-                <Ionicons name="diamond-outline" size={20} color="#e3c268" />
+                <Ionicons name="diamond-outline" size={20} color="#e49b09" />
                 <Text style={styles.benefitText}>Earn Royale Points</Text>
               </View>
               <View style={styles.benefitItem}>
-                <Ionicons name="gift-outline" size={20} color="#e3c268" />
+                <Ionicons name="gift-outline" size={20} color="#e49b09" />
                 <Text style={styles.benefitText}>Exclusive Rewards</Text>
               </View>
               <View style={styles.benefitItem}>
-                <Ionicons name="star-outline" size={20} color="#e3c268" />
+                <Ionicons name="star-outline" size={20} color="#e49b09" />
                 <Text style={styles.benefitText}>Early Access</Text>
               </View>
             </View>
@@ -265,7 +265,7 @@ const styles = StyleSheet.create({
   logo: {
     fontSize: 36,
     fontWeight: '700',
-    color: '#4b0f7b',
+    color: '#570a70',
     letterSpacing: 2,
   },
   tagline: {
@@ -298,7 +298,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   toggleButtonActive: {
-    backgroundColor: '#4b0f7b',
+    backgroundColor: '#570a70',
   },
   toggleText: {
     fontSize: 16,
@@ -333,7 +333,7 @@ const styles = StyleSheet.create({
   },
   forgotPasswordText: {
     fontSize: 14,
-    color: '#4b0f7b',
+    color: '#570a70',
     fontWeight: '600',
   },
   primaryButton: {
@@ -376,7 +376,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   guestButtonText: {
-    color: '#4b0f7b',
+    color: '#570a70',
     fontSize: 16,
     fontWeight: '700',
   },
@@ -399,7 +399,7 @@ const styles = StyleSheet.create({
   socialText: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#4b0f7b',
+    color: '#570a70',
   },
   benefitsContainer: {
     alignItems: 'center',

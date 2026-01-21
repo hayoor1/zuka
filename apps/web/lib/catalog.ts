@@ -1,12 +1,29 @@
 import type { Product } from '@gemcart/core';
 
 export type Gender = 'men' | 'women' | 'kids' | 'unisex';
-export type Category = 'tops' | 'dresses' | 'shoes' | 'trousers' | 'jewellery' | 'activewear' | 'swimwear' | 'lingerie' | 'beauty' | 'bags' | 'outerwear' | 'traditional';
+export type Category =
+  | 'tshirts'
+  | 'hoodies'
+  | 'trousers'
+  | 'pants'
+  | 'skirts'
+  | 'dresses'
+  | 'shoes'
+  | 'bags'
+  | 'jewellery'
+  | 'rings'
+  | 'activewear'
+  | 'swimwear'
+  | 'lingerie'
+  | 'beauty'
+  | 'outerwear'
+  | 'nativewear';
 
 export type CatalogProduct = Product & {
   gender: Gender;
   category: Category;
   imageUrl: string;
+  brand: string;
 };
 
 // Note: Using source.unsplash.com category queries (royalty-free demo). Images rotate but remain valid.
@@ -18,12 +35,13 @@ export const catalog: CatalogProduct[] = [
     description: 'Soft crew neck cotton tee',
     priceNGN: 850000,
     images: [],
-    tags: ['tee','tops'],
+    tags: ['tee','tshirt'],
     sizes: ['S','M','L','XL'],
     colors: ['black','white','green'],
     inStock: true,
     gender: 'men',
-    category: 'tops',
+    category: 'tshirts',
+    brand: 'Luxe Atelier',
     imageUrl: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=80',
   },
   {
@@ -33,12 +51,13 @@ export const catalog: CatalogProduct[] = [
     description: 'Cozy fleece hoodie for cool nights',
     priceNGN: 1950000,
     images: [],
-    tags: ['hoodie','tops'],
+    tags: ['hoodie'],
     sizes: ['M','L','XL'],
     colors: ['black','grey'],
     inStock: true,
     gender: 'men',
-    category: 'tops',
+    category: 'hoodies',
+    brand: 'Naija Street',
     imageUrl: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80',
   },
   {
@@ -54,6 +73,7 @@ export const catalog: CatalogProduct[] = [
     inStock: true,
     gender: 'men',
     category: 'trousers',
+    brand: 'Urban Motion',
     imageUrl: 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=900&q=80',
   },
   {
@@ -69,7 +89,8 @@ export const catalog: CatalogProduct[] = [
     inStock: true,
     gender: 'men',
     category: 'shoes',
-    imageUrl: 'https://via.placeholder.com/900x900/4b0f7b/e3c268?text=Naija+Runner+Sneakers',
+    brand: 'Kicks & Co',
+    imageUrl: 'https://via.placeholder.com/900x900/570a70/e49b09?text=Naija+Runner+Sneakers',
   },
   {
     id: 'w-top-tee-1',
@@ -78,13 +99,14 @@ export const catalog: CatalogProduct[] = [
     description: 'Relaxed fit tee with heritage print',
     priceNGN: 920000,
     images: [],
-    tags: ['tee','tops'],
+    tags: ['tee','tshirt'],
     sizes: ['XS','S','M','L'],
     colors: ['white','green','black'],
     inStock: true,
     gender: 'women',
-    category: 'tops',
-    imageUrl: 'https://via.placeholder.com/900x900/4b0f7b/e3c268?text=Heritage+Tee',
+    category: 'tshirts',
+    brand: 'Naija Street',
+    imageUrl: 'https://via.placeholder.com/900x900/570a70/e49b09?text=Heritage+Tee',
   },
   {
     id: 'w-dress-1',
@@ -99,6 +121,7 @@ export const catalog: CatalogProduct[] = [
     inStock: true,
     gender: 'women',
     category: 'dresses',
+    brand: 'Ankara Vibes',
     imageUrl: 'https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&w=900&q=80',
   },
   {
@@ -114,7 +137,8 @@ export const catalog: CatalogProduct[] = [
     inStock: true,
     gender: 'women',
     category: 'shoes',
-    imageUrl: 'https://via.placeholder.com/900x900/4b0f7b/e3c268?text=Zuka+Fashion',
+    brand: 'Luxe Steps',
+    imageUrl: 'https://via.placeholder.com/900x900/570a70/e49b09?text=Brand+Edit',
   },
   {
     id: 'w-trouser-1',
@@ -123,13 +147,30 @@ export const catalog: CatalogProduct[] = [
     description: 'Sharp cut with comfortable stretch',
     priceNGN: 1680000,
     images: [],
-    tags: ['trousers','tailored'],
+    tags: ['pants','tailored'],
     sizes: ['S','M','L'],
     colors: ['black','khaki'],
     inStock: true,
     gender: 'women',
-    category: 'trousers',
+    category: 'pants',
+    brand: 'Modern Muse',
     imageUrl: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=900&q=80',
+  },
+  {
+    id: 'w-skirt-1',
+    slug: 'pleated-midi-skirt',
+    name: 'Pleated Midi Skirt',
+    description: 'Flowy pleated skirt for day-to-night styling',
+    priceNGN: 1420000,
+    images: [],
+    tags: ['skirts','pleated'],
+    sizes: ['S','M','L'],
+    colors: ['black','cream'],
+    inStock: true,
+    gender: 'women',
+    category: 'skirts',
+    brand: 'Modern Muse',
+    imageUrl: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=900&q=80',
   },
   {
     id: 'jewel-1',
@@ -144,7 +185,24 @@ export const catalog: CatalogProduct[] = [
     inStock: true,
     gender: 'women',
     category: 'jewellery',
-    imageUrl: 'https://images.unsplash.com/photo-1522312298940-653d2b79dbb5?auto=format&fit=crop&w=900&q=80',
+    brand: 'Heritage Gems',
+    imageUrl: 'https://images.unsplash.com/photo-1460353581641-37baddab0fa2?auto=format&fit=crop&w=900&q=80',
+  },
+  {
+    id: 'ring-1',
+    slug: 'signature-gold-ring',
+    name: 'Signature Gold Ring',
+    description: 'Minimal gold ring with polished finish',
+    priceNGN: 560000,
+    images: [],
+    tags: ['rings','jewellery'],
+    sizes: ['6','7','8'],
+    colors: ['gold'],
+    inStock: true,
+    gender: 'unisex',
+    category: 'rings',
+    brand: 'Heritage Gems',
+    imageUrl: 'https://images.unsplash.com/photo-1512314889357-e157c22f938d?auto=format&fit=crop&w=900&q=80',
   },
   // Activewear
   {
@@ -160,6 +218,7 @@ export const catalog: CatalogProduct[] = [
     inStock: true,
     gender: 'women',
     category: 'activewear',
+    brand: 'Urban Motion',
     imageUrl: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80',
   },
   {
@@ -175,6 +234,7 @@ export const catalog: CatalogProduct[] = [
     inStock: true,
     gender: 'men',
     category: 'activewear',
+    brand: 'Nike',
     imageUrl: 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=900&q=80',
   },
   // Swimwear
@@ -191,7 +251,8 @@ export const catalog: CatalogProduct[] = [
     inStock: true,
     gender: 'women',
     category: 'swimwear',
-    imageUrl: 'https://via.placeholder.com/900x900/4b0f7b/e3c268?text=Zuka+Fashion',
+    brand: 'Coco Beach',
+    imageUrl: 'https://via.placeholder.com/900x900/570a70/e49b09?text=Brand+Edit',
   },
   // Bags & Accessories
   {
@@ -207,7 +268,8 @@ export const catalog: CatalogProduct[] = [
     inStock: true,
     gender: 'women',
     category: 'bags',
-    imageUrl: 'https://images.unsplash.com/photo-1522312298940-653d2b79dbb5?auto=format&fit=crop&w=900&q=80',
+    brand: 'Luxe Atelier',
+    imageUrl: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80',
   },
   {
     id: 'w-bag-2',
@@ -222,9 +284,10 @@ export const catalog: CatalogProduct[] = [
     inStock: true,
     gender: 'women',
     category: 'bags',
+    brand: 'Luxe Atelier',
     imageUrl: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80',
   },
-  // Traditional Wear
+  // Native Wear
   {
     id: 'w-trad-1',
     slug: 'ankara-maxi-dress',
@@ -232,12 +295,13 @@ export const catalog: CatalogProduct[] = [
     description: 'Flowing maxi with authentic Ankara print',
     priceNGN: 3200000,
     images: [],
-    tags: ['traditional','ankara'],
+    tags: ['nativewear','ankara'],
     sizes: ['S','M','L','XL'],
     colors: ['multi'],
     inStock: true,
     gender: 'women',
-    category: 'traditional',
+    category: 'nativewear',
+    brand: 'Ankara Vibes',
     imageUrl: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=900&q=80',
   },
   {
@@ -247,12 +311,13 @@ export const catalog: CatalogProduct[] = [
     description: 'Traditional Agbada with embroidery',
     priceNGN: 4500000,
     images: [],
-    tags: ['traditional','agbada'],
+    tags: ['nativewear','agbada'],
     sizes: ['M','L','XL'],
     colors: ['white','gold'],
     inStock: true,
     gender: 'men',
-    category: 'traditional',
+    category: 'nativewear',
+    brand: 'Royal Agbada',
     imageUrl: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80',
   },
   // Outerwear
@@ -269,6 +334,7 @@ export const catalog: CatalogProduct[] = [
     inStock: true,
     gender: 'women',
     category: 'outerwear',
+    brand: 'Naija Street',
     imageUrl: 'https://images.unsplash.com/photo-1519744792095-2f2205e87b6f?auto=format&fit=crop&w=900&q=80',
   },
   {
@@ -284,6 +350,7 @@ export const catalog: CatalogProduct[] = [
     inStock: true,
     gender: 'men',
     category: 'outerwear',
+    brand: 'Urban Motion',
     imageUrl: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80',
   },
   // Beauty
@@ -300,6 +367,7 @@ export const catalog: CatalogProduct[] = [
     inStock: true,
     gender: 'unisex',
     category: 'beauty',
+    brand: 'Pure Essence',
     imageUrl: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=900&q=80',
   },
   {
@@ -315,6 +383,7 @@ export const catalog: CatalogProduct[] = [
     inStock: true,
     gender: 'women',
     category: 'beauty',
+    brand: 'Pure Essence',
     imageUrl: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=900&q=80',
   },
   // Kids
@@ -331,6 +400,7 @@ export const catalog: CatalogProduct[] = [
     inStock: true,
     gender: 'kids',
     category: 'dresses',
+    brand: 'Little Stars',
     imageUrl: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80',
   },
   {
@@ -345,17 +415,35 @@ export const catalog: CatalogProduct[] = [
     colors: ['green','white'],
     inStock: true,
     gender: 'kids',
-    category: 'tops',
+    category: 'tshirts',
+    brand: 'Little Stars',
     imageUrl: 'https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?auto=format&fit=crop&w=900&q=80',
   },
 ];
 
-export function listProducts(gender?: Gender, category?: Category): CatalogProduct[] {
-  return catalog.filter(p => (!gender || p.gender === gender) && (!category || p.category === category));
+export function listProducts(gender?: Gender, category?: Category, brand?: string): CatalogProduct[] {
+  return catalog.filter(p =>
+    (!gender || p.gender === gender) &&
+    (!category || p.category === category) &&
+    (!brand || p.brand === brand)
+  );
+}
+
+export function listBrands(): string[] {
+  const brands = new Set(catalog.map(p => p.brand));
+  return Array.from(brands).sort();
+}
+
+export function listBrandStats(): Array<{ name: string; count: number }> {
+  const counts = new Map<string, number>();
+  catalog.forEach((product) => {
+    counts.set(product.brand, (counts.get(product.brand) ?? 0) + 1);
+  });
+  return Array.from(counts.entries())
+    .map(([name, count]) => ({ name, count }))
+    .sort((a, b) => a.name.localeCompare(b.name));
 }
 
 export function getBySlug(slug: string): CatalogProduct | undefined {
   return catalog.find(p => p.slug === slug);
 }
-
-

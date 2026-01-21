@@ -17,6 +17,7 @@ interface ProductCardProps {
   originalPrice?: number;
   imageUrl: string;
   slug: string;
+  brand?: string;
   badge?: string;
   rating?: number;
   reviewCount?: number;
@@ -32,6 +33,7 @@ export function ProductCard({
   originalPrice,
   imageUrl,
   slug,
+  brand,
   badge,
   rating = 4.5,
   reviewCount = 0,
@@ -44,25 +46,25 @@ export function ProductCard({
 
   const toneStyles: Record<Tone, { price: string; points: string; pill: string; quickAdd: string; icon: string }> = {
     neutral: {
-      price: 'text-[#4b0f7b]',
-      points: 'bg-[#f3e9ff] text-[#4b0f7b]',
-      pill: 'bg-[#f9f2ff] text-[#4b0f7b]',
-      quickAdd: 'from-[#4b0f7b] to-[#321052]',
-      icon: 'text-[#4b0f7b]'
+      price: 'text-[#570a70]',
+      points: 'bg-[#e6daea] text-[#570a70]',
+      pill: 'bg-[#f1e9f4] text-[#570a70]',
+      quickAdd: 'from-[#570a70] to-[#3d074e]',
+      icon: 'text-[#570a70]'
     },
     feminine: {
-      price: 'text-[#c12e6d]',
-      points: 'bg-[#ffe8f3] text-[#c12e6d]',
-      pill: 'bg-[#fff2f9] text-[#c12e6d]',
-      quickAdd: 'from-[#ff7ac0] to-[#d94fa0]',
-      icon: 'text-[#c12e6d]'
+      price: 'text-[#e246a4]',
+      points: 'bg-[#f6c8e4] text-[#e246a4]',
+      pill: 'bg-[#f9daed] text-[#e246a4]',
+      quickAdd: 'from-[#b21af5] to-[#e246a4]',
+      icon: 'text-[#e246a4]'
     },
     masculine: {
-      price: 'text-[#f2c46c]',
-      points: 'bg-[#1f1e2c] text-[#f2c46c]',
-      pill: 'bg-[#1c1b29] text-[#f2c46c]',
-      quickAdd: 'from-[#0f172a] to-[#3f2c59]',
-      icon: 'text-[#f2c46c]'
+      price: 'text-[#e49b09]',
+      points: 'bg-[#2f063d] text-[#e49b09]',
+      pill: 'bg-[#260432] text-[#e49b09]',
+      quickAdd: 'from-[#3d074e] to-[#570a70]',
+      icon: 'text-[#e49b09]'
     }
   };
 
@@ -94,7 +96,7 @@ export function ProductCard({
             sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
             className="object-cover transition-transform duration-500 group-hover:scale-105"
             onError={(e: any) => {
-              e.currentTarget.src = 'https://via.placeholder.com/600x600/f5f5f5/999999?text=Zuka';
+              e.currentTarget.src = '/brand/zuka-portrait-trimmed.png';
             }}
           />
           
@@ -111,7 +113,7 @@ export function ProductCard({
             }}
             className={`absolute top-3 right-3 p-2 bg-white rounded-full shadow-md transition-all ${
               isHovered ? 'opacity-100' : 'opacity-0'
-            } hover:scale-110 ${isWishlisted ? 'text-[#e04c7c]' : palette.icon}`}
+            } hover:scale-110 ${isWishlisted ? 'text-[#e246a4]' : palette.icon}`}
           >
             <Heart className={`h-4 w-4 ${isWishlisted ? 'fill-current' : ''}`} />
           </button>
@@ -135,6 +137,11 @@ export function ProductCard({
 
       <div className="p-4">
         <Link href={`/shop/${slug}`}>
+          {brand && (
+            <p className="text-[10px] uppercase tracking-[0.3em] text-gray-500 mb-2">
+              {brand}
+            </p>
+          )}
           <h3 className="font-medium text-gray-900 mb-2 line-clamp-2 hover:text-brand-purple transition-colors">
             {name}
           </h3>

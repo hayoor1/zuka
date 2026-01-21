@@ -104,7 +104,7 @@ export default function HomePage() {
           onPress={() => router.push('/shop')}
         >
           <LinearGradient
-            colors={['#f8e4b8', '#e3c268']}
+            colors={['#f4d79d', '#e49b09']}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
             style={styles.heroButtonGradient}
@@ -343,7 +343,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   heroButtonText: {
-    color: '#4b0f7b',
+    color: '#570a70',
     fontSize: 16,
     fontWeight: '700',
   },
@@ -364,7 +364,7 @@ const styles = StyleSheet.create({
   },
   dotActive: {
     width: 32,
-    backgroundColor: '#e3c268',
+    backgroundColor: '#e49b09',
   },
   section: {
     paddingVertical: 48,
@@ -379,7 +379,7 @@ const styles = StyleSheet.create({
   },
   badge: {
     fontSize: 10,
-    color: '#4b0f7b',
+    color: '#570a70',
     letterSpacing: 2,
     marginBottom: 8,
     fontWeight: '700',
@@ -387,7 +387,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 28,
     fontWeight: '700',
-    color: '#4b0f7b',
+    color: '#570a70',
     marginBottom: 8,
     textAlign: 'center',
   },
@@ -441,7 +441,7 @@ const styles = StyleSheet.create({
   },
   feminineBadge: {
     fontSize: 10,
-    color: '#c12e6d',
+    color: '#e246a4',
     letterSpacing: 2,
     marginBottom: 8,
     fontWeight: '700',
@@ -449,7 +449,7 @@ const styles = StyleSheet.create({
   feminineTitle: {
     fontSize: 28,
     fontWeight: '700',
-    color: '#c12e6d',
+    color: '#e246a4',
     marginBottom: 8,
   },
   feminineSubtitle: {
@@ -460,7 +460,7 @@ const styles = StyleSheet.create({
   },
   masculineBadge: {
     fontSize: 10,
-    color: '#e3c268',
+    color: '#e49b09',
     letterSpacing: 2,
     marginBottom: 8,
     fontWeight: '700',

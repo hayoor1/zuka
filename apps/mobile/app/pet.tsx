@@ -155,7 +155,7 @@ export default function PetPage() {
               </View>
               {message.role === 'user' && (
                 <View style={styles.userAvatar}>
-                  <Ionicons name="person" size={16} color="#4b0f7b" />
+                  <Ionicons name="person" size={16} color="#570a70" />
                 </View>
               )}
             </View>
@@ -180,7 +180,7 @@ export default function PetPage() {
               disabled={!inputText.trim()}
             >
               <LinearGradient
-                colors={['#2a1039', '#4b0f7b']}
+                colors={['#3d074e', '#570a70']}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 0 }}
                 style={styles.sendButtonGradient}
@@ -231,7 +231,7 @@ const styles = StyleSheet.create({
   personaLabel: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#4b0f7b',
+    color: '#570a70',
     marginBottom: 12,
   },
   personaScroll: {
@@ -249,7 +249,7 @@ const styles = StyleSheet.create({
     borderColor: 'transparent',
   },
   personaButtonActive: {
-    borderColor: '#4b0f7b',
+    borderColor: '#570a70',
   },
   personaEmoji: {
     fontSize: 20,
@@ -305,8 +305,8 @@ const styles = StyleSheet.create({
     borderColor: '#f0e6ff',
   },
   userMessageContent: {
-    backgroundColor: '#4b0f7b',
-    borderColor: '#4b0f7b',
+    backgroundColor: '#570a70',
+    borderColor: '#570a70',
   },
   messageText: {
     fontSize: 14,
@@ -371,7 +371,7 @@ const styles = StyleSheet.create({
   },
   suggestionText: {
     fontSize: 12,
-    color: '#4b0f7b',
+    color: '#570a70',
     fontWeight: '600',
   },
 });

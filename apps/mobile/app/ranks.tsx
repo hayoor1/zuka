@@ -70,7 +70,7 @@ export default function RanksPage() {
           >
             <View style={styles.statusHeader}>
               <View style={styles.badgeContainer}>
-                <Ionicons name="sparkles" size={16} color="#4b0f7b" />
+                <Ionicons name="sparkles" size={16} color="#570a70" />
                 <Text style={styles.badgeText}>Current Rank</Text>
               </View>
             </View>
@@ -100,7 +100,7 @@ export default function RanksPage() {
                 </View>
                 <View style={styles.progressBar}>
                   <LinearGradient
-                    colors={['#2a1039', '#4b0f7b']}
+                    colors={['#3d074e', '#570a70']}
                     start={{ x: 0, y: 0 }}
                     end={{ x: 1, y: 0 }}
                     style={[styles.progressFill, { width: `${Math.min(100, progress)}%` }]}
@@ -117,7 +117,7 @@ export default function RanksPage() {
               <Text style={styles.perksTitle}>Your Perks</Text>
               {gemLevelDetails[currentLevel as keyof typeof gemLevelDetails].perks.map((perk, index) => (
                 <View key={index} style={styles.perkItem}>
-                  <Ionicons name="checkmark-circle" size={20} color="#e3c268" />
+                  <Ionicons name="checkmark-circle" size={20} color="#e49b09" />
                   <Text style={styles.perkText}>{perk}</Text>
                 </View>
               ))}
@@ -131,7 +131,7 @@ export default function RanksPage() {
           {xpSources.map((source, index) => (
             <View key={index} style={styles.sourceItem}>
               <View style={styles.sourceIconContainer}>
-                <Ionicons name={source.icon as any} size={20} color="#4b0f7b" />
+                <Ionicons name={source.icon as any} size={20} color="#570a70" />
               </View>
               <Text style={styles.sourceText}>{source.action}</Text>
               <View style={styles.xpBadge}>
@@ -184,7 +184,7 @@ export default function RanksPage() {
                   <View style={styles.levelCardPerks}>
                     {details.perks.slice(0, 2).map((perk, idx) => (
                       <View key={idx} style={styles.levelCardPerk}>
-                        <Ionicons name="gift" size={12} color="#e3c268" />
+                        <Ionicons name="gift" size={12} color="#e49b09" />
                         <Text style={styles.levelCardPerkText}>{perk}</Text>
                       </View>
                     ))}
@@ -214,7 +214,7 @@ const styles = StyleSheet.create({
   },
   badge: {
     fontSize: 10,
-    color: '#4b0f7b',
+    color: '#570a70',
     letterSpacing: 2,
     marginBottom: 8,
     fontWeight: '700',
@@ -222,12 +222,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     fontWeight: '700',
-    color: '#4b0f7b',
+    color: '#570a70',
     marginBottom: 8,
   },
   subtitle: {
     fontSize: 16,
-    color: '#4b0f7b',
+    color: '#570a70',
     opacity: 0.7,
     textAlign: 'center',
   },
@@ -238,7 +238,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     borderWidth: 1,
     borderColor: '#f0e6ff',
-    shadowColor: '#4b0f7b',
+    shadowColor: '#570a70',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
     shadowRadius: 12,
@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
   badgeText: {
     fontSize: 12,
     fontWeight: '700',
-    color: '#4b0f7b',
+    color: '#570a70',
   },
   levelInfo: {
     flexDirection: 'row',
@@ -284,12 +284,12 @@ const styles = StyleSheet.create({
   levelName: {
     fontSize: 28,
     fontWeight: '700',
-    color: '#4b0f7b',
+    color: '#570a70',
     marginBottom: 4,
   },
   levelXP: {
     fontSize: 14,
-    color: '#4b0f7b',
+    color: '#570a70',
     opacity: 0.7,
   },
   progressContainer: {
@@ -303,12 +303,12 @@ const styles = StyleSheet.create({
   progressLabel: {
     fontSize: 12,
     fontWeight: '600',
-    color: '#4b0f7b',
+    color: '#570a70',
     opacity: 0.7,
   },
   progressValue: {
     fontSize: 12,
-    color: '#4b0f7b',
+    color: '#570a70',
     opacity: 0.7,
   },
   progressBar: {
@@ -324,7 +324,7 @@ const styles = StyleSheet.create({
   },
   progressText: {
     fontSize: 12,
-    color: '#4b0f7b',
+    color: '#570a70',
     opacity: 0.7,
   },
   perksContainer: {
@@ -333,7 +333,7 @@ const styles = StyleSheet.create({
   perksTitle: {
     fontSize: 16,
     fontWeight: '700',
-    color: '#4b0f7b',
+    color: '#570a70',
     marginBottom: 12,
   },
   perkItem: {
@@ -344,7 +344,7 @@ const styles = StyleSheet.create({
   },
   perkText: {
     fontSize: 14,
-    color: '#4b0f7b',
+    color: '#570a70',
     opacity: 0.8,
   },
   sourcesCard: {
@@ -359,7 +359,7 @@ const styles = StyleSheet.create({
   sourcesTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#4b0f7b',
+    color: '#570a70',
     marginBottom: 16,
   },
   sourceItem: {
@@ -384,7 +384,7 @@ const styles = StyleSheet.create({
   sourceText: {
     flex: 1,
     fontSize: 14,
-    color: '#4b0f7b',
+    color: '#570a70',
     opacity: 0.8,
   },
   xpBadge: {
@@ -396,7 +396,7 @@ const styles = StyleSheet.create({
   xpBadgeText: {
     fontSize: 12,
     fontWeight: '700',
-    color: '#4b0f7b',
+    color: '#570a70',
   },
   levelsSection: {
     paddingHorizontal: 20,
@@ -405,7 +405,7 @@ const styles = StyleSheet.create({
   levelsTitle: {
     fontSize: 24,
     fontWeight: '700',
-    color: '#4b0f7b',
+    color: '#570a70',
     marginBottom: 16,
     textAlign: 'center',
   },
@@ -420,7 +420,7 @@ const styles = StyleSheet.create({
     borderColor: '#f0e6ff',
   },
   levelCardCurrent: {
-    borderColor: '#e3c268',
+    borderColor: '#e49b09',
     backgroundColor: '#fff7e1',
   },
   levelCardHeader: {
@@ -442,16 +442,16 @@ const styles = StyleSheet.create({
   levelCardName: {
     fontSize: 16,
     fontWeight: '700',
-    color: '#4b0f7b',
+    color: '#570a70',
     marginBottom: 2,
   },
   levelCardXP: {
     fontSize: 12,
-    color: '#4b0f7b',
+    color: '#570a70',
     opacity: 0.6,
   },
   currentBadge: {
-    backgroundColor: '#e3c268',
+    backgroundColor: '#e49b09',
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 8,
@@ -459,7 +459,7 @@ const styles = StyleSheet.create({
   currentBadgeText: {
     fontSize: 10,
     fontWeight: '700',
-    color: '#4b0f7b',
+    color: '#570a70',
   },
   levelCardPerks: {
     gap: 6,
@@ -471,7 +471,7 @@ const styles = StyleSheet.create({
   },
   levelCardPerkText: {
     fontSize: 12,
-    color: '#4b0f7b',
+    color: '#570a70',
     opacity: 0.7,
   },
 });

@@ -39,7 +39,7 @@ export function CelebrationAnimation({ level, onComplete, userName }: Celebratio
   }, [onComplete]);
 
   // Confetti particles
-  const confettiColors = ['#e3c268', '#4b0f7b', '#f59e0b', '#ef4444', '#3b82f6', '#10b981'];
+  const confettiColors = ['#e49b09', '#570a70', '#f59e0b', '#ef4444', '#3b82f6', '#10b981'];
 
   return (
     <>

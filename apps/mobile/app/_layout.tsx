@@ -41,7 +41,7 @@ export default function RootLayout() {
       <>
         <StatusBar style="light" />
         <LinearGradient
-          colors={['#2a1039', '#4b0f7b', '#6b1f9b']}
+          colors={['#3d074e', '#570a70', '#943aa2']}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 1 }}
           style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
@@ -59,7 +59,7 @@ export default function RootLayout() {
               }}
             >
               <LinearGradient
-                colors={['#f8d572', '#f6c248']}
+                colors={['#f2cd84', '#e49b09']}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 0 }}
                 style={{
@@ -70,10 +70,10 @@ export default function RootLayout() {
                   alignItems: 'center',
                 }}
               >
-                <ActivityIndicator size="large" color="#4b0f7b" />
+                <ActivityIndicator size="large" color="#570a70" />
               </LinearGradient>
             </View>
-            <ActivityIndicator size="large" color="#e3c268" />
+            <ActivityIndicator size="large" color="#e49b09" />
           </View>
         </LinearGradient>
       </>

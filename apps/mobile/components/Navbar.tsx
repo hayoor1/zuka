@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   TextInput,
   Platform,
+  Image,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
@@ -22,7 +23,7 @@ export function Navbar() {
     <View style={styles.container}>
       {/* Top Bar */}
       <LinearGradient
-        colors={['#2a1039', '#4b0f7b']}
+        colors={['#3d074e', '#570a70']}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 0 }}
         style={styles.topBar}
@@ -35,14 +36,11 @@ export function Navbar() {
       {/* Main Navbar */}
       <View style={styles.navbar}>
         <TouchableOpacity onPress={() => router.push('/')}>
-          <LinearGradient
-            colors={['#f8d572', '#f6c248']}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 0 }}
-            style={styles.logoGradient}
-          >
-            <Text style={styles.logo}>ZUKA</Text>
-          </LinearGradient>
+          <Image
+            source={require('../assets/brand/zuka-wordmark-trimmed.png')}
+            style={styles.logoImage}
+            resizeMode="contain"
+          />
         </TouchableOpacity>
 
         <View style={styles.rightSection}>
@@ -51,7 +49,7 @@ export function Navbar() {
             onPress={() => setSearchOpen(!searchOpen)}
             style={styles.iconButton}
           >
-            <Ionicons name="search" size={22} color="#4b0f7b" />
+            <Ionicons name="search" size={22} color="#570a70" />
           </TouchableOpacity>
 
           {/* Reward Points */}
@@ -60,12 +58,12 @@ export function Navbar() {
             style={styles.rewardBadge}
           >
             <LinearGradient
-              colors={['#f8e4b8', '#e3c268']}
+              colors={['#f4d79d', '#e49b09']}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
               style={styles.rewardGradient}
             >
-              <Ionicons name="diamond" size={14} color="#4b0f7b" />
+              <Ionicons name="diamond" size={14} color="#570a70" />
               <Text style={styles.rewardText}>{rewardPoints}</Text>
             </LinearGradient>
           </TouchableOpacity>
@@ -76,7 +74,7 @@ export function Navbar() {
             style={styles.iconButton}
           >
             <View>
-              <Ionicons name="heart-outline" size={22} color="#4b0f7b" />
+              <Ionicons name="heart-outline" size={22} color="#570a70" />
               {wishlistCount > 0 && (
                 <View style={styles.badge}>
                   <Text style={styles.badgeText}>{wishlistCount}</Text>
@@ -91,7 +89,7 @@ export function Navbar() {
             style={styles.iconButton}
           >
             <View>
-              <Ionicons name="bag-outline" size={22} color="#4b0f7b" />
+              <Ionicons name="bag-outline" size={22} color="#570a70" />
               {cartCount > 0 && (
                 <View style={styles.badge}>
                   <Text style={styles.badgeText}>{cartCount}</Text>
@@ -105,7 +103,7 @@ export function Navbar() {
             onPress={() => router.push('/profile')}
             style={styles.iconButton}
           >
-            <Ionicons name="person-outline" size={22} color="#4b0f7b" />
+            <Ionicons name="person-outline" size={22} color="#570a70" />
           </TouchableOpacity>
         </View>
       </View>
@@ -158,16 +156,9 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     height: 60,
   },
-  logoGradient: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 4,
-  },
-  logo: {
-    fontSize: 20,
-    fontWeight: '700',
-    color: '#4b0f7b',
-    letterSpacing: 1,
+  logoImage: {
+    height: 28,
+    width: 96,
   },
   rightSection: {
     flexDirection: 'row',
@@ -190,7 +181,7 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   rewardText: {
-    color: '#4b0f7b',
+    color: '#570a70',
     fontSize: 11,
     fontWeight: '700',
     letterSpacing: 0.5,
@@ -199,7 +190,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: -2,
     right: -2,
-    backgroundColor: '#e3c268',
+    backgroundColor: '#e49b09',
     borderRadius: 10,
     minWidth: 18,
     height: 18,
@@ -208,7 +199,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 4,
   },
   badgeText: {
-    color: '#4b0f7b',
+    color: '#570a70',
     fontSize: 9,
     fontWeight: '700',
   },

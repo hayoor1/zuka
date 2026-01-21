@@ -4,7 +4,7 @@ import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Card, Button } from '@gemcart/ui';
-import { listProducts, type Gender, type Category } from '../../../lib/catalog';
+import { listProducts, listBrandStats, type Gender, type Category } from '../../../lib/catalog';
 import { ProductCard } from '../../../components/ProductCard';
 import { Breadcrumb } from '../../../components/Breadcrumb';
 import { 
@@ -12,6 +12,7 @@ import {
   Filter, 
   ShoppingBag, 
   ChevronDown,
+  ChevronUp,
   Grid3x3,
   List,
   X
@@ -22,11 +23,26 @@ function ShopPageContent() {
   const [searchQuery, setSearchQuery] = useState('');
   const [gender, setGender] = useState<Gender | 'all'>('all');
   const [category, setCategory] = useState<Category | 'all'>('all');
+  const [brand, setBrand] = useState<string | 'all'>('all');
   const [priceRange, setPriceRange] = useState<'all' | 'under-500k' | '500k-1m' | '1m-2m' | 'over-2m'>('all');
   const [sortBy, setSortBy] = useState<'featured' | 'price-low' | 'price-high' | 'newest'>('featured');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [showFilters, setShowFilters] = useState(false);
   const [showSale, setShowSale] = useState(false);
+  
+  // Collapsible filter sections
+  const [expandedFilters, setExpandedFilters] = useState<Record<string, boolean>>({
+    brand: false,
+    category: false,
+    price: false,
+  });
+
+  const toggleFilter = (filterName: string) => {
+    setExpandedFilters(prev => ({
+      ...prev,
+      [filterName]: !prev[filterName]
+    }));
+  };
 
   const themePresets: Record<'all' | 'women' | 'men', {
     panel: string;
@@ -45,18 +61,18 @@ function ShopPageContent() {
       filterButtonActive: 'bg-brand-gradient text-white border-none'
     },
     women: {
-      panel: 'bg-gradient-to-br from-[#fff0fa] via-[#ffeef6] to-[#fff8f9]',
-      heading: 'text-[#c12e6d]',
-      subtext: 'text-[#a83b84]',
-      accentChip: 'bg-[#ffe5f2] text-[#c12e6d]',
-      filterButton: 'bg-white/70 border border-pink-100 text-[#c12e6d]',
-      filterButtonActive: 'bg-[#c12e6d] text-white border-none'
+      panel: 'bg-gradient-to-br from-[#f9daed] via-[#f6c8e4] to-[#f1e9f4]',
+      heading: 'text-[#e246a4]',
+      subtext: 'text-[#943aa2]',
+      accentChip: 'bg-[#f6c8e4] text-[#e246a4]',
+      filterButton: 'bg-white/70 border border-[#f6c8e4] text-[#e246a4]',
+      filterButtonActive: 'bg-[#e246a4] text-white border-none'
     },
     men: {
-      panel: 'bg-gradient-to-br from-[#0d1024] via-[#1c1a2f] to-[#312547] text-white',
+      panel: 'bg-gradient-to-br from-[#3d074e] via-[#570a70] to-[#943aa2] text-white',
       heading: 'text-white',
       subtext: 'text-white/70',
-      accentChip: 'bg-[#201b34] text-[#f3c16d]',
+      accentChip: 'bg-[#2f063d] text-[#e49b09]',
       filterButton: 'bg-[#1f1b2c] border border-white/10 text-white',
       filterButtonActive: 'bg-brand-gold-gradient text-brand-purple border-none'
     }
@@ -74,6 +90,8 @@ function ShopPageContent() {
     const newGender = (genderParam === 'women' || genderParam === 'men' || genderParam === 'kids' || genderParam === 'unisex') 
       ? (genderParam as Gender) 
       : 'all';
+    const brandParam = searchParams.get('brand');
+    const newBrand = brandParam ? decodeURIComponent(brandParam) : 'all';
     
     // If gender changed, reset category to 'all' to show only relevant categories
     if (newGender !== gender) {
@@ -82,6 +100,7 @@ function ShopPageContent() {
     } else {
       setGender(newGender);
     }
+    setBrand(newBrand);
     
     setShowSale(false);
     setSortBy('featured');
@@ -89,20 +108,108 @@ function ShopPageContent() {
     const categoryParam = searchParams.get('category');
     if (categoryParam) {
       const categoryMap: Record<string, Category> = {
+        // T-Shirts & Tops
+        'tshirts': 'tshirts',
+        'tshirt': 'tshirts',
+        't-shirt': 'tshirts',
+        't-shirts': 'tshirts',
+        'tees': 'tshirts',
+        'tops': 'tshirts',
+        't-shirts-vests': 'tshirts',
+        // Shirts
+        'shirts': 'tshirts',
+        'blouses': 'tshirts',
+        'blouses-shirts': 'tshirts',
+        // Polo
+        'polo': 'tshirts',
+        'polo-shirts': 'tshirts',
+        // Hoodies
+        'hoodies': 'hoodies',
+        'hoodie': 'hoodies',
+        'sweatshirts': 'hoodies',
+        'hoodies-sweatshirts': 'hoodies',
+        // Trousers & Pants
+        'trousers': 'trousers',
+        'trousers-chinos': 'trousers',
+        'trousers-leggings': 'trousers',
+        'chinos': 'trousers',
+        'pants': 'pants',
+        // Jeans
+        'jeans': 'trousers',
+        // Shorts
+        'shorts': 'trousers',
+        // Joggers
+        'joggers': 'trousers',
+        // Skirts
+        'skirt': 'skirts',
+        'skirts': 'skirts',
+        // Dresses
+        'dresses': 'dresses',
+        'dress': 'dresses',
+        // Native Wear
+        'nativewear': 'nativewear',
+        'native-wear': 'nativewear',
+        'traditional': 'nativewear',
+        'african-native-wear': 'nativewear',
+        // Outerwear
+        'outerwear': 'outerwear',
+        'jackets': 'outerwear',
+        'coats': 'outerwear',
+        'jackets-coats': 'outerwear',
+        // Knitwear
+        'knitwear': 'hoodies',
+        // Suits
+        'suits': 'trousers',
+        'suits-tailoring': 'trousers',
+        'tailoring': 'trousers',
+        // Jewellery & Accessories
         'jewellery': 'jewellery',
-        'accessories': 'jewellery',
+        'jewelry': 'jewellery',
+        'rings': 'rings',
+        'ring': 'rings',
+        'necklaces': 'jewellery',
+        'earrings': 'jewellery',
+        'bracelets': 'jewellery',
+        'watches': 'jewellery',
+        'sunglasses': 'jewellery',
+        'hair-accessories': 'jewellery',
+        'scarves': 'jewellery',
+        'belts': 'jewellery',
+        'ties': 'jewellery',
+        'hats': 'jewellery',
+        'caps-hats': 'jewellery',
+        // Bags
+        'bags': 'bags',
+        'bags-wallets': 'bags',
+        'accessories': 'bags',
+        // Shoes
         'footwear': 'shoes',
         'shoes': 'shoes',
-        'tops': 'tops',
-        'dresses': 'dresses',
-        'trousers': 'trousers',
-        'traditional': 'traditional',
+        'heels': 'shoes',
+        'sandals': 'shoes',
+        'trainers': 'shoes',
+        'boots': 'shoes',
+        'flats': 'shoes',
+        'loafers': 'shoes',
+        'slides': 'shoes',
+        'slides-slippers': 'shoes',
+        'smart-shoes': 'shoes',
+        // Activewear
         'activewear': 'activewear',
+        'sportswear': 'activewear',
+        'gym': 'activewear',
+        // Swimwear
         'swimwear': 'swimwear',
-        'outerwear': 'outerwear',
-        'bags': 'bags',
+        'swim': 'swimwear',
+        // Beauty
         'beauty': 'beauty',
-        'lingerie': 'lingerie'
+        'skincare': 'beauty',
+        'makeup': 'beauty',
+        // Lingerie
+        'lingerie': 'lingerie',
+        'underwear': 'lingerie',
+        // Clothing (general)
+        'clothing': 'tshirts',
       };
       
       const mappedCategory = categoryMap[categoryParam.toLowerCase()];
@@ -123,28 +230,36 @@ function ShopPageContent() {
   const getAvailableCategories = (): Array<{ key: Category | 'all'; label: string }> => {
     const allCategories: Array<{ key: Category | 'all'; label: string }> = [
       { key: 'all', label: 'All Categories' },
-      { key: 'tops', label: 'Tops' },
+      { key: 'tshirts', label: 'T-Shirts' },
+      { key: 'hoodies', label: 'Hoodies' },
+      { key: 'trousers', label: 'Trousers' },
+      { key: 'pants', label: 'Pants' },
+      { key: 'skirts', label: 'Skirts' },
       { key: 'dresses', label: 'Dresses' },
-      { key: 'trousers', label: 'Bottoms' },
+      { key: 'nativewear', label: 'African Native Wear' },
       { key: 'shoes', label: 'Shoes' },
-      { key: 'traditional', label: 'Traditional Wear' },
-      { key: 'activewear', label: 'Activewear' },
-      { key: 'swimwear', label: 'Swimwear' },
-      { key: 'outerwear', label: 'Outerwear' },
-      { key: 'bags', label: 'Bags & Accessories' },
+      { key: 'bags', label: 'Bags' },
       { key: 'jewellery', label: 'Jewellery' },
+      { key: 'rings', label: 'Rings' },
+      { key: 'activewear', label: 'Activewear' },
+      { key: 'outerwear', label: 'Outerwear' },
+      { key: 'swimwear', label: 'Swimwear' },
       { key: 'beauty', label: 'Beauty & Care' },
       { key: 'lingerie', label: 'Lingerie' },
     ];
 
-    if (gender === 'all') {
+    if (gender === 'all' && brand === 'all') {
       return allCategories;
     }
 
     // Filter categories to only show those that have products for the selected gender
     const availableCategories = allCategories.filter(cat => {
       if (cat.key === 'all') return true;
-      const productsForCategory = listProducts(gender, cat.key as Category);
+      const productsForCategory = listProducts(
+        gender === 'all' ? undefined : gender,
+        cat.key as Category,
+        brand === 'all' ? undefined : brand
+      );
       return productsForCategory.length > 0;
     });
 
@@ -152,6 +267,7 @@ function ShopPageContent() {
   };
 
   const categories = getAvailableCategories();
+  const brandOptions = listBrandStats();
 
   const priceRanges = [
     { key: 'all', label: 'All Prices' },
@@ -173,8 +289,19 @@ function ShopPageContent() {
     return 50 + (Math.abs(hash) % 200);
   };
 
-  let products = listProducts(gender === 'all' ? undefined : gender, category === 'all' ? undefined : category)
-    .filter(p => p.name.toLowerCase().includes(searchQuery.toLowerCase()));
+  let products = listProducts(
+    gender === 'all' ? undefined : gender,
+    category === 'all' ? undefined : category,
+    brand === 'all' ? undefined : brand
+  )
+    .filter((p) => {
+      const query = searchQuery.toLowerCase();
+      return (
+        p.name.toLowerCase().includes(query) ||
+        p.brand.toLowerCase().includes(query) ||
+        p.tags.some((tag) => tag.toLowerCase().includes(query))
+      );
+    });
   
   if (showSale) {
     products = products.filter((_, index) => index % 2 === 0);
@@ -206,16 +333,19 @@ function ShopPageContent() {
     { label: 'Shop', href: '/shop' },
   ];
 
-  if (searchParams.get('category') || searchParams.get('gender') || searchParams.get('filter')) {
+  if (searchParams.get('category') || searchParams.get('gender') || searchParams.get('filter') || searchParams.get('brand')) {
     const genderParam = searchParams.get('gender');
     const categoryParam = searchParams.get('category');
     const filterParam = searchParams.get('filter');
+    const brandParam = searchParams.get('brand');
     
     let filterValue: string | null = null;
     if (filterParam === 'sale') {
       filterValue = 'Sale';
     } else if (filterParam === 'new') {
       filterValue = 'New Arrivals';
+    } else if (brandParam) {
+      filterValue = decodeURIComponent(brandParam);
     } else if (genderParam) {
       filterValue = genderParam.charAt(0).toUpperCase() + genderParam.slice(1);
     } else if (categoryParam) {
@@ -238,109 +368,186 @@ function ShopPageContent() {
 
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="lg:grid lg:grid-cols-4 lg:gap-12">
-          {/* Filters Sidebar */}
+          {/* Filters Sidebar - Collapsible */}
           <aside className={`${showFilters ? 'block' : 'hidden'} lg:block`}>
-            <div className="sticky top-24 brand-card border border-white/60 p-6 max-h-[calc(100vh-8rem)] overflow-y-auto">
-              <div className="flex items-center justify-between mb-8">
-                <h2 className="text-lg font-medium">Filters</h2>
+            <div className="sticky top-24 bg-white border border-gray-200 rounded-lg max-h-[calc(100vh-8rem)] overflow-y-auto">
+              {/* Header */}
+              <div className="flex items-center justify-between p-4 border-b border-gray-200">
+                <h2 className="text-sm font-bold uppercase tracking-wider">Filters</h2>
                 <button 
                   onClick={() => setShowFilters(false)}
-                  className="lg:hidden p-2 hover:bg-gray-100 rounded-lg"
+                  className="lg:hidden p-1 hover:bg-gray-100 rounded"
                 >
-                  <X className="h-5 w-5" />
+                  <X className="h-4 w-4" />
                 </button>
               </div>
 
-              {/* Search */}
-              <div className="mb-8">
-                <label className="text-sm font-medium text-gray-900 mb-2 block">Search</label>
+              {/* Search - Always visible */}
+              <div className="p-4 border-b border-gray-200">
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
                   <input
                     type="search"
-                    placeholder="Search products..."
+                    placeholder="Search..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-purple bg-white text-sm"
+                    className="w-full pl-9 pr-3 py-2 border border-gray-200 rounded text-sm focus:outline-none focus:ring-1 focus:ring-[#570a70] focus:border-[#570a70]"
                   />
                 </div>
               </div>
 
-              {/* Category Filter */}
-              <div className="mb-8">
-                <h3 className="text-sm font-medium text-gray-900 mb-3">Category</h3>
-                <div className="space-y-2">
-                  {categories.map((c) => (
+              {/* Brand Filter - Collapsible */}
+              <div className="border-b border-gray-200">
+                <button
+                  onClick={() => toggleFilter('brand')}
+                  className="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors"
+                >
+                  <span className="text-sm font-medium text-gray-900">Brand</span>
+                  <div className="flex items-center gap-2">
+                    {brand !== 'all' && (
+                      <span className="text-xs bg-[#570a70] text-white px-2 py-0.5 rounded-full">1</span>
+                    )}
+                    {expandedFilters.brand ? (
+                      <ChevronUp className="h-4 w-4 text-gray-500" />
+                    ) : (
+                      <ChevronDown className="h-4 w-4 text-gray-500" />
+                    )}
+                  </div>
+                </button>
+                {expandedFilters.brand && (
+                  <div className="px-4 pb-4 space-y-1">
                     <button
-                      key={c.key}
                       onClick={() => {
-                        setCategory(c.key);
-                        // Update URL when category changes
+                        setBrand('all');
                         const url = new URL(window.location.href);
-                        if (c.key === 'all') {
-                          url.searchParams.delete('category');
-                        } else {
-                          url.searchParams.set('category', c.key);
-                        }
+                        url.searchParams.delete('brand');
                         window.history.pushState({}, '', url.toString());
                       }}
-                      className={`w-full text-left flex items-center px-3 py-2 rounded-lg transition-all ${
-                        category === c.key
-                          ? 'bg-brand-gradient text-white shadow-md'
-                          : 'bg-white hover:bg-gray-50 text-gray-700 border border-gray-200'
+                      className={`w-full text-left text-sm py-1.5 px-2 rounded transition-colors ${
+                        brand === 'all' ? 'text-[#570a70] font-medium bg-[#570a70]/5' : 'text-gray-600 hover:text-gray-900'
                       }`}
                     >
-                      <span className={`text-sm font-medium ${category === c.key ? 'text-white' : 'text-gray-700'}`}>
-                        {c.label}
-                      </span>
-                      {category === c.key && (
-                        <span className="ml-auto text-white text-xs">✓</span>
-                      )}
+                      All Brands {brand === 'all' && '✓'}
                     </button>
-                  ))}
-                </div>
+                    {brandOptions.map((brandOption) => (
+                      <button
+                        key={brandOption.name}
+                        onClick={() => {
+                          setBrand(brandOption.name);
+                          const url = new URL(window.location.href);
+                          url.searchParams.set('brand', brandOption.name);
+                          window.history.pushState({}, '', url.toString());
+                        }}
+                        className={`w-full text-left text-sm py-1.5 px-2 rounded transition-colors flex justify-between ${
+                          brand === brandOption.name ? 'text-[#570a70] font-medium bg-[#570a70]/5' : 'text-gray-600 hover:text-gray-900'
+                        }`}
+                      >
+                        <span>{brandOption.name}</span>
+                        <span className="text-gray-400">{brandOption.count}</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
 
-              {/* Price Range Filter */}
-              <div className="mb-8">
-                <h3 className="text-sm font-medium text-gray-900 mb-3">Price Range</h3>
-                <div className="space-y-2">
-                  {priceRanges.map((range) => (
-                    <button
-                      key={range.key}
-                      onClick={() => setPriceRange(range.key as any)}
-                      className={`w-full text-left flex items-center px-3 py-2 rounded-lg transition-all ${
-                        priceRange === range.key
-                          ? 'bg-brand-gradient text-white shadow-md'
-                          : 'bg-white hover:bg-gray-50 text-gray-700 border border-gray-200'
-                      }`}
-                    >
-                      <span className={`text-sm font-medium ${priceRange === range.key ? 'text-white' : 'text-gray-700'}`}>
-                        {range.label}
-                      </span>
-                      {priceRange === range.key && (
-                        <span className="ml-auto text-white text-xs">✓</span>
-                      )}
-                    </button>
-                  ))}
-                </div>
+              {/* Category Filter - Collapsible */}
+              <div className="border-b border-gray-200">
+                <button
+                  onClick={() => toggleFilter('category')}
+                  className="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors"
+                >
+                  <span className="text-sm font-medium text-gray-900">Category</span>
+                  <div className="flex items-center gap-2">
+                    {category !== 'all' && (
+                      <span className="text-xs bg-[#570a70] text-white px-2 py-0.5 rounded-full">1</span>
+                    )}
+                    {expandedFilters.category ? (
+                      <ChevronUp className="h-4 w-4 text-gray-500" />
+                    ) : (
+                      <ChevronDown className="h-4 w-4 text-gray-500" />
+                    )}
+                  </div>
+                </button>
+                {expandedFilters.category && (
+                  <div className="px-4 pb-4 space-y-1">
+                    {categories.map((c) => (
+                      <button
+                        key={c.key}
+                        onClick={() => {
+                          setCategory(c.key);
+                          const url = new URL(window.location.href);
+                          if (c.key === 'all') {
+                            url.searchParams.delete('category');
+                          } else {
+                            url.searchParams.set('category', c.key);
+                          }
+                          window.history.pushState({}, '', url.toString());
+                        }}
+                        className={`w-full text-left text-sm py-1.5 px-2 rounded transition-colors ${
+                          category === c.key ? 'text-[#570a70] font-medium bg-[#570a70]/5' : 'text-gray-600 hover:text-gray-900'
+                        }`}
+                      >
+                        {c.label} {category === c.key && '✓'}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
 
-              <Button
-                variant="secondary"
-                className="w-full"
-                onClick={() => {
-                  setSearchQuery('');
-                  setGender('all');
-                  setCategory('all');
-                  setPriceRange('all');
-                  setShowSale(false);
-                  setSortBy('featured');
-                  window.history.pushState({}, '', '/shop');
-                }}
-              >
-                Clear All Filters
-              </Button>
+              {/* Price Range Filter - Collapsible */}
+              <div className="border-b border-gray-200">
+                <button
+                  onClick={() => toggleFilter('price')}
+                  className="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors"
+                >
+                  <span className="text-sm font-medium text-gray-900">Price</span>
+                  <div className="flex items-center gap-2">
+                    {priceRange !== 'all' && (
+                      <span className="text-xs bg-[#570a70] text-white px-2 py-0.5 rounded-full">1</span>
+                    )}
+                    {expandedFilters.price ? (
+                      <ChevronUp className="h-4 w-4 text-gray-500" />
+                    ) : (
+                      <ChevronDown className="h-4 w-4 text-gray-500" />
+                    )}
+                  </div>
+                </button>
+                {expandedFilters.price && (
+                  <div className="px-4 pb-4 space-y-1">
+                    {priceRanges.map((range) => (
+                      <button
+                        key={range.key}
+                        onClick={() => setPriceRange(range.key as any)}
+                        className={`w-full text-left text-sm py-1.5 px-2 rounded transition-colors ${
+                          priceRange === range.key ? 'text-[#570a70] font-medium bg-[#570a70]/5' : 'text-gray-600 hover:text-gray-900'
+                        }`}
+                      >
+                        {range.label} {priceRange === range.key && '✓'}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Clear Filters */}
+              <div className="p-4">
+                <button
+                  onClick={() => {
+                    setSearchQuery('');
+                    setGender('all');
+                    setCategory('all');
+                    setBrand('all');
+                    setPriceRange('all');
+                    setShowSale(false);
+                    setSortBy('featured');
+                    setExpandedFilters({ brand: false, category: false, price: false });
+                    window.history.pushState({}, '', '/shop');
+                  }}
+                  className="w-full text-sm text-gray-500 hover:text-[#570a70] transition-colors py-2"
+                >
+                  Clear all filters
+                </button>
+              </div>
             </div>
           </aside>
 
@@ -351,9 +558,9 @@ function ShopPageContent() {
               showSale 
                 ? 'bg-gradient-to-br from-[#ff6b6b] via-[#ff8787] to-[#ff5252] text-white' 
                 : searchParams.get('filter') === 'new'
-                ? 'bg-gradient-to-br from-[#4b0f7b] via-[#6b1f9b] to-[#4b0f7b] text-white'
-                : category === 'jewellery'
-                ? 'bg-gradient-to-br from-[#fff7e1] via-[#ffe9c5] to-[#fff7e1]'
+                ? 'bg-gradient-to-br from-[#570a70] via-[#943aa2] to-[#570a70] text-white'
+                : category === 'jewellery' || category === 'rings'
+                ? 'bg-gradient-to-br from-[#f7e1b5] via-[#f2cd84] to-[#f7e1b5]'
                 : activeTheme.panel
             }`}>
               <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
@@ -365,7 +572,8 @@ function ShopPageContent() {
                   }`}>
                     {showSale ? 'Limited Time Offer' : 
                      searchParams.get('filter') === 'new' ? 'Latest Drops' :
-                     category === 'jewellery' ? 'Accessories Collection' :
+                     brand !== 'all' ? 'Brand Spotlight' :
+                     category === 'jewellery' || category === 'rings' ? 'Accessories Collection' :
                      gender === 'women' ? 'Feminine Edit' : gender === 'men' ? 'Masculine Edit' : 'All Collections'}
                   </p>
                   <h1 className={`text-3xl font-semibold mt-2 ${
@@ -375,11 +583,17 @@ function ShopPageContent() {
                   }`}>
                   {showSale ? 'Sale Items' : 
                    searchParams.get('filter') === 'new' ? 'New Arrivals' :
+                   brand !== 'all' ? brand :
                    gender !== 'all' ? `${gender.charAt(0).toUpperCase() + gender.slice(1)}'s Collection` :
                    category !== 'all' ? categories.find(c => c.key === category)?.label :
                    'All Products'}
                   </h1>
                   <div className="mt-2 flex items-center gap-3 flex-wrap">
+                    {brand !== 'all' && !showSale && (
+                      <span className="text-[10px] uppercase tracking-[0.4em] px-3 py-1 rounded-full bg-brand-gradient text-white">
+                        Brand Edit
+                      </span>
+                    )}
                     {gender !== 'all' && !showSale && searchParams.get('filter') !== 'new' && (
                       <span className={`text-[10px] uppercase tracking-[0.4em] px-3 py-1 rounded-full ${activeTheme.accentChip}`}>
                         {gender === 'women' ? 'Rose Quartz' : 'Obsidian Luxe'}
@@ -395,7 +609,7 @@ function ShopPageContent() {
                         Fresh from the atelier
                       </span>
                     )}
-                    {category === 'jewellery' && (
+                    {(category === 'jewellery' || category === 'rings') && (
                       <span className="text-[10px] uppercase tracking-[0.4em] px-3 py-1 rounded-full bg-brand-gold-gradient text-brand-purple">
                         Curated Selection
                       </span>
@@ -464,6 +678,7 @@ function ShopPageContent() {
                       price={product.priceNGN}
                       imageUrl={product.imageUrl}
                       slug={product.slug}
+                      brand={product.brand}
                       tone={activeCardTone}
                       badge={showSale ? 'Sale' : undefined}
                       rating={4.5}
@@ -478,11 +693,14 @@ function ShopPageContent() {
                             alt={product.name} 
                             className="h-full w-full object-cover"
                             onError={(e: any) => { 
-                              e.currentTarget.src = 'https://via.placeholder.com/200x200/f5f5f5/999999?text=Zuka'; 
+                              e.currentTarget.src = '/brand/zuka-portrait-trimmed.png'; 
                             }} 
                           />
                         </div>
                         <div className="flex-1">
+                          <p className="text-[10px] uppercase tracking-[0.3em] text-gray-400 mb-1">
+                            {product.brand}
+                          </p>
                           <Link href={`/shop/${product.slug}`}>
                             <h3 className="font-medium text-gray-900 hover:text-gray-600 transition-colors mb-1">
                               {product.name}
@@ -504,24 +722,65 @@ function ShopPageContent() {
                 ))}
               </div>
             ) : (
-              <div className="flex flex-col items-center justify-center py-24">
-                <ShoppingBag className="mb-4 h-12 w-12 text-gray-300" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">No products found</h3>
-                <p className="text-sm text-gray-600 mb-6">Try adjusting your filters</p>
-                <Button
-                  onClick={() => {
-                    setSearchQuery('');
-                    setGender('all');
-                    setCategory('all');
-                    setPriceRange('all');
-                    setShowSale(false);
-                    setSortBy('featured');
-                    window.history.pushState({}, '', '/shop');
-                  }}
-                  className="bg-black text-white hover:bg-gray-900"
-                >
-                  Clear All Filters
-                </Button>
+              /* Coming Soon / Empty State */
+              <div className="flex flex-col items-center justify-center py-16 px-6">
+                <div className="relative w-full max-w-md aspect-square mb-8">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#570a70]/10 via-[#943aa2]/5 to-[#e246a4]/10 rounded-3xl" />
+                  <div className="absolute inset-0 flex flex-col items-center justify-center">
+                    <div className="w-20 h-20 rounded-full bg-[#570a70] flex items-center justify-center mb-6">
+                      <ShoppingBag className="h-10 w-10 text-white" />
+                    </div>
+                    <div className="bg-[#e49b09] text-black px-6 py-2 rounded-full text-sm font-bold uppercase tracking-wider mb-4">
+                      Coming Soon
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-2 text-center">
+                      {category !== 'all' 
+                        ? categories.find(c => c.key === category)?.label || 'This Category'
+                        : 'New Products'}
+                    </h3>
+                    <p className="text-gray-500 text-center max-w-xs mb-6">
+                      We're curating amazing {gender !== 'all' ? `${gender}'s ` : ''}pieces for this collection. Check back soon!
+                    </p>
+                    <div className="flex flex-wrap gap-3 justify-center">
+                      <Link href="/shop">
+                        <Button className="bg-[#570a70] text-white hover:bg-[#3d074e]">
+                          Browse All Products
+                        </Button>
+                      </Link>
+                      <Button
+                        variant="outline"
+                        onClick={() => {
+                          setSearchQuery('');
+                          setGender('all');
+                          setCategory('all');
+                          setBrand('all');
+                          setPriceRange('all');
+                          setShowSale(false);
+                          setSortBy('featured');
+                          window.history.pushState({}, '', '/shop');
+                        }}
+                      >
+                        Clear Filters
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Notify Me Section */}
+                <div className="w-full max-w-md bg-gray-50 rounded-2xl p-6 border border-gray-200">
+                  <h4 className="font-semibold text-gray-900 mb-2 text-center">Get notified when we launch</h4>
+                  <p className="text-sm text-gray-500 text-center mb-4">Be the first to know when new items drop</p>
+                  <div className="flex gap-2">
+                    <input 
+                      type="email" 
+                      placeholder="Enter your email"
+                      className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#570a70]"
+                    />
+                    <Button className="bg-[#570a70] text-white hover:bg-[#3d074e] whitespace-nowrap">
+                      Notify Me
+                    </Button>
+                  </div>
+                </div>
               </div>
             )}
 

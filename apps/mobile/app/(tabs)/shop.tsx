@@ -77,7 +77,7 @@ export default function ShopPage() {
             onPress={() => setShowFilters(!showFilters)}
             style={styles.filterButton}
           >
-            <Ionicons name="filter" size={20} color="#4b0f7b" />
+            <Ionicons name="filter" size={20} color="#570a70" />
             <Text style={styles.filterText}>Filters</Text>
           </TouchableOpacity>
         </View>
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 32,
     fontWeight: '700',
-    color: '#4b0f7b',
+    color: '#570a70',
   },
   filterButton: {
     flexDirection: 'row',
@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
   filterText: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#4b0f7b',
+    color: '#570a70',
   },
   searchContainer: {
     flexDirection: 'row',
@@ -280,8 +280,8 @@ const styles = StyleSheet.create({
     borderColor: '#e0d4ff',
   },
   filterChipActive: {
-    backgroundColor: '#4b0f7b',
-    borderColor: '#4b0f7b',
+    backgroundColor: '#570a70',
+    borderColor: '#570a70',
   },
   filterChipText: {
     fontSize: 13,

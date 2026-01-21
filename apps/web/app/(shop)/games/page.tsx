@@ -105,7 +105,7 @@ export default function GamesPage() {
   } as const;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#050816] via-[#120c2c] to-[#341056] text-white relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-[#3d074e] via-[#570a70] to-[#943aa2] text-white relative overflow-hidden">
       <div className="absolute inset-0 opacity-30 pattern-ankara" />
       <div className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         {/* Header */}
@@ -145,7 +145,7 @@ export default function GamesPage() {
             <div className="text-sm opacity-90">Daily Streak</div>
           </Card>
 
-          <Card className="p-5 rounded-3xl bg-gradient-to-br from-[#4b0f7b] to-[#b5179e] text-white border-0 card-hover-lift animate-stagger-4">
+          <Card className="p-5 rounded-3xl bg-gradient-to-br from-[#570a70] to-[#e246a4] text-white border-0 card-hover-lift animate-stagger-4">
             <div className="flex items-center justify-between mb-2">
               <Users className="h-8 w-8 animate-icon-bounce" />
             </div>
@@ -239,7 +239,7 @@ export default function GamesPage() {
         </div>
 
         {/* Weekly Tournament Banner */}
-        <Card className="p-8 bg-gradient-to-r from-[#0f172a] via-[#4b0f7b] to-[#120c2c] text-white border-0 rounded-3xl shadow-2xl shadow-black/30">
+        <Card className="p-8 bg-gradient-to-r from-[#3d074e] via-[#570a70] to-[#943aa2] text-white border-0 rounded-3xl shadow-2xl shadow-black/30">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-6">
               <div className="h-20 w-20 rounded-full bg-white/10 flex items-center justify-center backdrop-blur-sm border border-white/20">

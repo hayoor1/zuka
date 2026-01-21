@@ -107,7 +107,7 @@ export default function LeaderboardPage() {
   const currentUserEntry = currentUserRank >= 0 ? leaderboard?.scores[currentUserRank] : null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#050816] via-[#120c2c] to-[#341056] text-white relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-[#3d074e] via-[#570a70] to-[#943aa2] text-white relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10 pattern-ankara" />
       
@@ -118,7 +118,7 @@ export default function LeaderboardPage() {
             <Trophy className="inline mr-1 h-4 w-4" />
             Royale Leaderboard
           </Badge>
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-white via-[#e3c268] to-white bg-clip-text text-transparent">
+          <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-white via-[#e49b09] to-white bg-clip-text text-transparent">
             Leaderboard
           </h1>
           <p className="text-white/70 text-lg max-w-2xl mx-auto">
@@ -128,7 +128,7 @@ export default function LeaderboardPage() {
 
         {/* Your Position Card */}
         {currentUserEntry && (
-          <Card className="p-6 mb-8 bg-gradient-to-r from-[#4b0f7b] via-[#6b1f9b] to-[#4b0f7b] border-brand-gold/30 shadow-2xl">
+          <Card className="p-6 mb-8 bg-gradient-to-r from-[#570a70] via-[#943aa2] to-[#570a70] border-brand-gold/30 shadow-2xl">
             <div className="flex items-center justify-between flex-wrap gap-4">
               <div className="flex items-center gap-4">
                 <div className="h-16 w-16 rounded-full bg-brand-gold-gradient flex items-center justify-center text-brand-purple font-bold text-2xl shadow-lg">

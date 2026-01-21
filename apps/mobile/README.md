@@ -81,10 +81,10 @@ apps/mobile/
 
 The app uses the same brand colors as the website:
 
-- **Primary Purple**: `#4b0f7b`
-- **Gold**: `#e3c268`
-- **Feminine Pink**: `#c12e6d`
-- **Masculine Dark**: `#15182b`
+- **Primary Purple**: `#570a70`
+- **Gold**: `#e49b09`
+- **Feminine Pink**: `#e246a4`
+- **Masculine Dark**: `#3d074e`
 
 ## Building for Production
 

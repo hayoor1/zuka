@@ -9,34 +9,35 @@
     --foreground: 266 42% 16%;
     --card: 0 0% 100%;
     --card-foreground: 266 42% 16%;
-    --primary: 268 65% 28%; /* Regal purple */
+    --primary: 285 84% 24%; /* Zuka primary */
     --primary-foreground: 0 0% 100%;
-    --secondary: 43 80% 62%; /* Soft gold */
-    --secondary-foreground: 271 46% 14%;
+    --secondary: 40 92% 46%; /* Zuka gold */
+    --secondary-foreground: 285 84% 24%;
     --muted: 300 21% 95%;
     --muted-foreground: 267 18% 35%;
-    --accent: 43 70% 90%;
-    --accent-foreground: 268 65% 28%;
+    --accent: 324 73% 58%; /* Zuka pink */
+    --accent-foreground: 0 0% 100%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
     --border: 286 21% 88%;
     --input: 286 21% 88%;
-    --ring: 268 65% 28%;
+    --ring: 285 84% 24%;
     --radius: 0.65rem;
 
     /* Hex helpers for gradients */
-    --brand-purple-hex: #4b0f7b;
-    --brand-plum-hex: #2a1039;
-    --brand-gold-hex: #e3c268;
-    --brand-rose-hex: #f9d4ec;
-    --brand-blush-hex: #ffeaf3;
+    --brand-purple-hex: #570a70;
+    --brand-plum-hex: #943aa2;
+    --brand-gold-hex: #e49b09;
+    --brand-rose-hex: #e246a4;
+    --brand-blush-hex: #f6c8e4;
+    --brand-accent-green-hex: #087816;
     --brand-navy-hex: #15182b;
     --brand-slate-hex: #2d2b3a;
 
-    --feminine-start: #fbe7ff;
-    --feminine-end: #ffe0f0;
-    --masculine-start: #15182b;
-    --masculine-end: #3a2f4f;
+    --feminine-start: #f6c8e4;
+    --feminine-end: #f9daed;
+    --masculine-start: #3d074e;
+    --masculine-end: #570a70;
   }
   
   .dark {
@@ -44,8 +45,8 @@
     --foreground: 0 0% 100%;
     --card: 260 22% 13%;
     --card-foreground: 0 0% 100%;
-    --primary: 43 80% 62%;
-    --primary-foreground: 266 42% 16%;
+    --primary: 40 92% 46%;
+    --primary-foreground: 285 84% 24%;
     --secondary: 260 28% 20%;
     --secondary-foreground: 0 0% 100%;
     --muted: 260 18% 18%;
@@ -56,7 +57,7 @@
     --destructive-foreground: 0 0% 100%;
     --border: 260 18% 25%;
     --input: 260 18% 25%;
-    --ring: 43 80% 62%;
+    --ring: 40 92% 46%;
   }
 }
 
@@ -66,27 +67,70 @@
   }
   
   body {
-    @apply bg-gradient-to-b from-[#fbf8ff] via-[#fffdf7] to-[#fbf8ff] text-gray-900;
+    @apply text-gray-900;
+    font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
     font-feature-settings: "rlig" 1, "calt" 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     letter-spacing: -0.01em;
+    background: #0a0a0a;
   }
   
   h1, h2, h3, h4, h5, h6 {
     @apply font-semibold tracking-tight;
+    font-family: var(--font-playfair), "Times New Roman", serif;
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
   }
 }
 
 @layer utilities {
   /* Subtle Animations */
   .animate-fade-in {
-    animation: fadeIn 0.6s ease-out;
+    animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
   
   @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
+    from { opacity: 0; transform: translateY(30px); }
     to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Radial gradient background */
+  .bg-gradient-radial {
+    background: radial-gradient(circle, var(--tw-gradient-stops));
+  }
+
+  /* Text gradient */
+  .text-gradient {
+    background: linear-gradient(135deg, #e246a4, #943aa2, #570a70);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-gold {
+    background: linear-gradient(135deg, #e49b09, #ffd700, #e49b09);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Glass morphism */
+  .glass {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .glass-dark {
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
   }
   
   .animate-slide-up {
@@ -133,7 +177,7 @@
   }
 
   .bg-brand-gold-gradient {
-    background: linear-gradient(135deg, #f8e4b8, var(--brand-gold-hex));
+    background: linear-gradient(135deg, #f4d79d, var(--brand-gold-hex));
   }
 
   .bg-feminine-gradient {
@@ -159,15 +203,15 @@
   }
 
   .brand-border {
-    border: 1px solid rgba(75, 15, 123, 0.12);
+    border: 1px solid rgba(87, 10, 112, 0.12);
   }
 
   /* Pattern Background */
   .pattern-ankara {
     background-image: 
-      radial-gradient(circle at 20% 50%, rgba(227, 194, 104, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 80% 80%, rgba(75, 15, 123, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 40% 20%, rgba(227, 194, 104, 0.05) 0%, transparent 50%);
+      radial-gradient(circle at 20% 50%, rgba(228, 155, 9, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(87, 10, 112, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 40% 20%, rgba(228, 155, 9, 0.05) 0%, transparent 50%);
     background-size: 200% 200%;
     animation: patternMove 20s ease infinite;
   }
@@ -193,11 +237,11 @@
   @keyframes pulseGlow {
     0%, 100% { 
       transform: scale(1);
-      box-shadow: 0 0 0 0 rgba(227, 194, 104, 0.4);
+      box-shadow: 0 0 0 0 rgba(228, 155, 9, 0.4);
     }
     50% { 
       transform: scale(1.05);
-      box-shadow: 0 0 0 8px rgba(227, 194, 104, 0);
+      box-shadow: 0 0 0 8px rgba(228, 155, 9, 0);
     }
   }
 
@@ -294,10 +338,10 @@
   /* Glow Pulse */
   @keyframes glowPulse {
     0%, 100% {
-      box-shadow: 0 0 5px rgba(227, 194, 104, 0.5);
+      box-shadow: 0 0 5px rgba(228, 155, 9, 0.5);
     }
     50% {
-      box-shadow: 0 0 20px rgba(227, 194, 104, 0.8), 0 0 30px rgba(227, 194, 104, 0.4);
+      box-shadow: 0 0 20px rgba(228, 155, 9, 0.8), 0 0 30px rgba(228, 155, 9, 0.4);
     }
   }
 
@@ -312,7 +356,7 @@
 
   .card-hover-lift:hover {
     transform: translateY(-8px);
-    box-shadow: 0 12px 24px rgba(75, 15, 123, 0.15);
+    box-shadow: 0 12px 24px rgba(87, 10, 112, 0.15);
   }
 
   /* Icon Bounce */

@@ -68,7 +68,7 @@ export default function AdminProductsPage() {
       description: "Cozy fleece hoodie for cool nights with Lagos skyline print",
       priceNGN: 1950000,
       gender: "men",
-      category: "tops",
+      category: "hoodies",
       imageUrl: "https://res.cloudinary.com/your-cloud/image/upload/v123/hoodie-main.jpg",
       images: [
         "https://res.cloudinary.com/your-cloud/image/upload/v123/hoodie-1.jpg",
@@ -81,7 +81,7 @@ export default function AdminProductsPage() {
       inStock: true,
       stockCount: 50,
       sku: "LAG-HOOD-BLK-M",
-      brand: "Zuka",
+      brand: "Naija Street",
       material: "100% Cotton, Fleece lining",
       careInstructions: "Machine wash cold, tumble dry low"
     };
@@ -96,7 +96,7 @@ export default function AdminProductsPage() {
           slug: "product-1",
           priceNGN: 100000,
           gender: "men",
-          category: "tops",
+          category: "tshirts",
           imageUrl: "https://example.com/image1.jpg"
         },
         {
@@ -208,7 +208,7 @@ export default function AdminProductsPage() {
           <ul className="text-sm text-blue-800 space-y-1 list-disc list-inside">
             <li>Required fields: name, slug, priceNGN, gender, category</li>
             <li>Gender: "men", "women", "kids", "unisex"</li>
-            <li>Categories: tops, dresses, shoes, trousers, jewellery, activewear, swimwear, lingerie, beauty, bags, outerwear, traditional</li>
+            <li>Categories: tshirts, hoodies, trousers, pants, skirts, dresses, shoes, nativewear, bags, jewellery, rings, activewear, swimwear, lingerie, beauty, outerwear</li>
             <li>Slug must be unique and URL-friendly (lowercase, hyphens)</li>
             <li>Price in NGN (in kobo: 1950000 = ₦19,500)</li>
             <li>See PRODUCT_MANAGEMENT.md for full documentation</li>

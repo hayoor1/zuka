@@ -74,7 +74,7 @@ export default function ProductDetailPage() {
           <View style={styles.priceContainer}>
             <Text style={styles.price}>{formatNGN(product.priceNGN)}</Text>
             <View style={styles.pointsBadge}>
-              <Ionicons name="sparkles" size={12} color="#4b0f7b" />
+              <Ionicons name="sparkles" size={12} color="#570a70" />
               <Text style={styles.pointsText}>
                 Earn {Math.floor(product.priceNGN / 10000)} pts
               </Text>
@@ -162,14 +162,14 @@ export default function ProductDetailPage() {
       {/* Bottom Bar */}
       <View style={styles.bottomBar}>
         <TouchableOpacity style={styles.cartButton}>
-          <Ionicons name="bag-outline" size={20} color="#4b0f7b" />
+          <Ionicons name="bag-outline" size={20} color="#570a70" />
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.addToCartButton}
           onPress={() => router.push('/cart')}
         >
           <LinearGradient
-            colors={['#2a1039', '#4b0f7b']}
+            colors={['#3d074e', '#570a70']}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
             style={styles.addToCartGradient}
@@ -262,7 +262,7 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 32,
     fontWeight: '700',
-    color: '#4b0f7b',
+    color: '#570a70',
   },
   pointsBadge: {
     flexDirection: 'row',
@@ -276,7 +276,7 @@ const styles = StyleSheet.create({
   pointsText: {
     fontSize: 12,
     fontWeight: '700',
-    color: '#4b0f7b',
+    color: '#570a70',
   },
   section: {
     marginBottom: 24,
@@ -301,8 +301,8 @@ const styles = StyleSheet.create({
     borderColor: '#e0e0e0',
   },
   optionChipActive: {
-    backgroundColor: '#4b0f7b',
-    borderColor: '#4b0f7b',
+    backgroundColor: '#570a70',
+    borderColor: '#570a70',
   },
   optionText: {
     fontSize: 14,

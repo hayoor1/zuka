@@ -43,7 +43,7 @@ export default function CartPage() {
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.back()}>
-          <Ionicons name="arrow-back" size={24} color="#4b0f7b" />
+          <Ionicons name="arrow-back" size={24} color="#570a70" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Shopping Cart</Text>
         <View style={{ width: 24 }} />
@@ -117,7 +117,7 @@ export default function CartPage() {
             onPress={() => router.push('/checkout')}
           >
             <LinearGradient
-              colors={['#2a1039', '#4b0f7b']}
+              colors={['#3d074e', '#570a70']}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
               style={styles.checkoutGradient}
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 20,
     fontWeight: '700',
-    color: '#4b0f7b',
+    color: '#570a70',
   },
   scrollView: {
     flex: 1,
@@ -162,14 +162,14 @@ const styles = StyleSheet.create({
   emptyText: {
     fontSize: 20,
     fontWeight: '600',
-    color: '#4b0f7b',
+    color: '#570a70',
     marginTop: 24,
   },
   shopButton: {
     marginTop: 24,
     paddingHorizontal: 32,
     paddingVertical: 16,
-    backgroundColor: '#4b0f7b',
+    backgroundColor: '#570a70',
     borderRadius: 8,
   },
   shopButtonText: {
@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
   itemName: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#4b0f7b',
+    color: '#570a70',
     marginBottom: 4,
   },
   itemMeta: {
@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
   itemPrice: {
     fontSize: 16,
     fontWeight: '700',
-    color: '#4b0f7b',
+    color: '#570a70',
   },
   quantityContainer: {
     flexDirection: 'row',
@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
   quantityText: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#4b0f7b',
+    color: '#570a70',
     minWidth: 20,
     textAlign: 'center',
   },
@@ -259,13 +259,13 @@ const styles = StyleSheet.create({
   },
   summaryLabel: {
     fontSize: 14,
-    color: '#4b0f7b',
+    color: '#570a70',
     opacity: 0.7,
   },
   summaryValue: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#4b0f7b',
+    color: '#570a70',
   },
   totalRow: {
     marginTop: 8,
@@ -276,12 +276,12 @@ const styles = StyleSheet.create({
   totalLabel: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#4b0f7b',
+    color: '#570a70',
   },
   totalValue: {
     fontSize: 20,
     fontWeight: '700',
-    color: '#4b0f7b',
+    color: '#570a70',
   },
   bottomBar: {
     padding: 20,
