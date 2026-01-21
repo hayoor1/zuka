@@ -54,9 +54,14 @@ ecommerce/
 │   ├── analytics/        # Analytics utilities
 │   ├── realtime/         # Realtime features
 │   └── ai/               # AI pet assistant logic
-├── README.md             # This file
-├── DEPLOYMENT.md         # Deployment guide
-└── ...                   # Other documentation
+├── docs/                 # Documentation
+│   ├── DEPLOYMENT.md     # Deployment guide
+│   ├── PERFORMANCE.md    # Performance tips
+│   ├── SCALABILITY.md    # Scaling strategies
+│   ├── USER_JOURNEY.md   # User flows
+│   └── PRODUCT_MANAGEMENT.md
+├── README.md             # Project overview
+└── package.json
 ```
 
 ## ✨ Features
@@ -163,7 +168,7 @@ The app works without a database using mock data:
 4. Run migrations: `pnpm --filter=@zuka/db drizzle-kit push`
 5. Redeploy
 
-See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed instructions.
+See [DEPLOYMENT.md](./docs/DEPLOYMENT.md) for detailed instructions.
 
 ## 🛠️ Development
 
@@ -214,17 +219,19 @@ curl -X POST http://localhost:3000/api/admin/products \
 - Edit `apps/web/lib/catalog.ts`
 - Restart dev server
 
-See [PRODUCT_MANAGEMENT.md](./PRODUCT_MANAGEMENT.md) for templates and examples.
+See [PRODUCT_MANAGEMENT.md](./docs/PRODUCT_MANAGEMENT.md) for templates and examples.
 
 ## 📚 Documentation
 
+All documentation is located in the [`docs/`](./docs) folder:
+
 | Document | Description |
 |----------|-------------|
-| [DEPLOYMENT.md](./DEPLOYMENT.md) | Deployment guide (Vercel, Railway, database setup) |
-| [PRODUCT_MANAGEMENT.md](./PRODUCT_MANAGEMENT.md) | How to add/manage products |
-| [USER_JOURNEY.md](./USER_JOURNEY.md) | User flow diagrams & customer journey |
-| [PERFORMANCE.md](./PERFORMANCE.md) | Performance optimizations |
-| [SCALABILITY.md](./SCALABILITY.md) | Scaling strategies |
+| [DEPLOYMENT.md](./docs/DEPLOYMENT.md) | Deployment guide (Vercel, Railway, database setup) |
+| [PRODUCT_MANAGEMENT.md](./docs/PRODUCT_MANAGEMENT.md) | How to add/manage products via API |
+| [USER_JOURNEY.md](./docs/USER_JOURNEY.md) | User flow diagrams & customer journey |
+| [PERFORMANCE.md](./docs/PERFORMANCE.md) | Performance optimizations |
+| [SCALABILITY.md](./docs/SCALABILITY.md) | Scaling strategies |
 | [apps/mobile/README.md](./apps/mobile/README.md) | Mobile app setup guide |
 
 ## 🎨 Tech Stack
